@@ -1,8 +1,7 @@
 <style>
   .footer {
     width: 100%;
-    padding: 1rem 0;
-    /* theming: translucent surface w/ blur */
+    padding: 1rem 0.5rem 1.5rem;
     background: color-mix(in oklab, var(--surface) 85%, transparent);
     backdrop-filter: blur(8px);
     color: var(--text);
@@ -19,20 +18,45 @@
   }
 
   .footer strong {
-    color: var(--accent); /* Mind Arc accent in both themes */
+    color: var(--accent);
   }
 
   .footer-subtext {
     font-size: 0.75rem;
-    color: color-mix(
-      in oklab,
-      var(--text) 70%,
-      transparent
-    ); /* subtle dim text */
-    margin-top: 0.25rem;
+    color: color-mix(in oklab, var(--text) 70%, transparent);
+    margin-top: 0.5rem;
   }
 
-  /* Optional: if you have very vibrant backgrounds, add a soft inner top edge */
+  /* Divider line above the footer links */
+  .footer-nav {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .footer-nav a {
+    color: color-mix(in oklab, var(--text) 85%, transparent);
+    text-decoration: none;
+    transition: color 0.25s ease;
+    padding: 0 0.25rem;
+    font-size: 18px;
+  }
+
+  .footer-nav a:hover {
+    color: var(--accent);
+  }
+
+  .footer-nav span.divider {
+    color: color-mix(in oklab, var(--text) 40%, transparent);
+    user-select: none;
+  }
+
   .footer::before {
     content: "";
     position: absolute;
@@ -42,11 +66,34 @@
     height: 1px;
     background: color-mix(in oklab, var(--border) 60%, transparent);
   }
+
+  @media (max-width: 600px) {
+    .footer-nav {
+      gap: 0.5rem;
+      font-size: 0.75rem;
+    }
+    .footer-nav span.divider {
+      display: none;
+    }
+  }
 </style>
 
 <footer class="footer">
   <div class="footer-content">
     <p>🚧 <strong>In Development</strong> — A Mind Arc Games Production</p>
+
+    <nav class="footer-nav">
+      <a href="/terms">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="/privacy">Privacy Notice</a>
+      <span class="divider">|</span>
+      <a href="/contact">Contact</a>
+      <span class="divider">|</span>
+      <a href="/support">Support</a>
+      <span class="divider">|</span>
+      <a href="/careers">Careers</a>
+    </nav>
+
     <p class="footer-subtext">
       © {new Date().getFullYear()} Mind Arc Digital Entertainment LLC. All rights
       reserved.
