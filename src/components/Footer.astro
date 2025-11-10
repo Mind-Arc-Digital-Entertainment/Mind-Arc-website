@@ -1,25 +1,40 @@
+---
+const year = new Date().getFullYear();
+---
+
 <style>
+  /* Sync body padding token here so content never hides behind footer */
+  :global(:root) { --footer-h: 80px; }                 /* desktop/tablet footer height */
+  @media (max-width: 600px) { :global(:root) { --footer-h: 0px; } }  /* footer not fixed on phones */
+
   .footer {
     width: 100%;
-    padding: 1rem 0.5rem 1.5rem;
+    padding: 1rem 0.75rem calc(1rem + env(safe-area-inset-bottom));
     background: color-mix(in oklab, var(--surface) 85%, transparent);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: var(--text);
     text-align: center;
     font-size: 0.9rem;
     border-top: 1px solid var(--border);
-    position: fixed;
-    bottom: 0;
+    position: fixed;      /* fixed by default (tablet/desktop) */
     left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
     transition:
       background-color 0.25s ease,
       border-color 0.25s ease,
       color 0.25s ease;
   }
 
-  .footer strong {
-    color: var(--accent);
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: 0.5rem;
   }
+
+  .build-note strong { color: var(--accent); }
 
   .footer-subtext {
     font-size: 0.75rem;
@@ -27,76 +42,150 @@
     margin-top: 0.5rem;
   }
 
-  /* Divider line above the footer links */
-  .footer-nav {
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.8rem;
-  }
-
-  .footer-nav a {
-    color: color-mix(in oklab, var(--text) 85%, transparent);
-    text-decoration: none;
-    transition: color 0.25s ease;
-    padding: 0 0.25rem;
-    font-size: 18px;
-  }
-
-  .footer-nav a:hover {
-    color: var(--accent);
-  }
-
-  .footer-nav span.divider {
-    color: color-mix(in oklab, var(--text) 40%, transparent);
-    user-select: none;
-  }
-
+  /* hairline accent above footer */
   .footer::before {
     content: "";
     position: absolute;
-    top: -1px;
-    left: 0;
-    right: 0;
+    top: -1px; left: 0; right: 0;
     height: 1px;
     background: color-mix(in oklab, var(--border) 60%, transparent);
   }
 
+  /* Links */
+  .footer-nav {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  }
+
+  .link-grid {
+    /* semantic list, laid out nicely */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+  .link-grid li { display: contents; } /* lets <a> participate directly */
+  .link-grid a {
+    color: color-mix(in oklab, var(--text) 85%, transparent);
+    text-decoration: none;
+    padding: 0.5rem 0.5rem;  /* comfy tap targets */
+    line-height: 1.2;
+    transition: color 0.25s ease;
+  }
+  .link-grid a:hover { color: var(--accent); }
+
+  /* Phones: footer flows after content, tidy 2-column link grid */
   @media (max-width: 600px) {
+    .footer {
+      position: static; /* not fixed on phones = simplest UX */
+      padding: 0.75rem 0.75rem calc(0.75rem + env(safe-area-inset-bottom));
+      font-size: 0.85rem;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
     .footer-nav {
-      gap: 0.5rem;
-      font-size: 0.75rem;
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
     }
-    .footer-nav span.divider {
-      display: none;
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem 0.75rem;
+      font-size: 0.85rem;
     }
+    .link-grid a { text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer { transition: none; }
   }
 </style>
 
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="footer-content">
-    <p>🚧 <strong>In Development</strong> — A Mind Arc Games Production</p>
+    <p class="build-note">🚧 <strong>In Development</strong> — A Mind Arc Games Production</p>
 
-    <nav class="footer-nav">
-      <a href="/terms">Terms of Use</a>
-      <span class="divider">|</span>
-      <a href="/privacy">Privacy Notice</a>
-      <span class="divider">|</span>
-      <a href="/contact">Contact</a>
-      <span class="divider">|</span>
-      <a href="/support">Support</a>
-      <span class="divider">|</span>
-      <a href="/careers">Careers</a>
+    <nav class="footer-nav" aria-label="Footer links">
+      <ul class="link-grid">
+        <li><a href="/terms">Terms of Use</a></li>
+        <li><a href="/privacy">Privacy Notice</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/support">Support</a></li>
+        <li><a href="/careers">Careers</a></li>
+      </ul>
     </nav>
 
-    <p class="footer-subtext">
-      © {new Date().getFullYear()} Mind Arc Digital Entertainment LLC. All rights
-      reserved.
-    </p>
+    <p class="footer-subtext">© {year} Mind Arc Digital Entertainment LLC. All rights reserved.</p>
   </div>
+
+<!-- Visitor Counter (shown under the footer subtext) -->
+<p id="visitor-count" class="footer-subtext" aria-live="polite">Visitors: loading…</p>
+
+<script is:inline>
+  // ---------- CountAPI settings ----------
+  const NS  = "mindarcgames.com";    // namespace
+  const KEY = "total-site-visits";   // counter key
+  const HIT_URL = `https://api.countapi.xyz/hit/${NS}/${KEY}`;
+  const GET_URL = `https://api.countapi.xyz/get/${NS}/${KEY}`;
+
+  // ---------- Env guard: don't increment on dev/preview ----------
+  const host = location.hostname;
+  const isDev = host === "localhost" || host === "127.0.0.1";
+  const isPreview = host.endsWith(".vercel.app"); // adjust if you use a different preview host
+  const shouldHit = !(isDev || isPreview);
+
+  // ---------- Optional: once-per-day increment ----------
+  const ONCE_PER_DAY = false; // set to true if you want to prevent refresh spam
+  const LAST_HIT_KEY = "ma_visit_lastHit";
+
+  function dueForDailyHit() {
+    if (!ONCE_PER_DAY) return true;
+    const now = Date.now();
+    const last = Number(localStorage.getItem(LAST_HIT_KEY) || 0);
+    const oneDay = 24 * 60 * 60 * 1000;
+    const ok = (now - last) > oneDay;
+    if (ok) localStorage.setItem(LAST_HIT_KEY, String(now));
+    return ok;
+  }
+
+  async function updateVisitorCount() {
+    const el = document.getElementById("visitor-count");
+    if (!el) return;
+
+    try {
+      // choose endpoint
+      const url = (shouldHit && dueForDailyHit()) ? HIT_URL : GET_URL;
+
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      // CountAPI returns { value: number } (or { value, ... })
+      const value = (typeof data.value === "number") ? data.value : null;
+      el.textContent = value !== null ? `Visitors: ${value.toLocaleString()}` : "Visitors: —";
+    } catch (err) {
+      console.error("Visitor counter error:", err);
+      // last-ditch: try GET if HIT failed
+      try {
+        const res = await fetch(GET_URL, { cache: "no-store" });
+        const data = await res.json();
+        const value = (typeof data.value === "number") ? data.value : null;
+        el.textContent = value !== null ? `Visitors: ${value.toLocaleString()}` : "Visitors: —";
+      } catch {
+        el.textContent = "unavailable";
+      }
+    }
+  }
+
+  updateVisitorCount();
+</script>
+
+
 </footer>
