@@ -1,76 +1,33 @@
 ---
 import CodexTopbar from "../components/codex/CodexTopbar.astro";
+import CodexSidebar from "../components/codex/CodexSidebar.astro";
 
 interface NavItem {
   label: string;
   href: string;
   status?: string;
-  description?: string;
 }
 
 interface Props {
   pageTitle?: string;
   topbarTitle?: string;
   currentPath?: string;
-  description?: string;
 }
 
 const {
   pageTitle = "Phoenix Vector Codex",
   topbarTitle = "Codex Access Node // Aurelia Database",
-  currentPath = "/phoenixvector/codex",
-  description = "Explore the Phoenix Vector Codex and the growing archive of the Aurelia System.",
+  currentPath = "/phoenixvector/codex/",
 } = Astro.props;
 
 const codexSections: NavItem[] = [
-  {
-    label: "Overview",
-    href: "/phoenixvector/codex/",
-    status: "Online",
-    description: "Entry point to the Phoenix Vector archive.",
-  },
-  {
-    label: "Aurelia System",
-    href: "/phoenixvector/codex/aurelia-system/",
-    status: "Queued",
-    description: "Binary star region and strategic theater overview.",
-  },
-  {
-    label: "Neo Terra",
-    href: "/phoenixvector/codex/neo-terra/",
-    status: "Queued",
-    description: "Primary inhabited world within the Aurelia System.",
-  },
-  {
-    label: "Selara",
-    href: "/phoenixvector/codex/selara/",
-    status: "Queued",
-    description: "Geologically volatile moon orbiting Neo Terra.",
-  },
-  {
-    label: "Ironreach",
-    href: "/phoenixvector/codex/ironreach/",
-    status: "Queued",
-    description: "Industrial and strategic outpost record.",
-  },
-  {
-    label: "Fighters",
-    href: "/phoenixvector/codex/fighters/",
-    status: "Queued",
-    description: "Combat craft and flight platform archive.",
-  },
-  {
-    label: "Armaments",
-    href: "/phoenixvector/codex/armaments/",
-    status: "Queued",
-    description: "Weapons systems, support tech, and loadouts.",
-  },
-  {
-    label: "Timeline",
-    href: "/phoenixvector/codex/timeline/",
-    status: "Queued",
-    description: "Historical and operational chronology.",
-  },
+  { label: "Overview", href: "/phoenixvector/codex/", status: "Queued" },
+  { label: "Aurelia System", href: "/phoenixvector/codex/aurelia-system/", status: "Queued" },
+  { label: "Neo Terra", href: "/phoenixvector/codex/neo-terra/", status: "Queued" },
+  { label: "Selara", href: "/phoenixvector/codex/selara/", status: "Queued" },
+  { label: "Ironreach", href: "/phoenixvector/codex/ironreach/", status: "Queued" },
+  { label: "Fighters", href: "/phoenixvector/codex/fighters/", status: "Queued" },
+  { label: "Armaments", href: "/phoenixvector/codex/armaments/", status: "Queued" },
 ];
 
 const normalizePath = (path: string) => {
@@ -82,418 +39,282 @@ const normalizedCurrentPath = normalizePath(currentPath);
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={description} />
-  </head>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{pageTitle}</title>
+</head>
 
-  <body>
-    <main class="shell">
-      <CodexTopbar title={topbarTitle} />
+<body>
 
-      <details class="mobile-rail">
-        <summary>Codex Navigation</summary>
+<CodexTopbar title={topbarTitle} subtitle="Command Archive" />
 
-        <ul>
-          {codexSections.map((section) => {
-            const isActive = normalizePath(section.href) === normalizedCurrentPath;
+<main class="shell">
 
-            return (
-              <li>
-                <a
-                  href={section.href}
-                  class:list={["mobile-link", isActive && "active"]}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  <span>{section.label}</span>
-                  <small>{section.status}</small>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </details>
+<details class="mobile-rail">
+<summary>Codex Navigation</summary>
+<ul>
+{codexSections.map((section) => {
+const isActive = normalizePath(section.href) === normalizedCurrentPath;
 
-      <section class="layout">
-        <aside class="sidebar" aria-label="Codex navigation">
-          <div class="sidebar-head">
-            <p class="eyebrow">System Menu</p>
-            <h2>PV Codex</h2>
-            <p>
-              Explore the military, stellar, and historical record of the
-              Phoenix Vector universe through a structured in-world archive.
-            </p>
-          </div>
+return (
+<li>
+<a
+href={section.href}
+class:list={["mobile-link", isActive && "active"]}
+aria-current={isActive ? "page" : undefined}
+>
+<span>{section.label}</span>
+<small>{section.status}</small>
+</a>
+</li>
+);
+})}
+</ul>
+</details>
 
-          <div class="nav-group">
-            <p class="nav-label">Records</p>
+<section class="layout">
 
-            <ul class="nav-list">
-              {codexSections.map((section) => {
-                const isActive = normalizePath(section.href) === normalizedCurrentPath;
+<CodexSidebar items={codexSections} currentPath={currentPath} />
 
-                return (
-                  <li>
-                    <a
-                      href={section.href}
-                      class:list={["nav-link", isActive && "active"]}
-                      aria-current={isActive ? "page" : undefined}
-                    >
-                      <span class="nav-link-title">
-                        <span>{section.label}</span>
-                        {section.status && (
-                          <span class="nav-link-status">{section.status}</span>
-                        )}
-                      </span>
+<article class="content">
+<div class="content-inner">
+<slot />
+</div>
+</article>
 
-                      {section.description && (
-                        <span class="nav-link-copy">{section.description}</span>
-                      )}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </aside>
+</section>
+</main>
 
-        <article class="content">
-          <div class="content-inner">
-            <slot />
-          </div>
-        </article>
-      </section>
-    </main>
-  </body>
+</body>
 </html>
 
 <style is:global>
-  :root {
-    --bg: #05080c;
-    --bg-soft: rgba(10, 17, 24, 0.84);
-    --panel: rgba(10, 17, 24, 0.72);
-    --panel-strong: rgba(8, 14, 20, 0.92);
-    --border: rgba(103, 232, 253, 0.18);
-    --border-strong: rgba(103, 232, 253, 0.34);
-    --text: #e6f6fb;
-    --muted: rgba(230, 246, 251, 0.68);
-    --accent: #67e8fd;
-    --accent-soft: rgba(103, 232, 253, 0.12);
-    --success: #86efac;
-    --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-    --radius-xl: 28px;
-    --radius-lg: 22px;
-    --radius-md: 16px;
-    --sidebar-width: 290px;
-  }
 
-  * {
-    box-sizing: border-box;
-  }
+:root{
+--bg:#05080c;
+--border:rgba(103,232,253,0.18);
+--border-strong:rgba(103,232,253,0.34);
+--text:#e6f6fb;
+--muted:rgba(230,246,251,0.68);
+--accent:#67e8fd;
+--shadow:0 24px 80px rgba(0,0,0,0.45);
+--sidebar-width:290px;
+--radius-xl:28px;
+--radius-lg:22px;
+}
 
-  html {
-    scroll-behavior: smooth;
-  }
+*{box-sizing:border-box;}
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    color: var(--text);
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
-    background:
-      radial-gradient(circle at top, rgba(103, 232, 253, 0.08), transparent 28%),
-      linear-gradient(180deg, #071018 0%, var(--bg) 100%);
-    overflow-x: hidden;
-  }
+body{
+margin:0;
+min-height:100vh;
+color:var(--text);
+font-family:Inter,system-ui;
+background:
+radial-gradient(circle at top, rgba(103,232,253,0.08), transparent 28%),
+linear-gradient(180deg,#071018 0%,var(--bg) 100%);
+}
 
-  body::before,
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -1;
-  }
+.shell{
+width:min(1400px,calc(100% - 32px));
+margin:0 auto;
+padding-bottom:40px;
+}
 
-  body::before {
-    background-image:
-      linear-gradient(rgba(103, 232, 253, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(103, 232, 253, 0.04) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 95%);
-  }
+.layout{
+display:grid;
+grid-template-columns:var(--sidebar-width) minmax(0,1fr);
+gap:18px;
+align-items:start;
+}
 
-  body::after {
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.18) 100%);
-  }
+.content{
+border:1px solid var(--border);
+border-radius:var(--radius-xl);
+background:linear-gradient(180deg,rgba(11,18,26,0.94),rgba(7,11,16,0.92));
+box-shadow:var(--shadow);
+overflow:hidden;
+}
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
+.content-inner{
+padding:clamp(1.4rem,2vw,2rem);
+}
 
-  .shell {
-    width: min(1400px, calc(100% - 32px));
-    margin: 0 auto;
-    padding: 24px 0 40px;
-  }
+.eyebrow{
+color:var(--accent);
+font-family:"IBM Plex Mono",monospace;
+font-size:.75rem;
+letter-spacing:.25em;
+text-transform:uppercase;
+}
 
-  .layout {
-    display: grid;
-    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-    gap: 18px;
-    align-items: start;
-  }
+/* Content header */
 
-  .sidebar {
-    position: sticky;
-    top: 96px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-xl);
-    background: linear-gradient(
-      180deg,
-      rgba(9, 16, 22, 0.96) 0%,
-      rgba(7, 12, 18, 0.92) 100%
-    );
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
+.content-head{
+display:grid;
+grid-template-columns:minmax(0,1.4fr) minmax(280px,.8fr);
+gap:1rem;
+border-bottom:1px solid var(--border);
+padding-bottom:1.4rem;
+}
 
-  .sidebar-head {
-    padding: 1.4rem 1.25rem 1rem;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(
-      180deg,
-      rgba(103, 232, 253, 0.08) 0%,
-      transparent 100%
-    );
-  }
+.content-head h1{
+margin:.6rem 0 0;
+font-size:clamp(2rem,4vw,3.5rem);
+letter-spacing:.08em;
+text-transform:uppercase;
+}
 
-  .sidebar-head h2,
-  .sidebar-head p {
-    margin: 0;
-  }
+.lede{
+margin-top:1rem;
+max-width:62ch;
+color:var(--muted);
+line-height:1.8;
+}
 
-  .sidebar-head h2 {
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-  }
+/* Metadata */
 
-  .sidebar-head p:last-child {
-    margin-top: 0.6rem;
-    color: var(--muted);
-    line-height: 1.6;
-    font-size: 0.95rem;
-  }
+.meta-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:.9rem;
+}
 
-  .eyebrow {
-    margin: 0;
-    color: var(--accent);
-    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.76rem;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-  }
+.meta-card{
+padding:1rem;
+border:1px solid var(--border);
+border-radius:18px;
+background:rgba(103,232,253,0.04);
+}
 
-  .nav-group {
-    padding: 1rem;
-  }
+.meta-card span{
+color:var(--muted);
+font-family:"IBM Plex Mono",monospace;
+font-size:.7rem;
+letter-spacing:.18em;
+text-transform:uppercase;
+}
 
-  .nav-label {
-    margin: 0 0 0.75rem;
-    color: var(--accent);
-    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.74rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-  }
+.meta-card strong{
+display:block;
+margin-top:.5rem;
+text-transform:uppercase;
+}
 
-  .nav-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.65rem;
-  }
+/* Display module */
 
-  .nav-link {
-    display: grid;
-    gap: 0.2rem;
-    padding: 0.9rem 0.95rem;
-    border: 1px solid transparent;
-    border-radius: 14px;
-    background: transparent;
-    transition:
-      border-color 0.25s ease,
-      background-color 0.25s ease,
-      transform 0.25s ease,
-      box-shadow 0.25s ease;
-  }
+.display-module{
+margin-top:1.4rem;
+padding:1.4rem;
+border:1px solid var(--border-strong);
+border-radius:var(--radius-lg);
+background:linear-gradient(180deg,rgba(9,16,22,.95),rgba(7,11,16,.88));
+}
 
-  .nav-link:hover,
-  .nav-link:focus-visible {
-    border-color: var(--border-strong);
-    background: rgba(103, 232, 253, 0.06);
-    transform: translateX(4px);
-    box-shadow: 0 0 0 1px rgba(103, 232, 253, 0.05) inset;
-    outline: none;
-  }
+.display-grid{
+display:grid;
+grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);
+gap:1.2rem;
+}
 
-  .nav-link.active {
-    border-color: var(--border-strong);
-    background:
-      linear-gradient(
-        90deg,
-        rgba(103, 232, 253, 0.18) 0%,
-        rgba(103, 232, 253, 0.04) 85%
-      ),
-      rgba(103, 232, 253, 0.06);
-    box-shadow:
-      inset 3px 0 0 var(--accent),
-      0 0 0 1px rgba(103, 232, 253, 0.05);
-  }
+/* Starfield */
 
-  .nav-link-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: 0.97rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
+.starfield{
+position:relative;
+min-height:360px;
+border:1px solid var(--border);
+border-radius:24px;
+background:
+radial-gradient(circle at 32% 42%,rgba(255,207,107,.95),transparent 18%),
+linear-gradient(180deg,#04070b 0%,#07111c 100%);
+}
 
-  .nav-link-status {
-    color: var(--muted);
-    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
+.orbit{
+position:absolute;
+border:1px solid rgba(103,232,253,.18);
+border-radius:999px;
+}
 
-  .nav-link-copy {
-    color: var(--muted);
-    font-size: 0.88rem;
-    line-height: 1.4;
-  }
+.orbit.one{width:180px;height:180px;left:22%;top:17%;}
+.orbit.two{width:300px;height:300px;left:28%;top:8%;}
 
-  .content {
-    position: relative;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-xl);
-    background: linear-gradient(
-      180deg,
-      rgba(11, 18, 26, 0.94) 0%,
-      rgba(7, 11, 16, 0.92) 100%
-    );
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
+.planet{
+position:absolute;
+width:84px;
+height:84px;
+right:16%;
+bottom:15%;
+border-radius:50%;
+background:radial-gradient(circle at 35% 32%,#93ddff,#3a618f 48%,#0e1828);
+box-shadow:0 0 0 10px rgba(103,232,253,.06);
+}
 
-  .content::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(135deg, rgba(103, 232, 253, 0.08), transparent 35%),
-      linear-gradient(180deg, transparent, rgba(103, 232, 253, 0.02));
-    pointer-events: none;
-  }
+/* Cards */
 
-  .content-inner {
-    position: relative;
-    padding: clamp(1.4rem, 2vw, 2rem);
-  }
+.section-grid{
+display:grid;
+grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);
+gap:1rem;
+margin-top:1.4rem;
+}
 
-  .mobile-rail {
-    display: none;
-    margin-bottom: 18px;
-    padding: 0.9rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    background: rgba(6, 12, 18, 0.75);
-    box-shadow: var(--shadow);
-  }
+.section-card{
+padding:1.2rem;
+border:1px solid var(--border);
+border-radius:20px;
+background:rgba(255,255,255,.02);
+}
 
-  .mobile-rail summary {
-    cursor: pointer;
-    list-style: none;
-    font-size: 0.96rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
+.section-card h3{
+color:var(--accent);
+font-size:.8rem;
+font-family:"IBM Plex Mono",monospace;
+letter-spacing:.2em;
+text-transform:uppercase;
+}
 
-  .mobile-rail summary::-webkit-details-marker {
-    display: none;
-  }
+/* Mobile nav */
 
-  .mobile-rail ul {
-    list-style: none;
-    margin: 0.9rem 0 0;
-    padding: 0;
-    display: grid;
-    gap: 0.7rem;
-  }
+.mobile-rail{
+display:none;
+margin-bottom:18px;
+padding:.9rem 1rem;
+border:1px solid var(--border);
+border-radius:18px;
+background:rgba(6,12,18,.75);
+}
 
-  .mobile-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.8rem 0.95rem;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    color: var(--muted);
-    background: rgba(255, 255, 255, 0.02);
-  }
+.mobile-link{
+display:flex;
+justify-content:space-between;
+padding:.8rem .95rem;
+border:1px solid var(--border);
+border-radius:14px;
+color:var(--muted);
+}
 
-  .mobile-link small {
-    color: var(--accent);
-    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
+.mobile-link small{
+color:var(--accent);
+font-family:"IBM Plex Mono",monospace;
+font-size:.65rem;
+}
 
-  .mobile-link.active {
-    border-color: var(--border-strong);
-    background:
-      linear-gradient(
-        90deg,
-        rgba(103, 232, 253, 0.18) 0%,
-        rgba(103, 232, 253, 0.04) 85%
-      ),
-      rgba(103, 232, 253, 0.06);
-    color: var(--text);
-  }
+.mobile-link.active{
+border-color:var(--border-strong);
+background:rgba(103,232,253,.06);
+color:var(--text);
+}
 
-  @media (max-width: 920px) {
-    .shell {
-      width: min(100% - 24px, 1400px);
-      padding-top: 16px;
-    }
+/* Responsive */
 
-    .layout {
-      grid-template-columns: 1fr;
-    }
+@media (max-width:920px){
 
-    .sidebar {
-      display: none;
-    }
+.layout{grid-template-columns:1fr;}
 
-    .mobile-rail {
-      display: block;
-    }
-  }
+.mobile-rail{display:block;}
 
-  @media (max-width: 640px) {
-    .content-inner {
-      padding: 1rem;
-    }
-  }
+.shell{width:min(100% - 24px,1400px);}
+}
+
 </style>
