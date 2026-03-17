@@ -72,7 +72,7 @@ import Layout from "../layouts/BaseLayout.astro";
             Learn more about the creative direction, philosophy, and identity
             behind the studio.
           </p>
-          <a href="/about">Visit About Page</a>
+          <a class="disabled-link" aria-disabled="true">Coming soon</a>
         </article>
 
         <article class="nav-card">
@@ -391,6 +391,13 @@ import Layout from "../layouts/BaseLayout.astro";
     gap: 1rem;
     margin-top: 1.5rem;
   }
+
+  .disabled-link {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-decoration: none;
+}
 
   .nav-card {
     position: relative;
