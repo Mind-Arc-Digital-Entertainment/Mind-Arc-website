@@ -113,6 +113,23 @@ const year = new Date().getFullYear();
     color: var(--accent);
   }
 
+  .footer-contact {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: color-mix(in oklab, var(--text) 75%, transparent);
+}
+
+.footer-contact a {
+  color: var(--accent);
+  text-decoration: none;
+  margin-left: 0.25rem;
+  transition: color 0.25s ease;
+}
+
+.footer-contact a:hover {
+  color: color-mix(in oklab, var(--accent) 80%, white);
+}
+
   @media (max-width: 600px) {
     .footer {
       padding: 0.75rem 0.75rem calc(0.75rem + env(safe-area-inset-bottom));
@@ -155,11 +172,13 @@ const year = new Date().getFullYear();
       <ul class="link-grid">
         <li><a href="/terms">Terms of Use</a></li>
         <li><a href="/privacy">Privacy</a></li>
-        <li><a href="/contact">Contact</a></li>
       </ul>
     </nav>
 
-
+<p class="footer-contact">
+  For business inquiries: 
+  <a href="mailto:contact@mindarcgames.com">contact@mindarcgames.com</a>
+</p>
 
 <div class="social-links" aria-label="Social media links">
   <a href="https://youtube.com/@mindarcgames" target="_blank" rel="noopener">
@@ -179,66 +198,6 @@ const year = new Date().getFullYear();
       © {year} Mind Arc Digital Entertainment LLC. All rights reserved.
     </p>
 
-    <p id="visitor-count" class="footer-subtext" aria-live="polite">
-      Visitors: loading…
-    </p>
   </div>
 
-  <script is:inline>
-    const NS = "mindarcgames.com";
-    const KEY = "total-site-visits";
-    const HIT_URL = `https://api.countapi.xyz/hit/${NS}/${KEY}`;
-    const GET_URL = `https://api.countapi.xyz/get/${NS}/${KEY}`;
-
-    const host = location.hostname;
-    const isDev = host === "localhost" || host === "127.0.0.1";
-    const isPreview = host.endsWith(".vercel.app");
-    const shouldHit = !(isDev || isPreview);
-
-    const ONCE_PER_DAY = false;
-    const LAST_HIT_KEY = "ma_visit_lastHit";
-
-    function dueForDailyHit() {
-      if (!ONCE_PER_DAY) return true;
-      const now = Date.now();
-      const last = Number(localStorage.getItem(LAST_HIT_KEY) || 0);
-      const oneDay = 24 * 60 * 60 * 1000;
-      const ok = now - last > oneDay;
-      if (ok) localStorage.setItem(LAST_HIT_KEY, String(now));
-      return ok;
-    }
-
-    async function updateVisitorCount() {
-      const el = document.getElementById("visitor-count");
-      if (!el) return;
-
-      try {
-        const url = shouldHit && dueForDailyHit() ? HIT_URL : GET_URL;
-        const res = await fetch(url, { cache: "no-store" });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-
-        const value = typeof data.value === "number" ? data.value : null;
-        el.textContent =
-          value !== null
-            ? `Visitors: ${value.toLocaleString()}`
-            : "Visitors: —";
-      } catch (err) {
-        console.error("Visitor counter error:", err);
-        try {
-          const res = await fetch(GET_URL, { cache: "no-store" });
-          const data = await res.json();
-          const value = typeof data.value === "number" ? data.value : null;
-          el.textContent =
-            value !== null
-              ? `Visitors: ${value.toLocaleString()}`
-              : "Visitors: —";
-        } catch {
-          el.textContent = "Visitors: unavailable";
-        }
-      }
-    }
-
-    updateVisitorCount();
-  </script>
 </footer>

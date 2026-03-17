@@ -1,0 +1,35 @@
+---
+import CodexLayout from "../../../layouts/CodexLayout.astro";
+import CodexEntry from "../../../components/codex/CodexEntry.astro";
+import codexEntries from "../../../data/codex.json";
+
+const currentPath = "/phoenixvector/codex/phoenix-core/";
+
+const currentEntry = codexEntries.find(
+  (entry) => entry.href === currentPath
+);
+
+const meta = [
+  { label: "Classification", value: "Restricted" },
+  { label: "Region", value: "Phoenix Command" },
+  { label: "Signal", value: "Encrypted" },
+  { label: "Status", value: "Classified" },
+];
+---
+
+<CodexLayout
+  pageTitle="Phoenix Core"
+  currentPath={currentPath}
+>
+  {currentEntry && (
+    <CodexEntry
+      entry={currentEntry}
+      meta={meta}
+      featuredLabel="Core Record"
+      featuredTitle="Phoenix Initiative"
+      featuredText="Restricted archive concerning command intelligence, strategic directives, and the deeper structure of the Phoenix program."
+      exitHref="/phoenixvector/codex/"
+      exitLabel="Return"
+    />
+  )}
+</CodexLayout>

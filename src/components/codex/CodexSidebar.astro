@@ -1,24 +1,16 @@
 ---
 interface NavItem {
-  label: string;
+  title: string;
   href: string;
   status?: string;
-  description?: string;
 }
 
 interface Props {
   items?: NavItem[];
   currentPath?: string;
-  title?: string;
-  eyebrow?: string;
 }
 
-const {
-  items = [],
-  currentPath = "/phoenixvector/codex/",
-  title = "PV Codex",
-  eyebrow = "Records",
-} = Astro.props;
+const { items = [], currentPath = "/phoenixvector/codex/" } = Astro.props;
 
 const normalizePath = (path: string) => {
   if (!path) return "/";
@@ -31,35 +23,66 @@ const normalizedCurrentPath = normalizePath(currentPath);
 <aside class="codex-sidebar" aria-label="Codex navigation">
   <div class="codex-sidebar__inner">
     <div class="codex-sidebar__head">
-      <p class="codex-sidebar__eyebrow">{eyebrow}</p>
-      <h2>{title}</h2>
+      <p class="codex-sidebar__eyebrow">Records</p>
     </div>
 
     <div class="codex-sidebar__group">
-      <p class="codex-sidebar__label">Records</p>
-
       <ul class="codex-sidebar__nav">
-        {items.map((section) => {
-          const isActive = normalizePath(section.href) === normalizedCurrentPath;
+{
+  items.map((section) => {
+    const isActive =
+      normalizePath(section.href) === normalizedCurrentPath;
 
-          return (
-            <li>
-              <a
-                href={section.href}
-                class:list={["codex-sidebar__link", isActive && "is-active"]}
-                aria-current={isActive ? "page" : undefined}
-              >
-                <span class="codex-sidebar__link-top">
-                  <span class="codex-sidebar__link-title">{section.label}</span>
+    const isDisabled = section.status === "Queued";
 
-                  {section.status && (
-                    <span class="codex-sidebar__link-status">{section.status}</span>
-                  )}
+    return (
+      <li>
+        {isDisabled ? (
+          <div
+            class:list={[
+              "codex-sidebar__link",
+              "is-disabled",
+              isActive && "is-active",
+            ]}
+          >
+            <span class="codex-sidebar__link-top">
+              <span class="codex-sidebar__link-title">
+                {section.title}
+              </span>
+
+              {section.status && (
+                <span class="codex-sidebar__link-status">
+                  {section.status}
                 </span>
-              </a>
-            </li>
-          );
-        })}
+              )}
+            </span>
+          </div>
+        ) : (
+          <a
+            href={section.href}
+            class:list={[
+              "codex-sidebar__link",
+              isActive && "is-active",
+            ]}
+            aria-current={isActive ? "page" : undefined}
+          >
+            <span class="codex-sidebar__link-top">
+              <span class="codex-sidebar__link-title">
+                {section.title}
+              </span>
+
+              {section.status && (
+                <span class="codex-sidebar__link-status">
+                  {section.status}
+                </span>
+              )}
+            </span>
+          </a>
+        )}
+      </li>
+    );
+  })
+}
       </ul>
     </div>
   </div>
@@ -75,12 +98,11 @@ const normalizedCurrentPath = normalizePath(currentPath);
   .codex-sidebar__inner {
     border: 1px solid rgba(103, 232, 253, 0.18);
     border-radius: 28px;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(9, 16, 22, 0.96) 0%,
-        rgba(7, 12, 18, 0.92) 100%
-      );
+    background: linear-gradient(
+      180deg,
+      rgba(9, 16, 22, 0.96) 0%,
+      rgba(7, 12, 18, 0.92) 100%
+    );
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
     overflow: hidden;
   }
@@ -88,56 +110,30 @@ const normalizedCurrentPath = normalizePath(currentPath);
   .codex-sidebar__head {
     padding: 1.35rem 1.2rem 1rem;
     border-bottom: 1px solid rgba(103, 232, 253, 0.14);
-    background:
-      linear-gradient(
-        180deg,
-        rgba(103, 232, 253, 0.08) 0%,
-        transparent 100%
-      );
+    background: linear-gradient(
+      180deg,
+      rgba(103, 232, 253, 0.08) 0%,
+      transparent 100%
+    );
   }
 
-  a {
+  .codex-sidebar a {
     text-decoration: none;
   }
 
   .codex-sidebar__eyebrow {
-    margin: 0 0 0.45rem;
+    margin: 0;
     color: #67e8fd;
-    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family:
+      "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 0.74rem;
     letter-spacing: 0.24em;
     text-transform: uppercase;
     line-height: 1;
   }
 
-  .codex-sidebar__head h2 {
-    margin: 0;
-    color: #e6f6fb;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    line-height: 1.2;
-  }
-
-  .codex-sidebar__intro {
-    margin: 0.65rem 0 0;
-    color: rgba(230, 246, 251, 0.68);
-    font-size: 0.94rem;
-    line-height: 1.6;
-  }
-
   .codex-sidebar__group {
     padding: 1rem;
-  }
-
-  .codex-sidebar__label {
-    margin: 0 0 0.75rem;
-    color: #67e8fd;
-    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
   }
 
   .codex-sidebar__nav {
@@ -203,18 +199,19 @@ const normalizedCurrentPath = normalizePath(currentPath);
 
   .codex-sidebar__link-status {
     color: rgba(230, 246, 251, 0.62);
-    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family:
+      "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 0.68rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     white-space: nowrap;
   }
 
-  .codex-sidebar__link-copy {
-    color: rgba(230, 246, 251, 0.68);
-    font-size: 0.86rem;
-    line-height: 1.45;
-  }
+  .codex-sidebar__link.is-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
   @media (max-width: 920px) {
     .codex-sidebar {

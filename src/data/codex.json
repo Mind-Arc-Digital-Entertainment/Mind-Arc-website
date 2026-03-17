@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Overview",
+    "href": "/phoenixvector/codex/",
+    "status": "Online",
+    "archiveEntry": "001",
+    "description": "The consolidated Phoenix Core intel archive of the Aurelia System, personel, enemies and operations.",
+    "image": "/images/phoenixCoreLogo.png"
+  },
+  {
+    "title": "Phoenix Core",
+    "href": "/phoenixvector/codex/phoenix-core/",
+    "status": "Declassified",
+    "archiveEntry": "002",
+    "description": "Restricted archive concerning the Phoenix initiative, command intelligence, and core strategic records.",
+    "image": "/images/phoenixCoreLogo.png"
+  },
+  {
+    "title": "Aurelia System",
+    "href": "/phoenixvector/codex/aurelia-system/",
+    "status": "Classified",
+    "archiveEntry": "003",
+    "description": "Binary star system containing Neo Terra, Selara, Ironreach, and the major theaters of conflict.",
+    "image": "/images/codex/aurelia-system.jpg"
+  },
+  {
+    "title": "Neo Terra",
+    "href": "/phoenixvector/codex/neo-terra/",
+    "status": "Queued",
+    "archiveEntry": "004",
+    "description": "Industrial population center and one of the most strategically important worlds in the Aurelia System.",
+    "image": "/images/codex/neo-terra.jpg"
+  },
+  {
+    "title": "Selara",
+    "href": "/phoenixvector/codex/selara/",
+    "status": "Queued",
+    "archiveEntry": "005",
+    "description": "A distant world of strategic importance, known for its harsh beauty and operational significance.",
+    "image": "/images/codex/selara.jpg"
+  },
+  {
+    "title": "Ironreach",
+    "href": "/phoenixvector/codex/ironreach/",
+    "status": "Queued",
+    "archiveEntry": "006",
+    "description": "A hardened outpost zone tied to frontier defense, military logistics, and contested routes.",
+    "image": "/images/codex/ironreach.jpg"
+  },
+  {
+    "title": "Fighters",
+    "href": "/phoenixvector/codex/fighters/",
+    "status": "Online",
+    "archiveEntry": "007",
+    "description": "Archive of active fighter platforms, combat variants, and deployment-ready craft.",
+    "image": "/images/codex/fighters.jpg"
+  }
+]

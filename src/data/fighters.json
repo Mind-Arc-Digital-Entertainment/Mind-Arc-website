@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Phoenix PH-Δ1",
+    "slug": "phoenix",
+    "href": "/phoenixvector/codex/fighters/phoenix/",
+    "status": "Declassified",
+    "archiveEntry": "007-A",
+    "parent": "fighters",
+    "description": "Flagship Phoenix-class interceptor equipped with the IC-50 Incendiary Cannon and adaptive combat systems.",
+    "image": "/images/PhoenixRed.png"
+  },
+  {
+    "title": "Aquila AQ-Δ2",
+    "slug": "aquila",
+    "href": "/phoenixvector/codex/fighters/aquila/",
+    "status": "Classified",
+    "archiveEntry": "007-B",
+    "parent": "fighters",
+    "description": "Precision assault fighter featuring the Talon Cannon system and advanced targeting capabilities.",
+    "image": "/images/codex/fighters/aquila.jpg"
+  },
+  {
+    "title": "Tyco TX-Δ3",
+    "slug": "tyco",
+    "href": "/phoenixvector/codex/fighters/tyco/",
+    "status": "Classified",
+    "archiveEntry": "007-C",
+    "parent": "fighters",
+    "description": "Heavy assault platform designed for sustained engagements, featuring reinforced hull architecture and high-output weapon systems.",
+    "image": "/images/codex/fighters/tyco.jpg"
+  }
+]

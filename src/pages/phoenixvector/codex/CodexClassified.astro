@@ -1,0 +1,67 @@
+---
+interface Props {
+  title?: string;
+  archiveEntry?: string;
+}
+
+const {
+  title = "Restricted Record",
+  archiveEntry = "???",
+} = Astro.props;
+---
+
+<div class="content-head">
+  <div>
+    <p class="eyebrow">Archive Entry // {archiveEntry}</p>
+    <h1>{title}</h1>
+    <p class="lede">
+      This record is classified. Access is restricted under Phoenix Command
+      authority.
+    </p>
+  </div>
+</div>
+
+<section class="display-module">
+  <div class="classified-block">
+    <div class="classified-inner">
+      <p class="classified-label">ACCESS DENIED</p>
+      <p class="classified-sub">
+        Clearance level insufficient. Further authorization required.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .classified-block {
+    display: grid;
+    place-items: center;
+    min-height: 260px;
+    border: 1px solid rgba(255, 80, 80, 0.25);
+    border-radius: 20px;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(60, 10, 10, 0.9),
+        rgba(20, 5, 5, 0.95)
+      );
+  }
+
+  .classified-inner {
+    text-align: center;
+  }
+
+  .classified-label {
+    font-family: "IBM Plex Mono", monospace;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #ff4d4d;
+    font-size: 0.9rem;
+  }
+
+  .classified-sub {
+    margin-top: 0.6rem;
+    color: rgba(255, 200, 200, 0.7);
+    font-size: 0.85rem;
+  }
+</style>

@@ -1,0 +1,41 @@
+---
+import CodexLayout from "../../../layouts/CodexLayout.astro";
+import CodexEntry from "../../../components/codex/CodexEntry.astro";
+import CodexClassified from "../../../components/codex/CodexClassified.astro";
+import codexEntries from "../../../data/codex.json";
+
+const currentPath = "/phoenixvector/codex/aurelia-system/";
+
+const currentEntry = codexEntries.find(
+  (entry) => entry.href === currentPath
+);
+
+const meta = [
+  { label: "Classification", value: "Public Archive" },
+  { label: "Region", value: "Aurelia System" },
+  { label: "Signal", value: "Stable" },
+  { label: "Status", value: "Queued" },
+];
+---
+
+<CodexLayout
+  pageTitle="Aurelia System"
+  currentPath={currentPath}
+>
+  {currentEntry?.status === "Classified" ? (
+    <CodexClassified
+      title={currentEntry.title}
+      archiveEntry={currentEntry.archiveEntry}
+    />
+  ) : currentEntry ? (
+    <CodexEntry
+      entry={currentEntry}
+      meta={meta}
+      featuredLabel="System Record"
+      featuredTitle="The Aurelia System"
+      featuredText="A binary star theater containing Neo Terra, Selara, Ironreach, and the major strategic zones that define the Phoenix Vector conflict."
+      exitHref="/phoenixvector/codex/"
+      exitLabel="Return"
+    />
+  ) : null}
+</CodexLayout>

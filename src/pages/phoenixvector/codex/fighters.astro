@@ -1,0 +1,38 @@
+---
+import CodexLayout from "../../../layouts/CodexLayout.astro";
+import CodexEntry from "../../../components/codex/CodexEntry.astro";
+import CodexClassified from "../../../components/codex/CodexClassified.astro";
+import fighterEntries from "../../../data/fighters.json";
+
+const currentPath = "/phoenixvector/codex/fighters/";
+
+const currentEntry = fighterEntries.find(
+  (entry) => entry.status === "Declassified"
+);
+
+const meta = [
+  { label: "Classification", value: "Declassified" },
+  { label: "Platform", value: "Phoenix-Class Interceptor" },
+  { label: "Signal", value: "Stable" },
+  { label: "Status", value: "Declassified" },
+];
+---
+
+<CodexLayout pageTitle="Fighters" currentPath={currentPath}>
+  {currentEntry?.status === "Classified" ? (
+    <CodexClassified
+      title={currentEntry.title}
+      archiveEntry={currentEntry.archiveEntry}
+    />
+  ) : currentEntry ? (
+    <CodexEntry
+      entry={currentEntry}
+      meta={meta}
+      featuredLabel="Fighter Record"
+      featuredTitle={currentEntry.title}
+      featuredText="Flagship Phoenix-class interceptor configured for high-speed strike operations, precision combat response, and frontline deployment across the Aurelia theater."
+      exitHref="/phoenixvector/codex/"
+      exitLabel="Return"
+    />
+  ) : null}
+</CodexLayout>

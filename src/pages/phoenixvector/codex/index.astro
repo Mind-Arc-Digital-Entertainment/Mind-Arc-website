@@ -1,90 +1,35 @@
 ---
 import CodexLayout from "../../../layouts/CodexLayout.astro";
+import CodexEntry from "../../../components/codex/CodexEntry.astro";
+import codexEntries from "../../../data/codex.json";
+
+const currentPath = "/phoenixvector/codex/";
+
+const currentEntry = codexEntries.find(
+  (entry) => entry.href === currentPath
+);
+
+const meta = [
+  { label: "Classification", value: "Public Archive" },
+  { label: "Region", value: "Aurelia System" },
+  { label: "Signal", value: "Stable" },
+  { label: "Status", value: "Expanding" },
+];
 ---
 
 <CodexLayout
   pageTitle="Phoenix Vector Codex"
-  topbarTitle="Codex Access Node // Aurelia Database"
-  currentPath="/phoenixvector/codex/"
+  currentPath={currentPath}
 >
-  <div class="content-head">
-    <div>
-      <p class="eyebrow">Archive Entry // 00</p>
-      <h1>Phoenix Command Codex</h1>
-      <p class="lede">
-        Tactical archive for the worlds, installations, fighters, and weapons of
-        the Aurelia System.
-      </p>
-    </div>
-
-    <div class="meta-grid" aria-label="Archive metadata">
-      <div class="meta-card">
-        <span>Classification</span>
-        <strong>Public Archive</strong>
-      </div>
-      <div class="meta-card">
-        <span>Region</span>
-        <strong>Aurelia System</strong>
-      </div>
-      <div class="meta-card">
-        <span>Signal</span>
-        <strong>Stable</strong>
-      </div>
-      <div class="meta-card">
-        <span>Status</span>
-        <strong>Expanding</strong>
-      </div>
-    </div>
-  </div>
-
-  <section class="display-module" aria-label="Featured archive preview">
-    <div class="display-grid">
-      <div class="starfield">
-        <div class="orbit one"></div>
-        <div class="orbit two"></div>
-        <div class="planet"></div>
-      </div>
-
-      <div class="module-copy">
-        <div>
-          <p class="eyebrow">Featured Record</p>
-          <h2>The Aurelia System</h2>
-        </div>
-
-        <p>
-          A binary star theater anchored by Neo Terra, Selara, and the strategic
-          zones that define the Phoenix Vector conflict.
-        </p>
-
-        <div class="cta-row">
-          <a class="button primary" href="/phoenixvector/codex/aurelia-system/">
-            Open Record
-          </a>
-          <a class="button secondary" href="/phoenixvector/">
-            Return
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-grid" aria-label="Codex overview panels">
-    <article class="section-card">
-      <h3>Archive Function</h3>
-      <p>
-        A clean in-world reference layer for locations, machines, and history
-        across the Phoenix Vector setting.
-      </p>
-    </article>
-
-    <article class="section-card">
-      <h3>Next Records</h3>
-      <ul>
-        <li>Aurelia System</li>
-        <li>Neo Terra</li>
-        <li>Selara</li>
-        <li>Ironreach</li>
-      </ul>
-    </article>
-  </section>
+  {currentEntry && (
+    <CodexEntry
+      entry={currentEntry}
+      meta={meta}
+      featuredLabel="Featured Record"
+      featuredTitle="The Aurelia System"
+      featuredText="A binary star theater anchored by Neo Terra, Selara, and the strategic zones that define the Phoenix Vector conflict."
+      exitHref="/phoenixvector/"
+      exitLabel="Exit"
+    />
+  )}
 </CodexLayout>

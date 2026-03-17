@@ -5,19 +5,10 @@ import Layout from "../layouts/BaseLayout.astro";
 <Layout title="Mind Arc Games | Home">
   <main class="home-page">
     <div class="home-shell">
-      <section class="hero">
-        <p class="eyebrow">Mind Arc Games</p>
-        <h1>Forging Worlds Beyond the Stars</h1>
-        <p class="hero-subtitle">
-          Independent sci-fi game development, immersive worldbuilding, and the
-          future of <strong>Phoenix Vector</strong>.
-        </p>
 
+      <section class="hero">
+        <h1>Forging Worlds Beyond the Stars</h1>
         <div class="hero-actions">
-          <a href="/phoenix-vector" class="btn btn-primary"
-            >Explore Phoenix Vector</a
-          >
-          <a href="/contact" class="btn btn-secondary">Contact</a>
         </div>
       </section>
 
@@ -56,8 +47,7 @@ import Layout from "../layouts/BaseLayout.astro";
             </p>
 
             <div class="feature-actions">
-              <a href="/phoenix-vector" class="btn btn-primary">View Project</a>
-              <a href="/support" class="btn btn-secondary">Support</a>
+          <a href="/phoenixvector" class="btn btn-primary">Explore Phoenix Vector</a>
             </div>
           </div>
 
@@ -92,17 +82,24 @@ import Layout from "../layouts/BaseLayout.astro";
             Review the Privacy Policy and Terms of Use for Phoenix Vector and
             Mind Arc Games.
           </p>
-          <a href="/privacy-policy">Read Policies</a>
+
+          <div class="legal-links">
+            <a href="/terms">Terms of Use</a>
+            <a href="/privacy">Privacy</a>
+          </div>
         </article>
 
         <article class="nav-card">
           <p class="section-kicker">Contact</p>
           <h3>Get in Touch</h3>
           <p>
-            Reach out for support, business inquiries, press questions, or
+            Support, business inquiries, press questions, or
             general feedback.
           </p>
-          <a href="/contact">Open Contact Page</a>
+          <div class="legal-links">
+            <a href="mailto:contact@mindarcgames.com">contact@mindarcgames.com</a>
+          </div>
+          
         </article>
       </section>
     </div>
@@ -443,6 +440,24 @@ import Layout from "../layouts/BaseLayout.astro";
     text-shadow: 0 0 14px rgba(103, 232, 249, 0.22);
   }
 
+  .legal-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.legal-links a {
+  text-decoration: none;
+  color: var(--accent);
+  font-size: 0.85rem;
+  transition: opacity 0.25s ease;
+}
+
+.legal-links a:hover {
+  opacity: 0.8;
+}
+
   @media (max-width: 900px) {
     .feature-grid {
       grid-template-columns: 1fr;
@@ -490,4 +505,5 @@ import Layout from "../layouts/BaseLayout.astro";
       border-radius: 18px;
     }
   }
+
 </style>

@@ -1,27 +1,16 @@
----
-interface Props {
-  title?: string;
-  subtitle?: string;
-}
-
-const {
-  title = "Codex Access Node // Aurelia Database",
-  subtitle = "Phoenix Vector Archive",
-} = Astro.props;
----
 
 <div class="codex-topbar-wrap">
   <header class="codex-topbar" role="banner">
     <div class="codex-topbar__inner">
       <div class="codex-topbar__brand">
-        <span class="codex-topbar__eyebrow">{subtitle}</span>
-        <h1>{title}</h1>
+        <span class="codex-topbar__eyebrow">Phoenix Vector Archive</span>
+        <h1>Codex Access Node // Command Core Database</h1>
       </div>
 
       <a class="codex-topbar__status" href="/" aria-label="Return to Mind Arc Games">
-  <span class="status-dot"></span>
-  <span>www.mindarcgames.com</span>
-</a>
+        <span class="status-dot"></span>
+        <span>www.mindarcgames.com</span>
+      </a>
     </div>
   </header>
 </div>

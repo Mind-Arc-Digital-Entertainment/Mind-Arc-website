@@ -1,0 +1,83 @@
+---
+interface MetaItem {
+  label: string;
+  value: string;
+}
+
+interface EntryItem {
+  title: string;
+  href: string;
+  status?: string;
+  archiveEntry?: string;
+  description?: string;
+  image?: string;
+}
+
+interface Props {
+  entry: EntryItem;
+  meta?: MetaItem[];
+  featuredLabel?: string;
+  featuredTitle?: string;
+  featuredText?: string;
+  exitHref?: string;
+  exitLabel?: string;
+}
+
+const {
+  entry,
+  meta = [],
+  featuredLabel = "Featured Record",
+  featuredTitle = "",
+  featuredText = "",
+  exitHref = "/phoenixvector/",
+  exitLabel = "Exit",
+} = Astro.props;
+---
+
+<div class="content-head">
+  <div>
+    <p class="eyebrow">Archive Entry // {entry.archiveEntry}</p>
+    <h1>{entry.title}</h1>
+    <p class="lede">{entry.description}</p>
+  </div>
+
+  {meta.length > 0 && (
+    <div class="meta-grid" aria-label="Archive metadata">
+      {meta.map((item) => (
+        <div class="meta-card">
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+
+<section class="display-module" aria-label="Featured archive preview">
+  <div class="display-grid">
+    <div class="displayfield">
+      {entry.image && (
+        <img
+          src={entry.image}
+          alt={entry.title}
+          class="displayfield__image"
+        />
+      )}
+    </div>
+
+    <div class="module-copy">
+      <div>
+        <p class="eyebrow">{featuredLabel}</p>
+        <h2>{featuredTitle}</h2>
+      </div>
+
+      <p>{featuredText}</p>
+
+      <div class="cta-row">
+        <a class="button secondary" href={exitHref}>
+          {exitLabel}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

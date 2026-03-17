@@ -64,7 +64,7 @@ body {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll;
 
   /* Prevent content hiding behind fixed footer */
   padding-bottom: var(--footer-h);
@@ -112,4 +112,24 @@ button:hover {
   html:not([data-theme]) :root {
     color-scheme: dark;
   }
+}
+
+.games-page::before,
+.panel::before,
+.not-found-panel::before {
+  display: none !important;
+}
+
+a,
+button,
+.btn {
+  transition: none !important;
+}
+
+a:hover,
+button:hover,
+.btn:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  filter: none !important;
 }
