@@ -9,7 +9,8 @@ import Layout from "../layouts/BaseLayout.astro";
         <p class="eyebrow">Mind Arc Games presents...</p>
         <h1>Phoenix Vector</h1>
         <p class="hero-subtitle">
-          A high intensity combat experience unfolding across the distant Aurelia System.
+          A high intensity combat experience unfolding across the distant
+          Aurelia System.
         </p>
       </section>
 
@@ -22,20 +23,23 @@ import Layout from "../layouts/BaseLayout.astro";
             <h2>Combat in the Aurelia System</h2>
 
             <p>
-              <strong>Phoenix Vector</strong> is a side-scrolling sci-fi combat
-              experience set within the Aurelia System, a region of outer space with
-              hostile enemy fleets, luminous worlds, and escalating conflict.
+              <strong>Phoenix Vector</strong> is a side-scrolling sci-fi combat experience
+              set within the Aurelia System, a region of outer space with hostile
+              enemy fleets, luminous worlds, and escalating conflict.
             </p>
 
             <p>
-              Built around sharp action, bold presentation, and atmospheric
-              worldbuilding, Phoenix Vector is the foundation of a larger creative
-              universe currently in development by Mind Arc Games.
+              Built around sharp action, strategic power allocation, bold
+              presentation, and atmospheric worldbuilding, Phoenix Vector
+              challenges players to dynamically balance speed and firepower
+              while surviving escalating enemy encounters across the Aurelia
+              System.
             </p>
 
             <ul class="feature-list">
               <li>Fast-paced arcade-inspired combat</li>
-              <li>Distinct sci-fi action</li>
+              <li>Strategic power management</li>
+              <li>Distinct sci-fi action and atmosphere</li>
               <li>Expanding lore and worlds</li>
               <li>An immersive player experience</li>
             </ul>
@@ -47,11 +51,13 @@ import Layout from "../layouts/BaseLayout.astro";
               <h3>The Codex</h3>
               <p>
                 The central command archive of Phoenix Vector, detailing ships,
-                weapons, locations, and the evolving conflict across the Aurelia System.
+                weapons, locations, and the evolving conflict across the Aurelia
+                System.
               </p>
 
               <div class="feature-actions">
-                <a href="/phoenixvector/codex/" class="btn btn-primary">Enter</a>
+                <a href="/phoenixvector/codex/" class="btn btn-primary">Enter</a
+                >
               </div>
             </div>
           </div>
@@ -80,8 +86,16 @@ import Layout from "../layouts/BaseLayout.astro";
     min-height: 100vh;
     padding: 1.5rem 1.25rem 2.5rem;
     background:
-      radial-gradient(circle at top center, rgba(34, 211, 238, 0.12), transparent 28%),
-      radial-gradient(circle at 20% 20%, rgba(255, 200, 87, 0.08), transparent 18%),
+      radial-gradient(
+        circle at top center,
+        rgba(34, 211, 238, 0.12),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 20% 20%,
+        rgba(255, 200, 87, 0.08),
+        transparent 18%
+      ),
       linear-gradient(180deg, #081120 0%, #040814 55%, #02050d 100%);
     overflow: hidden;
   }
@@ -94,7 +108,11 @@ import Layout from "../layouts/BaseLayout.astro";
       linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
     background-size: 36px 36px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.08));
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.08)
+    );
     pointer-events: none;
   }
 
@@ -147,8 +165,11 @@ import Layout from "../layouts/BaseLayout.astro";
     padding: 2rem;
     border: 1px solid var(--panel-border);
     border-radius: 22px;
-    background:
-      linear-gradient(180deg, rgba(14, 25, 47, 0.88), rgba(7, 13, 26, 0.94));
+    background: linear-gradient(
+      180deg,
+      rgba(14, 25, 47, 0.88),
+      rgba(7, 13, 26, 0.94)
+    );
     box-shadow: var(--shadow);
     backdrop-filter: blur(10px);
   }
@@ -176,7 +197,7 @@ import Layout from "../layouts/BaseLayout.astro";
   .phoenix-image-panel {
     position: relative;
     min-height: 60vh;
-    background-image: url("/images/TitleImage_II.png");
+    background-image: url("/images/PhoenixHeroweb.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -257,8 +278,16 @@ import Layout from "../layouts/BaseLayout.astro";
     border-radius: 20px;
     border: 1px solid rgba(103, 232, 249, 0.14);
     background:
-      radial-gradient(circle at top right, rgba(103, 232, 249, 0.12), transparent 35%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+      radial-gradient(
+        circle at top right,
+        rgba(103, 232, 249, 0.12),
+        transparent 35%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.02)
+      );
     overflow: hidden;
   }
 
@@ -359,9 +388,8 @@ import Layout from "../layouts/BaseLayout.astro";
   }
 
   .games-page::before,
-.panel::before,
-.not-found-panel::before {
-  display: none !important;
-}
-
+  .panel::before,
+  .not-found-panel::before {
+    display: none !important;
+  }
 </style>

@@ -1,0 +1,156 @@
+---
+import Layout from "../../../layouts/BaseLayout.astro";
+---
+
+<Layout title="Dev Logs | Phoenix Vector">
+  <main class="devlog-page">
+    <section class="devlog-hero">
+      <h1>Dev Logs</h1>
+      <p>
+        Development notes, build updates, design changes, and behind-the-scenes
+        progress from Mind Arc Games.
+      </p>
+    </section>
+
+<section class="devlog-grid" aria-label="Phoenix Vector development logs">
+    <article class="devlog-card">
+    <p class="devlog-meta">v0.1.1 • Profile / Energy Update</p>
+
+    <h2>Profile & Energy Systems</h2>
+
+    <p>
+      A foundational update focused on first-time player setup, persistent progression data,
+      mission energy usage, and internal testing stability.
+    </p>
+
+    <a href="/phoenixvector/devlog/v0-1-1/" class="devlog-link">
+      Read Log
+    </a>
+  </article>
+  <article class="devlog-card">
+    <p class="devlog-meta">v0.2.0 • UI / Bug Fix</p>
+
+    <h2>N.T.D.C. Interface Overhaul</h2>
+
+    <p>
+      A visual redesign pass focused on establishing the new N.T.D.C. interface language,
+      including menu styling, button treatment, and a fix for the start button flash issue.
+    </p>
+
+    <a href="/phoenixvector/devlog/v0-2-0/" class="devlog-link">
+      Read Log
+    </a>
+  </article>
+
+
+</section>
+  </main>
+</Layout>
+
+<style>
+  .devlog-page {
+    min-height: 100vh;
+    padding: 4rem 1.25rem;
+    background: linear-gradient(180deg, #081120 0%, #040814 55%, #02050d 100%);
+    color: #dbe7f5;
+  }
+
+  .devlog-hero {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.75rem, 6vw, 4.5rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #f8fbff;
+  }
+
+  p {
+    margin: 1rem auto 0;
+    max-width: 720px;
+    line-height: 1.8;
+    color: #9fb2c9;
+  }
+
+  .devlog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 2.5rem auto 0;
+}
+
+.devlog-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 200, 87, 0.22);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 200, 87, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(18, 18, 18, 0.92), rgba(5, 5, 5, 0.96));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.log-date {
+  margin: -0.35rem 0 1rem;
+  color: rgba(248, 251, 255, 0.68);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.devlog-meta {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffc857;
+}
+
+.devlog-card h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f8fbff;
+}
+
+.devlog-card p {
+  margin: 1rem 0 0;
+  line-height: 1.75;
+  color: #c7d2df;
+}
+
+.devlog-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+  margin-top: auto;
+  padding: 0.85rem 1.15rem;
+  border-radius: 999px;
+  background: #ffc857;
+  color: #111;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.devlog-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 200, 87, 0.28);
+}
+</style>
