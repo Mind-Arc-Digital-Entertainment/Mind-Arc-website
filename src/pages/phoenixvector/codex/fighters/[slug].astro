@@ -23,20 +23,15 @@ const { fighter } = Astro.props;
   status={fighter.status}
 >
   <article class="fighter-entry">
+      <div class="fighter-entry__header">
+        <h1>{fighter.name}</h1>
+      </div>
     <div class="fighter-entry__hero">
       <img src={fighter.image} alt={fighter.name} />
     </div>
 
     <div class="fighter-entry__content">
-      <div class="fighter-entry__header">
-        <span>{fighter.archiveEntry}</span>
 
-        <h1>{fighter.name}</h1>
-
-        <p>
-          {fighter.designation} / {fighter.class} Class
-        </p>
-      </div>
 
       <div class="fighter-entry__description">
         <p>{fighter.description}</p>

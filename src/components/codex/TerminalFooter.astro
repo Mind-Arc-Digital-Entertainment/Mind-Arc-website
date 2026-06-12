@@ -1,0 +1,32 @@
+---
+// src/components/codex/TerminalFooter.astro
+---
+
+<footer class="terminal-footer" aria-label="N.T.D.C. terminal status">
+  <div class="terminal-footer__line"></div>
+
+  <div class="terminal-footer__grid">
+    <div class="terminal-footer__block">
+      <span class="terminal-footer__label">NTDC MAINFRAME LINK</span>
+      <div class="signal-bars" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="terminal-footer__block">
+      <span class="terminal-footer__label">ARCHIVE SYNC</span>
+      <span class="terminal-footer__value">ACTIVE</span>
+    </div>
+
+    <div class="terminal-footer__block">
+      <span class="terminal-footer__label">SENSOR FEED</span>
+      <span class="terminal-footer__value terminal-footer__blink">ONLINE</span>
+    </div>
+
+    <div class="terminal-footer__block">
+      <span class="terminal-footer__label">ENCRYPTION</span>
+      <span class="terminal-footer__value">VERIFIED</span>
+    </div>
+  </div>
+
+</footer>

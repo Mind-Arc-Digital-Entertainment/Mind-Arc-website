@@ -63,7 +63,7 @@
 }
 
 .fighter-card__meta {
-  font-family: Arial, sans-serif;
+  font-family: "Orbitron", sans-serif;
   display: inline-block;
   margin-bottom: 0.35rem;
   color: var(--codex-cyan);
@@ -82,6 +82,7 @@
 }
 
 .fighter-card__status {
+  font-family: "Orbitron", sans-serif;
   display: inline-block;
   margin-top: 0.65rem;
   padding: 0.28rem 0.55rem;

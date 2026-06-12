@@ -1,5 +1,6 @@
 ---
 import "../../styles/codex.css";
+import TerminalFooter from "./TerminalFooter.astro";
 
 const {
   title = "N.T.D.C. Terminal",
@@ -9,34 +10,23 @@ const {
 ---
 
 <section class="ntdc-frame">
-<div class="ntdc-frame__header">
-  <nav class="codex-nav" aria-label="Codex navigation">
-    <button
-      class="codex-nav__button"
-      type="button"
-      onclick="history.back()"
-    >
-      Back
-    </button>
+  <div class="ntdc-frame__header">
+    <nav class="codex-nav" aria-label="Codex navigation">
+      <button class="codex-nav__button" type="button" onclick="history.back()">
+        Back
+      </button>
 
-    <a class="codex-nav__button" href="/phoenixvector/codex/">
-      Codex Home
-    </a>
+      <a class="codex-nav__button" href="/phoenixvector/codex/"> Codex Home </a>
 
-    <a class="codex-nav__button" href="/phoenixvector/">
-      Phoenix Vector
-    </a>
+      <a class="codex-nav__button" href="/phoenixvector/"> Phoenix Vector </a>
 
-    <a class="codex-nav__button" href="/">
-      Mind Arc
-    </a>
-  </nav>
-</div>
+      <a class="codex-nav__button" href="/"> Mind Arc </a>
+    </nav>
+  </div>
 
   <section class="ntdc-terminal" aria-label={subtitle}>
     <header class="ntdc-terminal__header">
       <div class="ntdc-terminal__identity">
-        <p class="ntdc-terminal__eyebrow">{title}</p>
         <h1 class="ntdc-terminal__title">{subtitle}</h1>
       </div>
 
@@ -55,11 +45,9 @@ const {
     <div class="ntdc-terminal__divider"></div>
 
     <footer class="ntdc-terminal__footer">
-
+      <TerminalFooter />
     </footer>
   </section>
 
-  <div class="ntdc-frame__footer">
-    
-  </div>
+  <div class="ntdc-frame__footer"></div>
 </section>
