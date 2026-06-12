@@ -1,29 +1,198 @@
 ---
 import NTDCTerminal from "../../../components/codex/NTDCTerminal.astro";
 import codexHome from "../../../data/codex-home.json";
-import "../../../styles/codex-entries.css";
 ---
 
 <NTDCTerminal title="" subtitle="Command Archive" status="Status: Online">
   <section class="codex-home">
-    <div class="codex-home__intro"></div>
-
-    <div class="codex-menu-grid" aria-label="Codex categories">
+    <nav class="codex-archive-list" aria-label="Codex categories">
       {
         codexHome.map((item) => (
-          <a class="codex-menu-card" href={`/phoenixvector/codex/${item.id}/`}>
-            <span class="codex-menu-card__status">{item.status}</span>
+          <a
+            class="codex-archive-item"
+            href={`/phoenixvector/codex/${item.id}/`}
+          >
+            <div class="codex-archive-item__main">
+              <span class="codex-archive-item__status">{item.status}</span>
+              <h2 class="codex-archive-item__title">{item.title}</h2>
+            </div>
 
-            <h2 class="codex-menu-card__title">{item.title}</h2>
-
-            <p>{item.description}</p>
-
-            <span class="codex-menu-card__meta">
+            <span class="codex-archive-item__meta">
               {item.fileCount} {item.fileCount === 1 ? "File" : "Files"}
             </span>
           </a>
         ))
       }
-    </div>
+    </nav>
   </section>
 </NTDCTerminal>
+
+<style>
+  .codex-home {
+    width: 100%;
+  }
+
+  .codex-archive-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .codex-archive-item {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    min-height: 96px;
+    padding: 1rem 1.1rem;
+
+    text-decoration: none;
+    color: var(--codex-text);
+
+    border: 1px solid rgba(103, 232, 249, 0.24);
+    border-left: 5px solid var(--codex-cyan);
+
+    background:
+      linear-gradient(
+        90deg,
+        rgba(103, 232, 249, 0.12),
+        rgba(103, 232, 249, 0.025) 55%,
+        rgba(246, 180, 0, 0.055)
+      ),
+      rgba(2, 7, 13, 0.84);
+
+    box-shadow:
+      inset 0 0 18px rgba(103, 232, 249, 0.045),
+      0 8px 18px rgba(0, 0, 0, 0.35);
+
+    transition:
+      transform 120ms ease,
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      background 160ms ease;
+  }
+
+  .codex-archive-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background: linear-gradient(
+      90deg,
+      rgba(103, 232, 249, 0.14),
+      transparent 32%,
+      transparent 74%,
+      rgba(246, 180, 0, 0.08)
+    );
+
+    opacity: 0.35;
+  }
+
+  .codex-archive-item::after {
+    content: "";
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.65rem;
+
+    width: 32px;
+    height: 3px;
+
+    background: rgba(246, 180, 0, 0.8);
+    box-shadow: 0 0 10px rgba(246, 180, 0, 0.35);
+  }
+
+  .codex-archive-item:hover,
+  .codex-archive-item:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(103, 232, 249, 0.72);
+
+    box-shadow:
+      0 0 22px rgba(103, 232, 249, 0.16),
+      inset 0 0 16px rgba(103, 232, 249, 0.07),
+      0 12px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  .codex-archive-item__main {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+
+  .codex-archive-item__status {
+    display: block;
+
+    font-family: "Phoenix", monospace;
+    font-size: clamp(0.72rem, 2.5vw, 0.9rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+
+    color: #ffbd00;
+  }
+
+  .codex-archive-item__title {
+    margin: 0.35rem 0 0;
+    font-family: "Phoenix", var(--codex-font-display, monospace);
+    font-size: clamp(1.05rem, 5vw, 1.8rem);
+    line-height: 0.95;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    color: var(--codex-text);
+    text-shadow: 0 0 10px rgba(103, 232, 249, 0.24);
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .codex-archive-item__meta {
+    position: relative;
+    z-index: 1;
+
+    flex: 0 0 auto;
+    align-self: center;
+
+    padding: 0.42rem 0.62rem;
+
+    border: 1px solid rgba(246, 180, 0, 0.5);
+
+    color: var(--ntdc-hardware-yellow-bright);
+    background: rgba(246, 180, 0, 0.08);
+
+    font-family: "Phoenix", var(--codex-font-display, monospace);
+    font-size: clamp(0.7rem, 2.4vw, 0.9rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+  }
+
+  @media (max-width: 520px) {
+    .codex-archive-list {
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .codex-archive-item__title {
+      font-size: clamp(1rem, 8vw, 1.55rem);
+      letter-spacing: 0.025em;
+      line-height: 1;
+    }
+
+    .codex-archive-item {
+      min-height: 104px;
+      padding: 0.9rem;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .codex-archive-item__meta {
+      align-self: flex-start;
+    }
+  }
+</style>

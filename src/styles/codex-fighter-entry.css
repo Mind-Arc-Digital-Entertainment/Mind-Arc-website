@@ -57,7 +57,8 @@
   margin-top: 1.25rem;
   color: var(--codex-text);
   font-size: clamp(1rem, 2.5vw, 1.15rem);
-  line-height: 1.65;
+  line-height: 1.8;
+  letter-spacing: .3em;
 }
 
 .fighter-entry__meta-grid {
