@@ -7,7 +7,7 @@ const { subtitle = "Phoenix Vector Archive", status = "Archive Node Online" } =
 ---
 
 <section class="ntdc-frame">
-  <header class="ntdc-frame__header">
+  <header class="ntdc-nav-zone">
     <nav class="codex-nav" aria-label="Codex navigation">
       <button class="codex-nav__button" type="button" onclick="history.back()">
         Back
@@ -19,82 +19,23 @@ const { subtitle = "Phoenix Vector Archive", status = "Archive Node Online" } =
     </nav>
   </header>
 
-  <section class="ntdc-terminal" aria-label={subtitle}>
-    <header class="ntdc-terminal__header">
-      <div class="ntdc-terminal__identity">
-        <h1 class="ntdc-terminal__title">{subtitle}</h1>
-      </div>
-
-      <div class="ntdc-terminal__status">
-        <span class="ntdc-terminal__status-dot" aria-hidden="true"></span>
-        <span>{status}</span>
-      </div>
-    </header>
-
-    <div class="ntdc-terminal__divider"></div>
-
-    <main class="ntdc-terminal__screen">
-      <slot />
-    </main>
-
-    <div class="ntdc-terminal__divider"></div>
-
-    <footer class="ntdc-terminal__footer">
-      <TerminalFooter />
-    </footer>
-  </section>
-
-  <div class="ntdc-frame__footer"></div>
+  <div class="ntdc-display">
+    <slot />
+  </div>
 </section>
 
 <style>
-  /* =========================================================
-     N.T.D.C. Terminal Frame
-     Mobile-first component styling
-     ========================================================= */
-
   .ntdc-frame {
-    position: relative;
-
-    width: min(100% - 0.75rem, var(--codex-frame-width));
-    margin: 0.75rem auto;
-    padding: 0.65rem;
-
-    background: linear-gradient(
-      180deg,
-      var(--ntdc-hardware-yellow-bright),
-      var(--ntdc-hardware-yellow)
-    );
-
-    border-radius: var(--codex-radius);
-    box-shadow:
-      0 18px 45px rgba(0, 0, 0, 0.35),
-      inset 0 0 0 2px var(--ntdc-hardware-shadow);
+    width: min(100% - 1rem, 1120px);
+    height: 100vh;
+    margin: 0.75rem auto 2rem;
+    padding: 1rem;
+    overflow: hidden;
   }
 
-  .ntdc-frame__header,
-  .ntdc-frame__footer {
-    display: flex;
-    gap: 1rem;
-
-    font-family: var(--codex-font-terminal);
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.72);
+  .ntdc-nav-zone {
+    margin-bottom: 1rem;
   }
-
-  .ntdc-frame__header {
-    margin-bottom: 0.6rem;
-  }
-
-  .ntdc-frame__footer {
-    margin-top: 0.6rem;
-  }
-
-  /* =========================================================
-     Navigation
-     ========================================================= */
 
   .codex-nav {
     width: 100%;
@@ -138,75 +79,30 @@ const { subtitle = "Phoenix Vector Archive", status = "Archive Node Online" } =
     filter: brightness(1.08);
   }
 
-  /* =========================================================
-     Terminal Shell
-     ========================================================= */
+  .ntdc-display {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
 
   .ntdc-terminal {
-    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
-
-    width: 100%;
-    margin: 0 auto;
-    padding: clamp(1rem, 5vw, var(--codex-shell-padding));
-
-    color: var(--codex-text);
-
-    background:
-      radial-gradient(
-        circle at 50% 20%,
-        rgba(255, 255, 255, 0.045),
-        transparent 34%
-      ),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 28%),
-      var(--codex-panel);
-
-    border: var(--codex-border);
-    border-radius: var(--codex-radius-sm);
-    box-shadow: var(--codex-glow);
   }
-
-  .ntdc-terminal::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-
-    background: linear-gradient(
-      rgba(255, 255, 255, 0.02) 50%,
-      rgba(0, 0, 0, 0.055) 50%
-    );
-
-    background-size: 100% 4px;
-    opacity: 0.28;
-  }
-
-  .ntdc-terminal::after {
-    content: "";
-    position: absolute;
-    inset: 6px;
-
-    border: 1px solid rgba(246, 180, 0, 0.32);
-    border-radius: 3px;
-
-    pointer-events: none;
-  }
-
-  /* =========================================================
-     Terminal Header
-     ========================================================= */
 
   .ntdc-terminal__header {
     position: relative;
     z-index: 1;
-
     display: grid;
     gap: 0.85rem;
+    padding: 0.35rem 0 0.75rem;
   }
 
   .ntdc-terminal__title {
     margin: 0;
-
     font-family: "Phoenix", sans-serif;
     font-size: clamp(1.7rem, 13vw, 3.25rem);
     line-height: 0.92;
@@ -216,11 +112,9 @@ const { subtitle = "Phoenix Vector Archive", status = "Archive Node Online" } =
 
   .ntdc-terminal__status {
     width: fit-content;
-
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-
     font-family: "Orbitron", sans-serif;
     font-size: 0.68rem;
     letter-spacing: 0.13em;
@@ -231,57 +125,19 @@ const { subtitle = "Phoenix Vector Archive", status = "Archive Node Online" } =
   .ntdc-terminal__status-dot {
     width: 0.55rem;
     height: 0.55rem;
-
     border-radius: 999px;
     background: var(--codex-operational);
     box-shadow: 0 0 12px var(--codex-operational);
   }
 
-  /* =========================================================
-     Terminal Divider
-     ========================================================= */
-
-  .ntdc-terminal__divider {
-    position: relative;
-    z-index: 1;
-
-    height: 1px;
-    margin: clamp(1rem, 4vw, var(--codex-section-gap)) 0;
-
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(246, 180, 0, 0.18),
-      rgba(246, 180, 0, 0.55),
-      rgba(246, 180, 0, 0.18),
-      transparent
-    );
-  }
-
-  /* =========================================================
-     Terminal Screen
-     ========================================================= */
-
   .ntdc-terminal__screen {
     position: relative;
     z-index: 1;
-
-    min-height: 48vh;
-  }
-
-  .ntdc-terminal__screen::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-
-    background-image: url("/images/phoenixCoreLogo.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-
-    opacity: 0.03;
-    pointer-events: none;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.35rem;
   }
 
   .ntdc-terminal__screen > * {
@@ -289,18 +145,13 @@ const { subtitle = "Phoenix Vector Archive", status = "Archive Node Online" } =
     z-index: 1;
   }
 
-  /* =========================================================
-     Terminal Footer
-     ========================================================= */
-
   .ntdc-terminal__footer {
     position: relative;
     z-index: 1;
-
+    padding-top: 0.75rem;
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
-
     font-family: "Orbitron", sans-serif;
     font-size: 0.68rem;
     letter-spacing: 0.12em;
@@ -308,94 +159,35 @@ const { subtitle = "Phoenix Vector Archive", status = "Archive Node Online" } =
     color: var(--codex-dim);
   }
 
-  /* =========================================================
-     Breakpoints
-     ========================================================= */
-
   @media (min-width: 420px) {
-    .ntdc-frame {
-      width: min(100% - 1rem, var(--codex-frame-width));
-      margin-block: 1rem;
-      padding: 0.8rem;
-    }
-
     .codex-nav {
       grid-template-columns: repeat(2, 1fr);
-    }
-
-    .codex-nav__button {
-      font-size: 0.9rem;
     }
   }
 
   @media (min-width: 640px) {
     .ntdc-frame {
-      width: min(100% - 1.5rem, var(--codex-frame-width));
-      padding: 1rem;
+      width: min(100% - 3rem, 1120px);
+      padding: 1.25rem;
+      margin-block: 1.5rem 2.5rem;
     }
 
     .codex-nav {
       grid-template-columns: repeat(4, 1fr);
     }
-
-    .ntdc-terminal::after {
-      inset: 8px;
-    }
-
-    .ntdc-terminal__header {
-      grid-template-columns: 1fr auto;
-      align-items: start;
-    }
-
-    .ntdc-terminal__status {
-      justify-self: end;
-      margin-top: 0.2rem;
-    }
   }
 
   @media (min-width: 900px) {
     .ntdc-frame {
-      width: min(100% - 2rem, var(--codex-frame-width));
-      margin-block: 2rem;
-      padding: 1.15rem;
-    }
-
-    .ntdc-terminal {
-      width: min(calc(100% - 1rem), var(--codex-shell-width));
-    }
-
-    .codex-nav__button {
-      min-height: 2.75rem;
-    }
-
-    .ntdc-terminal__screen {
-      min-height: 70vh;
+      width: min(100% - 8rem, 1120px);
+      padding: 1.5rem;
+      margin-block: 2.5rem 3rem;
     }
   }
 
   @media (min-width: 1200px) {
     .ntdc-frame {
-      margin-block: 3rem;
-      padding: 1.25rem;
-    }
-
-    .ntdc-terminal {
-      width: min(calc(100% - 2rem), var(--codex-shell-width));
-    }
-  }
-
-  @media (max-width: 360px) {
-    .codex-nav__button {
-      min-height: 2.45rem;
-      padding-inline: 0.65rem;
-
-      font-size: 0.64rem;
-      letter-spacing: 0.1em;
-    }
-
-    .ntdc-terminal__status {
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
+      width: min(100% - 12rem, 1120px);
     }
   }
 </style>

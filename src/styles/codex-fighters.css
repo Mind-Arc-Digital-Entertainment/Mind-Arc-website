@@ -11,6 +11,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+  margin-top: 1em;
 }
 
 .fighter-card {

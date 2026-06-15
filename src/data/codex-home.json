@@ -30,5 +30,13 @@
     "fileCount": 1,
     "description": "",
     "source": "/data/codex/factions.json"
+  },
+    {
+    "id": "locations",
+    "title": "Locations",
+    "status": "Offline",
+    "fileCount": 1,
+    "description": "",
+    "source": "/data/codex/locations.json"
   }
-]
+] 
