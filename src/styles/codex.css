@@ -9,7 +9,7 @@
   box-sizing: border-box;
 }
 
-html,
+
 body {
   min-height: 100%;
   background:
@@ -61,11 +61,6 @@ body {
 
   --codex-font-ui: "Orbitron", system-ui, sans-serif;
   --codex-font-terminal: "Share Tech Mono", "Courier New", monospace;
-
-  --codex-shell-width: 1120px;
-  --codex-frame-width: 1280px;
-  --codex-shell-padding: clamp(1rem, 3vw, 2rem);
-  --codex-section-gap: clamp(1rem, 3vw, 1.75rem);
 }
 
 /* ---------- Hardware Frame ---------- */
