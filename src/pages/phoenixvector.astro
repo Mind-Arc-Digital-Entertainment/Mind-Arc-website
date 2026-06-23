@@ -18,26 +18,50 @@ import Layout from "../layouts/BaseLayout.astro";
 
       <section class="image-card-grid" aria-label="Phoenix Vector screenshots">
         <article class="image-card">
-          <img
-            src="/images/combatScreenshot.png"
-            alt="Phoenix Vector combat scene 1"
-          />
+          <button
+            class="image-card-button"
+            data-image="/images/bossScreenshot.png"
+            aria-label="View world screenshot"
+          >
+            <img
+              src="/images/bossScreenshot.png"
+              alt="Phoenix Vector world scene"
+            />
+          </button>
         </article>
 
         <article class="image-card">
-          <img
-            src="/images/worldScreenshot.png"
-            alt="Phoenix Vector world scene"
-          />
+          <button
+            class="image-card-button"
+            data-image="/images/worldScreenshot.png"
+            aria-label="View world screenshot"
+          >
+            <img
+              src="/images/worldScreenshot.png"
+              alt="Phoenix Vector world scene"
+            />
+          </button>
         </article>
 
         <article class="image-card">
-          <img
-            src="/images/bossScreenshot.png"
-            alt="Phoenix Vector combat scene 2"
-          />
+          <button
+            class="image-card-button"
+            data-image="/images/combatScreenshot2.png"
+            aria-label="View combat screenshot 2"
+          >
+            <img
+              src="/images/combatScreenshot2.png"
+              alt="Phoenix Vector combat scene 2"
+            />
+          </button>
         </article>
       </section>
+
+      <div class="lightbox" id="lightbox" hidden>
+        <button class="lightbox-close" aria-label="Close image"> ✕ </button>
+
+        <img id="lightbox-image" src="" alt="Expanded screenshot" />
+      </div>
 
       <section class="panel feature-panel">
         <div class="feature-grid">
@@ -51,8 +75,9 @@ import Layout from "../layouts/BaseLayout.astro";
             </p>
 
             <p>
-              With sharp moment-to-moment action and bold presentation, Phoenix Vector challenges you
-               to balance speed and firepower while surviving escalating enemy encounters.
+              With sharp moment-to-moment action and bold presentation, Phoenix
+              Vector challenges you to balance speed and firepower while
+              surviving escalating enemy encounters.
             </p>
 
             <ul class="feature-list">
@@ -235,40 +260,41 @@ import Layout from "../layouts/BaseLayout.astro";
   }
 
   .image-card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
 
-.image-card {
-  position: relative;
-  min-height: 220px;
-  border: 1px solid var(--panel-border);
-  border-radius: 18px;
-  background: rgba(7, 13, 26, 0.94);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
+  .image-card {
+    position: relative;
+    min-height: 220px;
+    height: 220px;
+    border: 1px solid var(--panel-border);
+    border-radius: 18px;
+    background: rgba(7, 13, 26, 0.94);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
 
-.image-card img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-}
+  .image-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
 
-.image-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(4, 8, 20, 0.05),
-    rgba(4, 8, 20, 0.35)
-  );
-  pointer-events: none;
-}
+  .image-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(4, 8, 20, 0.05),
+      rgba(4, 8, 20, 0.35)
+    );
+    pointer-events: none;
+  }
 
   .section-kicker {
     margin: 0 0 0.5rem;
@@ -403,6 +429,67 @@ import Layout from "../layouts/BaseLayout.astro";
     box-shadow: 0 16px 34px rgba(103, 232, 249, 0.3);
   }
 
+  .image-card-button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .image-card-button img {
+    transition: transform 0.25s ease;
+  }
+
+  .image-card-button:hover img {
+    transform: scale(1.04);
+  }
+
+  /* Fix 1: Hide lightbox properly — hidden attr loses to display:flex */
+  .lightbox[hidden] {
+    display: none !important;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(8px);
+  }
+
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 88vh;
+
+    border-radius: 16px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.65);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
   @media (max-width: 900px) {
     .feature-grid {
       grid-template-columns: 1fr;
@@ -447,3 +534,47 @@ import Layout from "../layouts/BaseLayout.astro";
     display: none !important;
   }
 </style>
+
+<script>
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = document.getElementById("lightbox-image");
+  const closeButton = document.querySelector(".lightbox-close");
+
+  function openLightbox(imageSrc) {
+    if (!lightbox || !lightboxImage) return;
+
+    lightboxImage.src = imageSrc;
+    lightbox.hidden = false;
+  }
+
+  function closeLightbox() {
+    if (!lightbox || !lightboxImage) return;
+
+    lightbox.hidden = true;
+    lightboxImage.src = "";
+  }
+
+  document.querySelectorAll(".image-card-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const imageSrc = button.getAttribute("data-image");
+
+      if (imageSrc) {
+        openLightbox(imageSrc);
+      }
+    });
+  });
+
+  lightbox?.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  closeButton?.addEventListener("click", closeLightbox);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !lightbox?.hidden) {
+      closeLightbox();
+    }
+  });
+</script>
