@@ -3,7 +3,7 @@
     "id": "fighters",
     "title": "Fighters",
     "status": "Online",
-    "fileCount": 2,
+    "fileCount": 3,
     "description": "",
     "source": "/data/codex/fighters.json"
   },
@@ -11,7 +11,7 @@
     "id": "personnel",
     "title": "Personnel",
     "status": "Online",
-    "fileCount": 3,
+    "fileCount": 0,
     "description": "",
     "source": "/data/codex/personnel.json"
   },
@@ -19,7 +19,7 @@
     "id": "vessels",
     "title": "Vessels",
     "status": "Online",
-    "fileCount": 1,
+    "fileCount": 0,
     "description": "",
     "source": "/data/codex/vessels.json"
   },
@@ -35,7 +35,7 @@
     "id": "locations",
     "title": "Locations",
     "status": "Offline",
-    "fileCount": 1,
+    "fileCount": 0,
     "description": "",
     "source": "/data/codex/locations.json"
   }
