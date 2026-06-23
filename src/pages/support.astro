@@ -1,0 +1,342 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+---
+
+<Layout title="Support Development | Mind Arc Games">
+  <main class="support-page">
+    <section class="support-hero">
+      <p class="eyebrow">Support Phoenix Vector</p>
+
+      <h1>Your support will help bring Phoenix Vector to launch.</h1>
+
+      <p class="lead">
+        Phoenix Vector is an independent sci-fi, side shooter built by Mind Arc
+        Games. Your support helps fund development, testing, publishing costs,
+        assets, tools, and the road toward the first public release.
+      </p>
+
+      <div class="support-actions">
+        <a
+          class="support-button support-button--primary"
+          href="https://www.givesendgo.com/support-phoenix-vector?utm_source=sharelink&utm_medium=copy_link&utm_campaign=support-phoenix-vector"
+          target="_blank"
+          rel="noopener"
+        >
+          Support Development
+        </a>
+
+        <a
+          class="support-button support-button--secondary"
+          href="/phoenixvector"
+        >
+          Phoenix Vector
+        </a>
+      </div>
+
+      <p class="support-note">Support is optional, but deeply appreciated.</p>
+    </section>
+
+    <section class="support-panel">
+      <h2>What your support helps with</h2>
+
+      <div class="support-grid">
+        <article>
+          <h3>Development Time</h3>
+          <p>
+            More focused time to build, polish, test, and prepare Phoenix Vector
+            for release.
+          </p>
+        </article>
+
+        <article>
+          <h3>Publishing Costs</h3>
+          <p>
+            Platform fees, store preparation, mobile testing, and production
+            expenses.
+          </p>
+        </article>
+
+        <article>
+          <h3>Creative Tools</h3>
+          <p>
+            Software, hardware, audio, visual assets, and systems needed to keep
+            improving the game.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="founder-note">
+      <div class="founder-profile">
+        <img
+          src="/images/joel.jpg"
+          alt="Joel Mondesir, Founder of Mind Arc Games"
+        />
+
+        <div class="founder-info">
+          <span class="founder-name">Joel Mondesir</span>
+          <span class="founder-title">Founder, Mind Arc Games</span>
+        </div>
+      </div>
+
+      <div class="founder-message">
+        <h2>A Note from the Founder</h2>
+
+        <p>
+          I started creating Phoenix Vector with a simple question: “Could I
+          build a great 2D shooter that was more than just mashing the fire
+          button?” I was determined to build something original and thoughtful.
+          It has been a long journey of learning new skills while sharpening old
+          ones.
+        </p>
+
+        <p>
+          Your support helps continue the development of Phoenix Vector and Mind
+          Arc Games, moving us toward launch while remaining independent. From
+          the bottom of my heart, thank you.
+        </p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .support-page {
+    width: min(1120px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: clamp(3rem, 8vw, 6rem) 0;
+    color: var(--text);
+  }
+
+  .support-hero {
+    text-align: center;
+    padding: clamp(2rem, 6vw, 4.5rem);
+    border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+    border-radius: 1.5rem;
+    background:
+      radial-gradient(
+        circle at top,
+        color-mix(in oklab, var(--accent) 18%, transparent),
+        transparent 45%
+      ),
+      color-mix(in oklab, var(--surface) 88%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .support-hero h1 {
+    margin: 0;
+    font-size: clamp(2.25rem, 7vw, 5rem);
+    line-height: 0.95;
+  }
+
+  .lead {
+    max-width: 720px;
+    margin: 1.25rem auto 0;
+    color: color-mix(in oklab, var(--text) 78%, transparent);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+  }
+
+  .support-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .support-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.85rem 1.15rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 800;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .support-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .support-button--primary {
+    color: color-mix(in oklab, var(--surface) 90%, black);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+  }
+
+  .support-button--secondary {
+    color: var(--text);
+    border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
+    background: color-mix(in oklab, var(--surface) 70%, transparent);
+  }
+
+  .support-note {
+    margin: 1rem 0 0;
+    font-size: 0.85rem;
+    color: color-mix(in oklab, var(--text) 65%, transparent);
+  }
+
+  .support-panel,
+  .founder-note {
+    margin-top: 1.25rem;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
+    border-radius: 1.25rem;
+    background: color-mix(in oklab, var(--surface) 82%, transparent);
+  }
+
+  .support-panel h2,
+  .founder-note h2 {
+    margin: 0 0 1rem;
+    color: var(--accent);
+  }
+
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .support-grid article {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: color-mix(in oklab, var(--surface) 72%, black);
+    border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+  }
+
+  .support-grid h3 {
+    margin: 0 0 0.5rem;
+  }
+
+  .support-grid p,
+  .support-panel,
+  .founder-note {
+    margin-top: 1.25rem;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
+    border-radius: 1.25rem;
+    background: color-mix(in oklab, var(--surface) 82%, transparent);
+  }
+
+  .support-panel h2,
+  .founder-note h2 {
+    margin: 0 0 1rem;
+    color: var(--accent);
+  }
+
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .support-grid article {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: color-mix(in oklab, var(--surface) 72%, black);
+    border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+  }
+
+  .support-grid h3 {
+    margin: 0 0 0.5rem;
+  }
+
+  .support-grid p,
+  .founder-note p {
+    margin: 0;
+    color: color-mix(in oklab, var(--text) 75%, transparent);
+    line-height: 1.7;
+  }
+
+  .founder-note {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .founder-profile {
+    flex-shrink: 0;
+    text-align: center;
+  }
+
+  .founder-profile img {
+    width: 240px;
+    height: 240px;
+
+    display: block;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    border: 2px solid cyan;
+  }
+
+  .founder-info {
+    margin-top: 0.5rem;
+  }
+
+  .founder-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .founder-title {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.75;
+  }
+
+  .founder-message {
+    flex: 1;
+  }
+
+  .founder-message p + p {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 760px) {
+    .support-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .support-button {
+      width: 100%;
+    }
+
+    .founder-note {
+      flex-direction: column;
+    }
+
+    .founder-profile {
+      align-self: center;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .support-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .support-button {
+      width: 100%;
+    }
+  }
+</style>
