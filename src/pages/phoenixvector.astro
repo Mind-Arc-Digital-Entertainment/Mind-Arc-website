@@ -16,21 +16,43 @@ import Layout from "../layouts/BaseLayout.astro";
 
       <section class="panel phoenix-image-panel" aria-hidden="true"></section>
 
+      <section class="image-card-grid" aria-label="Phoenix Vector screenshots">
+        <article class="image-card">
+          <img
+            src="/images/combatScreenshot.png"
+            alt="Phoenix Vector combat scene 1"
+          />
+        </article>
+
+        <article class="image-card">
+          <img
+            src="/images/worldScreenshot.png"
+            alt="Phoenix Vector world scene"
+          />
+        </article>
+
+        <article class="image-card">
+          <img
+            src="/images/bossScreenshot.png"
+            alt="Phoenix Vector combat scene 2"
+          />
+        </article>
+      </section>
+
       <section class="panel feature-panel">
         <div class="feature-grid">
           <div class="feature-copy">
             <h2>Combat in the Aurelia System</h2>
 
             <p>
-              Sharp, moment to moment action and bold
-              presentation, Phoenix Vector will challenges you to balance speed and firepower
-              while surviving escalating enemy encounters across.
-            </p>
-
-            <p>
               <strong>Phoenix Vector</strong> is a side-scrolling sci-fi combat experience
               set in the distant Aurelia System, a region of distant space with hostile
               enemy fleets, luminous worlds, and an escalating conflict.
+            </p>
+
+            <p>
+              With sharp moment-to-moment action and bold presentation, Phoenix Vector challenges you
+               to balance speed and firepower while surviving escalating enemy encounters.
             </p>
 
             <ul class="feature-list">
@@ -46,9 +68,9 @@ import Layout from "../layouts/BaseLayout.astro";
             <div class="feature-card-inner">
               <h3>The Codex</h3>
               <p>
-                The central command archive of Phoenix Vector detailing ships, personnel,
-                locations, and the evolving conflict across the Aurelia
-                System.
+                The central command archive of Phoenix Vector detailing ships,
+                personnel, locations, and the evolving conflict across the
+                Aurelia System.
               </p>
 
               <div class="feature-actions">
@@ -211,6 +233,42 @@ import Layout from "../layouts/BaseLayout.astro";
     );
     pointer-events: none;
   }
+
+  .image-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.image-card {
+  position: relative;
+  min-height: 220px;
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  background: rgba(7, 13, 26, 0.94);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.image-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.image-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(4, 8, 20, 0.05),
+    rgba(4, 8, 20, 0.35)
+  );
+  pointer-events: none;
+}
 
   .section-kicker {
     margin: 0 0 0.5rem;

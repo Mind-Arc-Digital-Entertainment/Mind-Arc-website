@@ -135,6 +135,21 @@ const year = new Date().getFullYear();
     color: color-mix(in oklab, var(--accent) 80%, white);
   }
 
+  .support-link {
+    color: var(--accent) !important;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .support-link::before {
+    content: "✦ ";
+    opacity: 0.85;
+  }
+
+  .support-link:hover {
+    color: color-mix(in oklab, var(--accent) 82%, white) !important;
+  }
+
   @media (max-width: 600px) {
     .footer {
       padding: 0.75rem 0.75rem calc(0.75rem + env(safe-area-inset-bottom));
@@ -173,6 +188,10 @@ const year = new Date().getFullYear();
 
     <nav class="footer-nav" aria-label="Footer links">
       <ul class="link-grid">
+        <li>
+          <a class="support-link" href="/support">Support Development</a>
+        </li>
+
         <li><a href="/terms">Terms of Use</a></li>
         <li><a href="/privacy">Privacy</a></li>
       </ul>
