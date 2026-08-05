@@ -1,0 +1,556 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+---
+
+<Layout title="Phoenix Vector: Assault | Mind Arc Games">
+  <main class="assault-page">
+    <div class="assault-shell">
+      <section class="hero">
+        <p class="eyebrow">Mind Arc Games presents...</p>
+
+        <h1>Assault</h1>
+
+        <p class="hero-subtitle">
+          A free browser-based arcade shooter set in the Phoenix Vector
+          universe.
+        </p>
+      </section>
+
+      <section class="panel game-panel">
+        <div class="game-preview">
+          <img
+            class="game-preview-image"
+            src="/images/AssaultHero_fade.png"
+            alt=""
+            aria-hidden="true"
+          />
+
+          <div class="game-preview-overlay"></div>
+
+          <div class="preview-content">
+            <p class="section-kicker">The Battle Begins</p>
+
+            <h2>Survive the Assault</h2>
+
+            <p>
+              Pilot the fourth-generation Vanguard-class KX-4 Kestrel. Survive relentless waves of enemy forces in this fast-paced arcade space shooter.
+            </p>
+
+            <a href="/assault/play/" class="btn btn-primary">Play Now</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="information-grid">
+        <article class="panel information-card">
+          <p class="section-kicker">Gamepad or Keyboard</p>
+
+          <h2>How to Play</h2>
+
+          <dl class="controls-list">
+            <div>
+              <dt>Move</dt>
+              <dd>WASD / Arrow Keys</dd>
+            </div>
+
+            <div>
+              <dt>Fire</dt>
+              <dd>Left Mouse Button / Spacebar</dd>
+            </div>
+          </dl>
+
+          <div class="control-images" aria-label="Supported control devices">
+            <img
+              src="/images/gamepad.png"
+              alt="Gamepad"
+              class="control-image"
+            />
+
+            <img
+              src="/images/keyboard.png"
+              alt="Keyboard and mouse"
+              class="control-image"
+            />
+          </div>
+        </article>
+
+        <article class="panel information-card">
+          <p class="section-kicker">Your Feedback Matters</p>
+
+          <h2>Help Shape the game</h2>
+
+          <p>
+            Share your experience. Player feedback will help guide future
+            development of this growing project.
+          </p>
+
+          <a href="/support/" class="btn btn-secondary"> Submit Feedback </a>
+        </article>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  :root {
+    --bg: #040814;
+    --bg-deep: #02050d;
+    --panel: rgba(7, 13, 26, 0.94);
+    --panel-soft: rgba(14, 25, 47, 0.88);
+    --panel-border: rgba(103, 232, 249, 0.18);
+    --text: #dbe7f5;
+    --text-soft: #9fb2c9;
+    --heading: #f8fbff;
+    --cyan: #67e8f9;
+    --cyan-strong: #22d3ee;
+    --gold: #ffc857;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  }
+
+  .assault-page {
+    position: relative;
+    min-height: 100vh;
+    padding: 1.5rem 1.25rem 3rem;
+    background:
+      radial-gradient(
+        circle at top center,
+        rgba(34, 211, 238, 0.13),
+        transparent 30%
+      ),
+      radial-gradient(
+        circle at 18% 22%,
+        rgba(255, 200, 87, 0.08),
+        transparent 20%
+      ),
+      linear-gradient(180deg, #081120 0%, var(--bg) 55%, var(--bg-deep) 100%);
+    overflow: hidden;
+  }
+
+  .assault-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.08)
+    );
+    pointer-events: none;
+  }
+
+  .assault-shell {
+    position: relative;
+    z-index: 1;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    padding: 2rem 0 1.75rem;
+    text-align: center;
+  }
+
+  .eyebrow,
+  .section-kicker {
+    margin: 0 0 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .section-kicker {
+    color: var(--gold);
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(2.75rem, 6vw, 4.75rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--heading);
+    text-shadow:
+      0 0 18px rgba(103, 232, 249, 0.12),
+      0 0 40px rgba(103, 232, 249, 0.08);
+  }
+
+  .hero h1 span {
+    font-size: 0.36em;
+    letter-spacing: 0.18em;
+    color: var(--cyan);
+  }
+
+  .hero-subtitle {
+    max-width: 720px;
+    margin: 1.25rem auto 0;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.75rem;
+  }
+
+  .panel {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 2rem;
+    border: 1px solid var(--panel-border);
+    border-radius: 22px;
+    background: linear-gradient(180deg, var(--panel-soft), var(--panel));
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+  }
+
+  .panel h2,
+  .feature-card h3 {
+    margin: 0;
+    color: var(--heading);
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .panel h2 {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+  }
+
+  .panel h3 {
+    font-size: 1.3rem;
+  }
+
+  .panel p,
+  .controls-list {
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .game-panel {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .game-preview {
+    position: relative;
+    min-height: 480px;
+    display: flex;
+    align-items: flex-end;
+    padding: 2.5rem;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .game-preview-image {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .game-preview-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      linear-gradient(to top, rgba(2, 5, 13, 0.98), rgba(2, 5, 13, 0.2) 65%),
+      radial-gradient(
+        circle at center,
+        rgba(34, 211, 238, 0.2),
+        transparent 40%
+      );
+    pointer-events: none;
+  }
+
+  .preview-content {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+  }
+
+  .preview-content h2 {
+    margin-bottom: 1rem;
+  }
+
+  .preview-content p {
+    margin-bottom: 1.4rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  .content-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .content-copy h2 {
+    margin-bottom: 1rem;
+  }
+
+  .status-card {
+    padding: 1.5rem;
+    border: 1px solid rgba(103, 232, 249, 0.15);
+    border-radius: 18px;
+    background:
+      radial-gradient(
+        circle at top right,
+        rgba(103, 232, 249, 0.12),
+        transparent 40%
+      ),
+      rgba(255, 255, 255, 0.025);
+  }
+
+  .status-label {
+    margin-top: 0;
+    color: var(--cyan) !important;
+    font-size: 0.78rem !important;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .status-card h3 {
+    margin-bottom: 0.8rem;
+  }
+
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 0.75rem;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .status-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 14px rgba(103, 232, 249, 0.8);
+  }
+
+  .information-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .information-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .information-card h2 {
+    margin-bottom: 1rem;
+  }
+
+  .controls-list {
+    margin: 1.25rem 0 0;
+  }
+
+  .controls-list div {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(103, 232, 249, 0.12);
+  }
+
+  .controls-list div:last-child {
+    border-bottom: 0;
+  }
+
+  .controls-list dt {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .controls-list dd {
+    margin: 0;
+    color: var(--text);
+  }
+
+  .control-images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 6vw, 4rem);
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(103, 232, 249, 0.12);
+  }
+
+  .control-image {
+    display: block;
+    width: auto;
+    max-width: 150px;
+    max-height: 86px;
+    object-fit: contain;
+    opacity: 0.82;
+  }
+
+  .universe-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .universe-panel div {
+    max-width: 720px;
+  }
+
+  .universe-panel h2 {
+    margin-bottom: 0.8rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 160px;
+    padding: 0.95rem 1.5rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease,
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    color: #031018;
+    background: linear-gradient(135deg, var(--cyan), #a5f3fc);
+    box-shadow: 0 10px 30px rgba(103, 232, 249, 0.22);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 16px 34px rgba(103, 232, 249, 0.32);
+  }
+
+  .btn-secondary {
+    color: var(--heading);
+    border-color: rgba(103, 232, 249, 0.35);
+    background: rgba(7, 13, 26, 0.7);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--cyan);
+    background: rgba(34, 211, 238, 0.1);
+  }
+
+  @media (max-width: 900px) {
+    .content-grid,
+    .information-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .universe-panel {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .assault-page {
+      padding: 2rem 1rem;
+    }
+
+    .hero {
+      padding-top: 1rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+
+    .panel {
+      padding: 1.4rem;
+      border-radius: 18px;
+    }
+
+    .game-panel {
+      padding: 0;
+    }
+
+    .game-preview {
+      min-height: 400px;
+      padding: 1.5rem;
+      background-position: center;
+    }
+
+    .controls-list div {
+      grid-template-columns: 90px 1fr;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .game-preview {
+      min-height: 340px;
+    }
+
+    .controls-list div {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+
+    .control-images {
+      gap: 1.5rem;
+    }
+
+    .control-image {
+      max-width: 115px;
+      max-height: 70px;
+    }
+  }
+</style>
