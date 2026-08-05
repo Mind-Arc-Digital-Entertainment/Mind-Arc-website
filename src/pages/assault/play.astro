@@ -56,14 +56,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     }
   }
 
-  const buildUrl = "/assault/Build";
-  const loaderUrl = `${buildUrl}/Assault_WebGL.loader.js`;
+  const buildUrl = "/assault/play/Build";
+  const loaderUrl = `${buildUrl}/WebGL.loader.js`;
 
   const config = {
     arguments: [],
-    dataUrl: `${buildUrl}/Assault_WebGL.data.unityweb`,
-    frameworkUrl: `${buildUrl}/Assault_WebGL.framework.js.unityweb`,
-    codeUrl: `${buildUrl}/Assault_WebGL.wasm.unityweb`,
+    dataUrl: `${buildUrl}/WebGL.data.unityweb`,
+    frameworkUrl: `${buildUrl}/WebGL.framework.js.unityweb`,
+    codeUrl: `${buildUrl}/WebGL.wasm.unityweb`,
     streamingAssetsUrl: "/assault/play/StreamingAssets",
     companyName: "Mind Arc Games",
     productName: "Phoenix Vector: Assault",
