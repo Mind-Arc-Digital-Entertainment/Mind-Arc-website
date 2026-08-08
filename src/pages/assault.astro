@@ -28,6 +28,11 @@ import Layout from "../layouts/BaseLayout.astro";
           <div class="game-preview-overlay"></div>
 
           <div class="preview-content">
+            <div class="network-requirement">
+              <span class="network-requirement-label">Mind Arc Network</span>
+              <span>account required to play.</span>
+            </div>
+
             <p class="section-kicker">The Battle Begins</p>
 
             <h2>Survive the Assault</h2>
@@ -37,11 +42,6 @@ import Layout from "../layouts/BaseLayout.astro";
               relentless waves of enemy forces in this fast-paced arcade space
               shooter.
             </p>
-
-            <div class="network-requirement">
-              <span class="network-requirement-label">Mind Arc Network</span>
-              <span>Free account required to play.</span>
-            </div>
 
             <a href="/assault/play/" class="btn btn-primary">Play Now</a>
           </div>
@@ -296,6 +296,7 @@ import Layout from "../layouts/BaseLayout.astro";
     position: relative;
     z-index: 1;
     max-width: 620px;
+    padding: 2rem 0;
   }
 
   .preview-content h2 {
