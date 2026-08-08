@@ -1,0 +1,646 @@
+---
+// src/components/LoginModal.astro
+---
+
+<div class="login-modal" id="login-modal" aria-hidden="true">
+  <div class="login-backdrop" data-login-close></div>
+
+  <section
+    class="login-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="login-title"
+  >
+    <button
+      class="login-close"
+      type="button"
+      aria-label="Close login"
+      data-login-close
+    >
+      ×
+    </button>
+
+    <div class="login-header">
+      <p class="login-eyebrow">Mind Arc Games</p>
+
+      <h2 id="login-title">Sign In</h2>
+
+      <p
+        class="login-subtitle"
+        id="login-status"
+        role="status"
+        aria-live="polite"
+      >
+      </p>
+    </div>
+
+    <form method="POST" action="/account/login" class="login-form">
+      <label class="field">
+        <span>Email</span>
+
+        <input
+          id="login-email"
+          type="email"
+          name="email"
+          autocomplete="email"
+          required
+        />
+      </label>
+
+      <label class="field">
+        <span>Password</span>
+
+        <input
+          id="login-password"
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          required
+        />
+      </label>
+
+      <button type="submit" class="login-submit"> Log In </button>
+    </form>
+
+    <a href="/account/forgot-password" class="forgot-link">
+      Forgot password?
+    </a>
+
+    <div class="account-divider"></div>
+
+    <div class="create-account">
+      <p>New to Mind Arc?</p>
+
+      <a href="/account/register" class="create-account-button">
+        Create Account
+      </a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const modal = document.querySelector("#login-modal");
+  const status = document.querySelector("#login-status");
+  const emailInput = document.querySelector("#login-email");
+  const passwordInput = document.querySelector("#login-password");
+
+  const openButtons = document.querySelectorAll("[data-login-open]");
+  const closeButtons = document.querySelectorAll("[data-login-close]");
+
+  const openModal = () => {
+    if (!(modal instanceof HTMLElement)) return;
+
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    if (emailInput instanceof HTMLInputElement) {
+      requestAnimationFrame(() => emailInput.focus());
+    }
+  };
+
+  const closeModal = () => {
+    if (!(modal instanceof HTMLElement)) return;
+
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+
+  const showStatus = (message: string, type: "error" | "success" = "error") => {
+    if (!(status instanceof HTMLElement)) return;
+
+    status.textContent = message;
+    status.classList.remove("error", "success");
+    status.classList.add(type);
+  };
+
+  const clearStatus = () => {
+    if (!(status instanceof HTMLElement)) return;
+
+    status.textContent = "";
+    status.classList.remove("error", "success");
+  };
+
+  openButtons.forEach((button) => {
+    button.addEventListener("click", openModal);
+  });
+
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", closeModal);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+
+  emailInput?.addEventListener("input", clearStatus);
+  passwordInput?.addEventListener("input", clearStatus);
+
+  const params = new URLSearchParams(window.location.search);
+
+  const loginState = params.get("login");
+  const reason = params.get("reason");
+  const email = params.get("email");
+
+  if (email && emailInput instanceof HTMLInputElement) {
+    emailInput.value = email;
+  }
+
+  /*
+   * Explicit request to open the login modal.
+   *
+   * Example:
+   * /?login=1
+   */
+  if (loginState === "1") {
+    openModal();
+
+    window.history.replaceState({}, "", window.location.pathname);
+  }
+
+  /*
+   * Login / authentication errors.
+   */
+  if (loginState === "error") {
+    switch (reason) {
+      case "missing":
+        showStatus("Enter a valid email and password.");
+        break;
+
+      case "unconfirmed":
+        showStatus("Please confirm your email before signing in.");
+        break;
+
+      case "invalid-auth-link":
+        showStatus("This authentication link is invalid.");
+        break;
+
+      case "email-confirmation-failed":
+        showStatus(
+          "We couldn't confirm your email. The link may have expired.",
+        );
+        break;
+
+      case "password-reset-link-invalid":
+        showStatus("This password reset link is invalid or has expired.");
+        break;
+
+      case "password-reset-session-expired":
+        showStatus(
+          "Your password reset session has expired. Please request a new link.",
+        );
+        break;
+
+      case "auth-confirmation-exception":
+        showStatus(
+          "Something went wrong while verifying your request. Please try again.",
+        );
+        break;
+
+      default:
+        showStatus("Incorrect log-in credentials.");
+        break;
+    }
+
+    openModal();
+
+    if (
+      passwordInput instanceof HTMLInputElement &&
+      (reason === "missing" || reason === "invalid" || !reason)
+    ) {
+      requestAnimationFrame(() => passwordInput.focus());
+    }
+
+    window.history.replaceState({}, "", window.location.pathname);
+  }
+
+  /*
+   * Authentication success messages.
+   */
+  if (loginState === "success") {
+    switch (reason) {
+      case "password-updated":
+        showStatus("Password updated successfully. Please sign in.", "success");
+        break;
+
+      default:
+        showStatus("Success. Please sign in.", "success");
+        break;
+    }
+
+    openModal();
+
+    window.history.replaceState({}, "", window.location.pathname);
+  }
+</script>
+
+<style>
+  .login-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+
+    display: grid;
+    place-items: center;
+
+    padding: 1.5rem;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
+  }
+
+  .login-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .login-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.66);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .login-panel {
+    position: relative;
+    z-index: 1;
+
+    width: min(420px, 100%);
+    box-sizing: border-box;
+
+    padding: 2.3rem 2rem 2rem;
+
+    background: linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--surface) 96%, black),
+      var(--surface)
+    );
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    box-shadow:
+      0 28px 90px rgba(0, 0, 0, 0.52),
+      0 0 28px color-mix(in oklab, var(--accent) 7%, transparent);
+  }
+
+  .login-close {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.95rem;
+
+    display: grid;
+    place-items: center;
+
+    width: 2rem;
+    height: 2rem;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 6px;
+
+    background: transparent;
+
+    color: var(--text);
+
+    font: inherit;
+    font-size: 1.45rem;
+    line-height: 1;
+
+    cursor: pointer;
+
+    opacity: 0.58;
+
+    transition:
+      color 0.2s ease,
+      opacity 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .login-close:hover {
+    color: var(--accent);
+    opacity: 1;
+
+    background: color-mix(in oklab, var(--surface) 80%, white 4%);
+  }
+
+  .login-close:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    opacity: 1;
+  }
+
+  .login-header {
+    text-align: center;
+
+    margin-bottom: 1.65rem;
+  }
+
+  .login-eyebrow {
+    margin: 0 0 0.45rem;
+
+    font-family: "Michroma", sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+
+    opacity: 0.58;
+  }
+
+  .login-header h2 {
+    margin: 0;
+
+    font-family: "Michroma", sans-serif;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    letter-spacing: 0.06em;
+
+    color: var(--text);
+  }
+
+  .login-subtitle {
+    margin: 0.85rem auto 0;
+
+    max-width: 21rem;
+
+    font-size: 0.84rem;
+    line-height: 1.45;
+
+    opacity: 0.7;
+
+    transition:
+      color 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .login-subtitle:empty {
+    display: none;
+  }
+
+  .login-subtitle.error {
+    color: #ff6b6b;
+    opacity: 1;
+  }
+
+  .login-subtitle.success {
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  .login-form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .field {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .field span {
+    font-family: "Michroma", sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    opacity: 0.72;
+  }
+
+  .field input {
+    width: 100%;
+    min-height: 46px;
+    box-sizing: border-box;
+
+    padding: 0.82rem 0.92rem;
+
+    border: 1px solid var(--border);
+    border-radius: 7px;
+
+    background: color-mix(in oklab, var(--surface) 92%, black);
+
+    color: var(--text);
+
+    font: inherit;
+    font-size: 0.96rem;
+
+    outline: none;
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .field input:hover {
+    border-color: color-mix(in oklab, var(--border) 72%, var(--text));
+  }
+
+  .field input:focus {
+    border-color: var(--accent);
+
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 18%, transparent);
+
+    background: color-mix(in oklab, var(--surface) 94%, black);
+  }
+
+  .field input::selection {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .login-submit,
+  .create-account-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 44px;
+    box-sizing: border-box;
+
+    padding: 0.8rem 1rem;
+
+    border-radius: 7px;
+
+    font-family: "Michroma", sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .login-submit {
+    margin-top: 0.35rem;
+
+    border: 1px solid var(--accent);
+
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .login-submit:hover {
+    transform: translateY(-1px);
+
+    box-shadow: 0 0 16px color-mix(in oklab, var(--accent) 30%, transparent);
+  }
+
+  .login-submit:active {
+    transform: translateY(0);
+  }
+
+  .login-submit:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+  }
+
+  .forgot-link {
+    display: block;
+
+    width: fit-content;
+
+    margin: 1rem auto 0;
+
+    color: var(--text);
+
+    font-size: 0.8rem;
+    line-height: 1.4;
+
+    text-align: center;
+    text-decoration: none;
+
+    opacity: 0.74;
+
+    transition:
+      color 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .forgot-link:hover {
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  .forgot-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 3px;
+
+    opacity: 1;
+  }
+
+  .account-divider {
+    height: 1px;
+
+    margin: 1.35rem 0 1.25rem;
+
+    background: var(--border);
+
+    opacity: 0.9;
+  }
+
+  .create-account {
+    text-align: center;
+  }
+
+  .create-account p {
+    margin: 0 0 0.8rem;
+
+    font-size: 0.85rem;
+    line-height: 1.4;
+
+    opacity: 0.76;
+  }
+
+  .create-account-button {
+    border: 1px solid var(--border);
+
+    color: var(--text);
+
+    background: transparent;
+  }
+
+  .create-account-button:hover {
+    transform: translateY(-1px);
+
+    border-color: var(--accent);
+    color: var(--accent);
+
+    background: color-mix(in oklab, var(--accent) 5%, transparent);
+  }
+
+  .create-account-button:active {
+    transform: translateY(0);
+  }
+
+  .create-account-button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 480px) {
+    .login-modal {
+      padding: 1rem;
+    }
+
+    .login-panel {
+      padding: 2.15rem 1.25rem 1.5rem;
+
+      border-radius: 12px;
+    }
+
+    .login-header {
+      margin-bottom: 1.45rem;
+    }
+
+    .login-header h2 {
+      font-size: 1.3rem;
+    }
+
+    .login-subtitle {
+      font-size: 0.8rem;
+    }
+
+    .field input {
+      min-height: 45px;
+    }
+
+    .login-submit,
+    .create-account-button {
+      min-height: 44px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .login-modal,
+    .login-close,
+    .login-subtitle,
+    .field input,
+    .login-submit,
+    .forgot-link,
+    .create-account-button {
+      transition: none;
+    }
+  }
+</style>

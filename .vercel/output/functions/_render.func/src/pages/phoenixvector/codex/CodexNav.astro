@@ -1,0 +1,10 @@
+---
+const { backHref = "/phoenixvector/codex/" } = Astro.props;
+---
+
+<nav class="codex-nav" aria-label="Codex navigation">
+  <a class="codex-nav__button" href={backHref}>Back</a>
+  <a class="codex-nav__button" href="/phoenixvector/codex/">Codex Home</a>
+  <a class="codex-nav__button" href="/phoenixvector/">Phoenix Vector</a>
+  <a class="codex-nav__button" href="/">Mind Arc</a>
+</nav>

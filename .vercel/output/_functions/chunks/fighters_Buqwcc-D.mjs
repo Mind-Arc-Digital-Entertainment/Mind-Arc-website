@@ -1,0 +1,49 @@
+const fighters = [
+	{
+		name: "Sagitta",
+		"class": "Phoenix",
+		designation: "SG-Delta-1",
+		slug: "sagitta",
+		href: "/phoenixvector/codex/fighters/sagitta/",
+		status: "Declassified",
+		archiveEntry: "F-001",
+		parent: "fighters",
+		description: [
+			"The Mark 1 Phoenix-class tactical interceptor, dubbed \"Sagitta\", was developed as the first operational platform for groundbreaking Vector Reactor technology. The culmination of Project Vector, the fighter proved that stabilized plasma lattice systems could be reliably deployed in a frontline combat role.",
+			"The Sagitta's success directly enabled the Phoenix Initiative and ushered in a new generation of all-domain tactical fighters capable of sustained operations in virtually any non-solid environment."
+		],
+		image: "/images/sagitta.png"
+	},
+	{
+		name: "Aquila",
+		"class": "Phoenix",
+		designation: "AQ-Delta-2",
+		slug: "aquila",
+		href: "/phoenixvector/codex/fighters/aquila/",
+		status: "Declassified",
+		archiveEntry: "F-002",
+		parent: "fighters",
+		description: [
+			"The Mark 2 Phoenix-class tactical interceptor developed following the unprecedented success of the Sagitta program. Building upon the foundation established by Project Vector and the Phoenix Initiative, the Aquila introduced a refined Vector Reactor architecture, enhanced flight systems, and a new generation of combat avionics designed to further expand the capabilities of the Phoenix platform.",
+			"Piloted by Commander Sophia Locke, the Aquila remains one of the most advanced Phoenix-class interceptors ever constructed. Its exceptional balance of speed, agility, and combat effectiveness served as a benchmark for subsequent Phoenix development and demonstrated the continued evolution of Dr. Atlas's revolutionary design philosophy."
+		],
+		image: "/images/aquila.png"
+	},
+	{
+		name: "Kestrel",
+		designation: "KX-4",
+		"class": "Vanguard",
+		slug: "kestrel",
+		href: "/phoenixvector/codex/fighters/kestrel/",
+		status: "Declassified",
+		archiveEntry: "F-003",
+		parent: "fighters",
+		description: [
+			"The KX-4 Kestrel is a Vanguard-class light assault fighter designed to serve as the primary combat aircraft of the Neo Terra Defense Core. Emphasizing durability, maintainability, and operational flexibility over raw combat performance, the Kestrel was engineered to excel in prolonged deployments across a wide range of mission profiles.",
+			"Featuring reinforced hull architecture and highly reliable flight systems, the Kestrel has earned a reputation as a dependable frontline platform despite its comparatively modest offensive capabilities. While unable to match the more advanced Phoenix-class interceptors in speed or firepower, the Kestrel remains an indispensable component of N.T.D.C. fleet operations throughout the Aurelia System."
+		],
+		image: "/images/kestrel.png"
+	}
+];
+
+export { fighters as f };

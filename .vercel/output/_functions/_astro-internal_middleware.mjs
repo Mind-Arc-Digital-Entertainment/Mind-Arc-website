@@ -1,11 +1,10 @@
-import { d as defineMiddleware, s as sequence } from './chunks/index_aA4jym51.mjs';
+import { d as defineMiddleware, s as sequence } from './chunks/index_C9b4aNxF.mjs';
 import { createServerClient, parseCookieHeader } from '@supabase/ssr';
 import 'es-module-lexer';
-import './chunks/astro-designed-error-pages_CxhWdi-A.mjs';
-import 'kleur/colors';
-import './chunks/astro/server_DFe_VQT-.mjs';
+import './chunks/astro-designed-error-pages_BJvlWC8q.mjs';
+import 'piccolore';
+import './chunks/astro/server_CvNkiJ_b.mjs';
 import 'clsx';
-import 'cookie';
 
 function createSupabaseServerClient({
   request,

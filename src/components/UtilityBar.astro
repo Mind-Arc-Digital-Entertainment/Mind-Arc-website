@@ -1,3 +1,69 @@
+---
+const {
+  data: { user },
+} = await Astro.locals.supabase.auth.getUser();
+
+let mindArcId: string | null = null;
+
+if (user) {
+  const { data: profile, error } = await Astro.locals.supabase
+    .from("profiles")
+    .select("username")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Unable to load player profile:", error.message);
+  }
+
+  mindArcId = profile?.username ?? null;
+}
+---
+
+<div class="utility-bar">
+  <div class="utility-left">
+    <div class="logo">
+      <a href="/" class="utility-link" aria-label="Go to homepage">
+        <img src="/images/mindarcNoplanelogo.png" alt="Mind Arc Logo" />
+      </a>
+    </div>
+  </div>
+
+  <nav class="utility-nav" aria-label="Primary">
+    <a href="/phoenixvector" class="nav-link">Phoenix Vector</a>
+    <a href="/assault" class="nav-link">Assault</a>
+  </nav>
+
+  <div class="utility-right">
+    {
+      user ? (
+        <>
+          <a href="/account/profile" class="player-link">
+            <span class="player-label">Mind Arc ID</span>
+            <span class="player-name">{mindArcId ?? "Player"}</span>
+          </a>
+
+          <form method="POST" action="/account/logout" class="logout-form">
+            <button type="submit" class="utility-link logout-button">
+              Log Out
+            </button>
+          </form>
+        </>
+      ) : (
+        <>
+          <button
+            type="button"
+            class="utility-link utility-login-button"
+            data-login-open
+          >
+            Sign-In
+          </button>
+        </>
+      )
+    }
+  </div>
+</div>
+
 <style>
   .utility-bar {
     position: sticky;
@@ -59,7 +125,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
     z-index: 1;
   }
 
@@ -107,8 +173,42 @@
     z-index: 2;
   }
 
+  .player-link {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.1rem;
+
+    color: var(--text);
+    text-decoration: none;
+
+    transition:
+      color 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .player-link:hover {
+    color: var(--accent);
+  }
+
+  .player-label {
+    font-family: "Michroma", sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  .player-name {
+    font-family: "Michroma", sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
   .utility-link,
   .theme-toggle {
+    font-family: "Michroma", sans-serif;
+    letter-spacing: 0.14em;
     color: var(--text);
     text-decoration: none;
     transition:
@@ -158,6 +258,26 @@
     height: 18px;
     color: currentColor;
     transition: color 0.3s ease;
+  }
+
+  .logout-form {
+    margin: 0;
+  }
+
+  .logout-button {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    font-size: inherit;
+  }
+
+  .utility-login-button {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    font-size: inherit;
   }
 
   @media (max-width: 900px) {
@@ -231,19 +351,8 @@
     white-space: nowrap;
     border: 0;
   }
+
+  .player-link {
+    align-items: center;
+  }
 </style>
-
-<div class="utility-bar">
-  <div class="utility-left">
-    <div class="logo">
-      <a href="/" class="utility-link" aria-label="Go to homepage">
-        <img src="/images/mindarcNoplanelogo.png" alt="Mind Arc Logo" />
-      </a>
-    </div>
-  </div>
-
-  <nav class="utility-nav" aria-label="Primary">
-    <a href="/phoenixvector" class="nav-link">Phoenix Vector</a>
-    <a href="/assault" class="nav-link">Assault</a>
-  </nav>
-</div>

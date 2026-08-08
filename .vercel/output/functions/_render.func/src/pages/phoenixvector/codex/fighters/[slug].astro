@@ -1,0 +1,39 @@
+---
+import NTDCTerminal from "../../../../components/codex/NTDCTerminal.astro";
+import fighters from "../../../../data/fighters.json";
+import "../../../../styles/codex-fighter-entry.css";
+
+export async function getStaticPaths() {
+  return fighters.map((fighter) => ({
+    params: {
+      slug: fighter.slug,
+    },
+    props: {
+      fighter,
+    },
+  }));
+}
+
+const { fighter } = Astro.props;
+---
+
+<NTDCTerminal
+  title={fighter.name}
+  subtitle={fighter.designation}
+  status={fighter.status}
+>
+  <article class="fighter-entry">
+    <div class="fighter-entry__header">
+      <h1>{fighter.name}</h1>
+    </div>
+    <div class="fighter-entry__hero">
+      <img src={fighter.image} alt={fighter.name} />
+    </div>
+
+    <div class="fighter-entry__content">
+      <div class="fighter-entry__description">
+        {fighter.description.map((paragraph: string) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+  </article>
+</NTDCTerminal>

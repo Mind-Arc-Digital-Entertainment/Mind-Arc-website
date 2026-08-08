@@ -1,0 +1,580 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+---
+
+<Layout title="Games | Mind Arc Games">
+  <main class="home-page">
+    <div class="games-shell">
+      <section class="hero">
+        <p class="eyebrow">Mind Arc Games presents...</p>
+        <h1>Phoenix Vector</h1>
+        <p class="hero-subtitle">
+          A high intensity combat experience unfolding across the distant
+          Aurelia System.
+        </p>
+      </section>
+
+      <section class="panel phoenix-image-panel" aria-hidden="true"></section>
+
+      <section class="image-card-grid" aria-label="Phoenix Vector screenshots">
+        <article class="image-card">
+          <button
+            class="image-card-button"
+            data-image="/images/WardenBeam.png"
+            aria-label="View world screenshot"
+          >
+            <img
+              src="/images/WardenBeam.png"
+              alt="Phoenix Vector world scene"
+            />
+          </button>
+        </article>
+
+        <article class="image-card">
+          <button
+            class="image-card-button"
+            data-image="/images/worldScreenshot.png"
+            aria-label="View world screenshot"
+          >
+            <img
+              src="/images/worldScreenshot.png"
+              alt="Phoenix Vector world scene"
+            />
+          </button>
+        </article>
+
+        <article class="image-card">
+          <button
+            class="image-card-button"
+            data-image="/images/combatScreenshot_I.png"
+            aria-label="View combat screenshot 2"
+          >
+            <img
+              src="/images/combatScreenshot_I.png"
+              alt="Phoenix Vector combat scene 2"
+            />
+          </button>
+        </article>
+      </section>
+
+      <div class="lightbox" id="lightbox" hidden>
+        <button class="lightbox-close" aria-label="Close image"> ✕ </button>
+
+        <img id="lightbox-image" src="" alt="Expanded screenshot" />
+      </div>
+
+      <section class="panel feature-panel">
+        <div class="feature-grid">
+          <div class="feature-copy">
+            <h2>Combat in the Aurelia System</h2>
+
+            <p>
+              <strong>Phoenix Vector</strong> is a side-scrolling sci-fi combat experience
+              set in the distant Aurelia System, a region of distant space with hostile
+              enemy fleets, luminous worlds, and an escalating conflict.
+            </p>
+
+            <p>
+              With sharp moment-to-moment action and bold presentation, Phoenix
+              Vector challenges you to balance speed and firepower while
+              surviving escalating enemy encounters.
+            </p>
+
+            <ul class="feature-list">
+              <li>Fast-paced arcade-inspired combat</li>
+              <li>Strategic power management</li>
+              <li>Distinct sci-fi action and atmosphere</li>
+              <li>Expanding story and worlds</li>
+              <li>An immersive player experience</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-inner">
+              <h3>The Codex</h3>
+              <p>
+                The central command archive of Phoenix Vector detailing ships,
+                personnel, locations, and the evolving conflict across the
+                Aurelia System.
+              </p>
+
+              <div class="feature-actions">
+                <a href="/phoenixvector/codex/" class="btn btn-primary">Enter</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  :root {
+    --bg: #040814;
+    --bg-soft: rgba(10, 18, 36, 0.82);
+    --panel-border: rgba(103, 232, 249, 0.18);
+    --text: #dbe7f5;
+    --text-soft: #9fb2c9;
+    --heading: #f8fbff;
+    --cyan: #67e8f9;
+    --cyan-strong: #22d3ee;
+    --gold: #ffc857;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  }
+
+  .games-page {
+    position: relative;
+    min-height: 100vh;
+    padding: 1.5rem 1.25rem 2.5rem;
+    background:
+      radial-gradient(
+        circle at top center,
+        rgba(34, 211, 238, 0.12),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 20% 20%,
+        rgba(255, 200, 87, 0.08),
+        transparent 18%
+      ),
+      linear-gradient(180deg, #081120 0%, #040814 55%, #02050d 100%);
+    overflow: hidden;
+  }
+
+  .games-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.08)
+    );
+    pointer-events: none;
+  }
+
+  .games-shell {
+    position: relative;
+    z-index: 1;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 1.25rem;
+    padding: 1.5rem 0 0.75rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(2.75rem, 6vw, 4.75rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--heading);
+    text-shadow:
+      0 0 18px rgba(103, 232, 249, 0.12),
+      0 0 40px rgba(103, 232, 249, 0.08);
+  }
+
+  .hero-subtitle {
+    max-width: 760px;
+    margin: 1rem auto 0;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+
+  .panel {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 2rem;
+    border: 1px solid var(--panel-border);
+    border-radius: 22px;
+    background: linear-gradient(
+      180deg,
+      rgba(14, 25, 47, 0.88),
+      rgba(7, 13, 26, 0.94)
+    );
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+  }
+
+  .panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 22px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(103, 232, 249, 0.35),
+      rgba(255, 200, 87, 0.18),
+      rgba(103, 232, 249, 0.1)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .phoenix-image-panel {
+    position: relative;
+    min-height: 60vh;
+    background-image: url("/images/PhoenixHeroweb.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+
+  .phoenix-image-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(4, 8, 20, 0.12),
+      rgba(4, 8, 20, 0.28)
+    );
+    pointer-events: none;
+  }
+
+  .image-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .image-card {
+    position: relative;
+    min-height: 220px;
+    height: 220px;
+    border: 1px solid var(--panel-border);
+    border-radius: 18px;
+    background: rgba(7, 13, 26, 0.94);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .image-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .image-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(4, 8, 20, 0.05),
+      rgba(4, 8, 20, 0.35)
+    );
+    pointer-events: none;
+  }
+
+  .section-kicker {
+    margin: 0 0 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .panel h2,
+  .feature-card h3 {
+    margin: 0;
+    color: var(--heading);
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .panel h2 {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+  }
+
+  .panel p,
+  .feature-card p,
+  .feature-list li {
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 1rem;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 0.85fr;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .feature-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .feature-copy h2 {
+    margin-bottom: 1rem;
+  }
+
+  .feature-list {
+    margin: 0.75rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+  .feature-list li {
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card {
+    display: flex;
+    min-height: 100%;
+    border-radius: 20px;
+    border: 1px solid rgba(103, 232, 249, 0.14);
+    background:
+      radial-gradient(
+        circle at top right,
+        rgba(103, 232, 249, 0.12),
+        transparent 35%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.02)
+      );
+    overflow: hidden;
+  }
+
+  .feature-card-inner {
+    padding: 1.5rem;
+    align-self: center;
+  }
+
+  .feature-label {
+    margin: 0 0 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .feature-card h3 {
+    margin-bottom: 1rem;
+    font-size: 1.35rem;
+  }
+
+  .feature-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    padding: 0.95rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    color: #031018;
+    background: linear-gradient(135deg, var(--cyan), #a5f3fc);
+    box-shadow: 0 10px 30px rgba(103, 232, 249, 0.22);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 16px 34px rgba(103, 232, 249, 0.3);
+  }
+
+  .image-card-button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .image-card-button img {
+    transition: transform 0.25s ease;
+  }
+
+  .image-card-button:hover img {
+    transform: scale(1.04);
+  }
+
+  /* Fix 1: Hide lightbox properly — hidden attr loses to display:flex */
+  .lightbox[hidden] {
+    display: none !important;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(8px);
+  }
+
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 88vh;
+
+    border-radius: 16px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.65);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  @media (max-width: 900px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .games-page {
+      padding: 3rem 1rem;
+    }
+
+    .panel {
+      padding: 1.4rem;
+      border-radius: 18px;
+    }
+
+    .panel::before {
+      border-radius: 18px;
+    }
+
+    .phoenix-image-panel {
+      min-height: 42vh;
+    }
+
+    .feature-actions {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+    }
+  }
+
+  .games-page::before,
+  .panel::before,
+  .not-found-panel::before {
+    display: none !important;
+  }
+</style>
+
+<script>
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = document.getElementById("lightbox-image");
+  const closeButton = document.querySelector(".lightbox-close");
+
+  function openLightbox(imageSrc) {
+    if (!lightbox || !lightboxImage) return;
+
+    lightboxImage.src = imageSrc;
+    lightbox.hidden = false;
+  }
+
+  function closeLightbox() {
+    if (!lightbox || !lightboxImage) return;
+
+    lightbox.hidden = true;
+    lightboxImage.src = "";
+  }
+
+  document.querySelectorAll(".image-card-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const imageSrc = button.getAttribute("data-image");
+
+      if (imageSrc) {
+        openLightbox(imageSrc);
+      }
+    });
+  });
+
+  lightbox?.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  closeButton?.addEventListener("click", closeLightbox);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !lightbox?.hidden) {
+      closeLightbox();
+    }
+  });
+</script>

@@ -1,0 +1,327 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+---
+
+<Layout title="Privacy Policy | Mind Arc Games">
+  <main class="privacy-page">
+    <div class="privacy-shell">
+      <section class="hero">
+        <p class="eyebrow">Mind Arc Games</p>
+        <h1>Privacy Policy</h1>
+        <p class="hero-subtitle">Privacy Policy for Phoenix Vector</p>
+        <p class="last-updated">Last Updated: March 15, 2026</p>
+      </section>
+
+      <section class="policy-panel">
+        <p>
+          Mind Arc Games ("we", "our", or "us") operates the mobile game
+          <strong>Phoenix Vector</strong>. This Privacy Policy explains how
+          information may be collected, used, and protected when players use our game.
+        </p>
+
+        <p>
+          By installing or using <strong>Phoenix Vector</strong>, you agree to the
+          terms of this Privacy Policy.
+        </p>
+
+        <h2>Information We Collect</h2>
+        <p>
+          <strong>Phoenix Vector</strong> is designed to minimize the collection of
+          personal data. In most cases, we do not directly collect personally
+          identifiable information from players.
+        </p>
+
+        <p>
+          However, certain information may be collected automatically by the game or by
+          third-party services used to operate the game.
+        </p>
+
+        <p>This may include:</p>
+        <ul>
+          <li>Device information (device type, operating system version)</li>
+          <li>Game performance and crash reports</li>
+          <li>Gameplay analytics used to improve the game</li>
+          <li>General usage data such as session length or gameplay interactions</li>
+        </ul>
+
+        <p>
+          This information is used only to maintain and improve the game experience.
+        </p>
+
+        <h2>Third-Party Services</h2>
+        <p>
+          <strong>Phoenix Vector</strong> may use trusted third-party services to
+          operate features of the game. These services may collect limited information
+          necessary to provide their functionality.
+        </p>
+
+        <p>Examples may include:</p>
+        <ul>
+          <li>Google Play Services</li>
+          <li>Google Play Games Services</li>
+          <li>Analytics services (such as Firebase or similar tools)</li>
+        </ul>
+
+        <p>
+          These providers operate under their own privacy policies and data protection
+          practices.
+        </p>
+
+        <h2>Advertising</h2>
+        <p>
+          <strong>Phoenix Vector</strong> may include advertising services in future
+          updates. Advertising partners may use limited device information to provide
+          relevant ads.
+        </p>
+
+        <p>
+          If advertising is added, the game will comply with Google Play policies
+          regarding advertising identifiers and user privacy.
+        </p>
+
+        <h2>Data Security</h2>
+        <p>
+          We take reasonable steps to protect any information used by
+          <strong>Phoenix Vector</strong>. However, no method of electronic storage or
+          transmission over the internet is completely secure.
+        </p>
+
+        <h2>Children&apos;s Privacy</h2>
+        <p>
+          <strong>Phoenix Vector</strong> is not directed toward children under the age
+          of 13. We do not knowingly collect personal information from children.
+        </p>
+
+        <p>
+          If a parent or guardian believes that a child has provided personal
+          information, please contact us and we will promptly address the situation.
+        </p>
+
+        <h2>Changes to This Privacy Policy</h2>
+        <p>
+          This Privacy Policy may be updated periodically to reflect changes in the game
+          or applicable policies. When changes occur, the updated policy will be posted
+          with a revised "Last Updated" date.
+        </p>
+
+        <h2>Contact Information</h2>
+        <p>If you have questions regarding this Privacy Policy, please contact us:</p>
+
+        <div class="contact-card">
+          <p><strong>Mind Arc Games</strong></p>
+          <p>
+            Email:
+            <a href="mailto:contact@mindarcgames.com">contact@mindarcgames.com</a>
+          </p>
+          <p>
+            Website:
+            <a href="https://mindarcgames.com" target="_blank" rel="noopener noreferrer">
+              mindarcgames.com
+            </a>
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  :root {
+    --bg: #040814;
+    --bg-soft: rgba(10, 18, 36, 0.82);
+    --panel-border: rgba(103, 232, 249, 0.18);
+    --text: #dbe7f5;
+    --text-soft: #9fb2c9;
+    --heading: #f8fbff;
+    --cyan: #67e8f9;
+    --cyan-strong: #22d3ee;
+    --gold: #ffc857;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  }
+
+  .privacy-page {
+    position: relative;
+    min-height: 100vh;
+    padding: 5rem 1.25rem;
+    background:
+      radial-gradient(circle at top center, rgba(34, 211, 238, 0.12), transparent 28%),
+      radial-gradient(circle at 20% 20%, rgba(255, 200, 87, 0.08), transparent 18%),
+      linear-gradient(180deg, #081120 0%, #040814 55%, #02050d 100%);
+    overflow: hidden;
+  }
+
+  .privacy-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.08));
+    pointer-events: none;
+  }
+
+  .privacy-shell {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem 0 0.5rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--heading);
+    text-shadow:
+      0 0 18px rgba(103, 232, 249, 0.12),
+      0 0 40px rgba(103, 232, 249, 0.08);
+  }
+
+  .hero-subtitle {
+    margin: 1rem 0 0.35rem;
+    font-size: 1.05rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .last-updated {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+  }
+
+  .policy-panel {
+    position: relative;
+    padding: 2rem;
+    border: 1px solid var(--panel-border);
+    border-radius: 22px;
+    background:
+      linear-gradient(180deg, rgba(14, 25, 47, 0.88), rgba(7, 13, 26, 0.94));
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+  }
+
+  .policy-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 22px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(103, 232, 249, 0.35),
+      rgba(255, 200, 87, 0.18),
+      rgba(103, 232, 249, 0.1)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .policy-panel p,
+  .policy-panel li {
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 1rem;
+  }
+
+  .policy-panel p {
+    margin: 0 0 1rem;
+  }
+
+  .policy-panel h2 {
+    margin: 2rem 0 0.85rem;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    color: var(--heading);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .policy-panel h2::before {
+    content: "";
+    display: inline-block;
+    width: 26px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--gold));
+    box-shadow: 0 0 10px rgba(103, 232, 249, 0.35);
+  }
+
+  .policy-panel ul {
+    margin: 0 0 1.25rem 1.25rem;
+    padding: 0;
+  }
+
+  .policy-panel li {
+    margin-bottom: 0.65rem;
+  }
+
+  .policy-panel strong {
+    color: var(--heading);
+  }
+
+  .policy-panel a {
+    color: var(--cyan);
+    text-decoration: none;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+  }
+
+  .policy-panel a:hover {
+    color: #a5f3fc;
+    text-shadow: 0 0 14px rgba(103, 232, 249, 0.22);
+  }
+
+  .contact-card {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(103, 232, 249, 0.14);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  }
+
+  @media (max-width: 768px) {
+    .privacy-page {
+      padding: 3rem 1rem;
+    }
+
+    .policy-panel {
+      padding: 1.4rem;
+      border-radius: 18px;
+    }
+
+    .policy-panel::before {
+      border-radius: 18px;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+    }
+  }
+</style>

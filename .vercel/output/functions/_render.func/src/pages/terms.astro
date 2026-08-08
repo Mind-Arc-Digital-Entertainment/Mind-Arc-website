@@ -1,0 +1,334 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+---
+
+<Layout title="Terms of Use | Mind Arc Games">
+  <main class="terms-page">
+    <div class="terms-shell">
+      <section class="hero">
+        <p class="eyebrow">Mind Arc Games</p>
+        <h1>Terms of Use</h1>
+        <p class="hero-subtitle">Terms of Use for Phoenix Vector</p>
+        <p class="last-updated">Last Updated: March 15, 2026</p>
+      </section>
+
+      <section class="terms-panel">
+        <p>
+          Welcome to <strong>Phoenix Vector</strong>, a game published by
+          <strong>Mind Arc Games</strong>. These Terms of Use govern your access to
+          and use of the game, related services, and associated content.
+        </p>
+
+        <p>
+          By downloading, installing, or using <strong>Phoenix Vector</strong>, you
+          agree to be bound by these Terms of Use. If you do not agree to these
+          terms, please do not use the game.
+        </p>
+
+        <h2>Use of the Game</h2>
+        <p>
+          <strong>Phoenix Vector</strong> is provided for personal, non-commercial
+          entertainment use unless otherwise permitted in writing by Mind Arc Games.
+        </p>
+
+        <p>You agree not to:</p>
+        <ul>
+          <li>Copy, modify, distribute, or reverse engineer the game</li>
+          <li>Use cheats, exploits, automation, or unauthorized third-party tools</li>
+          <li>Attempt to interfere with game functionality or connected services</li>
+          <li>Use the game in any unlawful or abusive manner</li>
+        </ul>
+
+        <h2>Intellectual Property</h2>
+        <p>
+          All content in <strong>Phoenix Vector</strong>, including but not limited
+          to game design, artwork, logos, music, sound effects, text, branding, and
+          code, is the property of <strong>Mind Arc Games</strong> unless otherwise
+          stated.
+        </p>
+
+        <p>
+          You may not reproduce, republish, or commercially exploit any portion of
+          the game or its assets without prior written permission.
+        </p>
+
+        <h2>User Conduct</h2>
+        <p>
+          You agree to use <strong>Phoenix Vector</strong> responsibly and in a way
+          that does not harm the game, its services, or other users.
+        </p>
+
+        <p>
+          Mind Arc Games reserves the right to restrict or terminate access to the
+          game for users who violate these Terms of Use or attempt to misuse the
+          game.
+        </p>
+
+        <h2>Third-Party Services</h2>
+        <p>
+          <strong>Phoenix Vector</strong> may rely on third-party services such as
+          platform providers, analytics tools, cloud services, or payment systems.
+        </p>
+
+        <p>
+          Your use of those services may also be subject to the terms and policies of
+          the respective third-party providers.
+        </p>
+
+        <h2>Updates and Changes</h2>
+        <p>
+          Mind Arc Games may update, modify, suspend, or discontinue parts of
+          <strong>Phoenix Vector</strong> at any time, with or without notice.
+        </p>
+
+        <p>
+          We may also update these Terms of Use from time to time. Continued use of
+          the game after changes are posted constitutes acceptance of the revised
+          terms.
+        </p>
+
+        <h2>Disclaimer</h2>
+        <p>
+          <strong>Phoenix Vector</strong> is provided on an "as is" and "as
+          available" basis. While we aim to provide a stable and enjoyable
+          experience, we do not guarantee that the game will always be available,
+          error-free, or uninterrupted.
+        </p>
+
+        <h2>Limitation of Liability</h2>
+        <p>
+          To the fullest extent permitted by law, Mind Arc Games shall not be liable
+          for any indirect, incidental, special, consequential, or punitive damages
+          arising from the use of, or inability to use,
+          <strong>Phoenix Vector</strong>.
+        </p>
+
+        <h2>Termination</h2>
+        <p>
+          We reserve the right to suspend or terminate access to
+          <strong>Phoenix Vector</strong> at our discretion if these Terms of Use are
+          violated or if necessary to protect the integrity of the game or related
+          services.
+        </p>
+
+        <h2>Contact Information</h2>
+        <p>If you have questions regarding these Terms of Use, please contact us:</p>
+
+        <div class="contact-card">
+          <p><strong>Mind Arc Games</strong></p>
+          <p>
+            Email:
+            <a href="mailto:contact@mindarcgames.com">contact@mindarcgames.com</a>
+          </p>
+          <p>
+            Website:
+            <a href="https://mindarcgames.com" target="_blank" rel="noopener noreferrer">
+              mindarcgames.com
+            </a>
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  :root {
+    --bg: #040814;
+    --bg-soft: rgba(10, 18, 36, 0.82);
+    --panel-border: rgba(103, 232, 249, 0.18);
+    --text: #dbe7f5;
+    --text-soft: #9fb2c9;
+    --heading: #f8fbff;
+    --cyan: #67e8f9;
+    --cyan-strong: #22d3ee;
+    --gold: #ffc857;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  }
+
+  .terms-page {
+    position: relative;
+    min-height: 100vh;
+    padding: 5rem 1.25rem;
+    background:
+      radial-gradient(circle at top center, rgba(34, 211, 238, 0.12), transparent 28%),
+      radial-gradient(circle at 20% 20%, rgba(255, 200, 87, 0.08), transparent 18%),
+      linear-gradient(180deg, #081120 0%, #040814 55%, #02050d 100%);
+    overflow: hidden;
+  }
+
+  .terms-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.08));
+    pointer-events: none;
+  }
+
+  .terms-shell {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem 0 0.5rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--heading);
+    text-shadow:
+      0 0 18px rgba(103, 232, 249, 0.12),
+      0 0 40px rgba(103, 232, 249, 0.08);
+  }
+
+  .hero-subtitle {
+    margin: 1rem 0 0.35rem;
+    font-size: 1.05rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .last-updated {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+  }
+
+  .terms-panel {
+    position: relative;
+    padding: 2rem;
+    border: 1px solid var(--panel-border);
+    border-radius: 22px;
+    background:
+      linear-gradient(180deg, rgba(14, 25, 47, 0.88), rgba(7, 13, 26, 0.94));
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+  }
+
+  .terms-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 22px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(103, 232, 249, 0.35),
+      rgba(255, 200, 87, 0.18),
+      rgba(103, 232, 249, 0.1)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .terms-panel p,
+  .terms-panel li {
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 1rem;
+  }
+
+  .terms-panel p {
+    margin: 0 0 1rem;
+  }
+
+  .terms-panel h2 {
+    margin: 2rem 0 0.85rem;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    color: var(--heading);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .terms-panel h2::before {
+    content: "";
+    display: inline-block;
+    width: 26px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--gold));
+    box-shadow: 0 0 10px rgba(103, 232, 249, 0.35);
+  }
+
+  .terms-panel ul {
+    margin: 0 0 1.25rem 1.25rem;
+    padding: 0;
+  }
+
+  .terms-panel li {
+    margin-bottom: 0.65rem;
+  }
+
+  .terms-panel strong {
+    color: var(--heading);
+  }
+
+  .terms-panel a {
+    color: var(--cyan);
+    text-decoration: none;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+  }
+
+  .terms-panel a:hover {
+    color: #a5f3fc;
+    text-shadow: 0 0 14px rgba(103, 232, 249, 0.22);
+  }
+
+  .contact-card {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(103, 232, 249, 0.14);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  }
+
+  @media (max-width: 768px) {
+    .terms-page {
+      padding: 3rem 1rem;
+    }
+
+    .terms-panel {
+      padding: 1.4rem;
+      border-radius: 18px;
+    }
+
+    .terms-panel::before {
+      border-radius: 18px;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+    }
+  }
+</style>

@@ -20,12 +20,96 @@
 			"dest": "_render"
 		},
 		{
+			"src": "^/404/?$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/account/confirm/?$",
 			"dest": "_render"
 		},
 		{
+			"src": "^/account/forgot-password/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/account/login/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/account/logout/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/account/profile/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/account/register/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/account/reset-password/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/assault/play/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/assault/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/phoenixvector/codex/CodexNav/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/phoenixvector/codex/fighters/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/phoenixvector/codex/fighters/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/phoenixvector/codex/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/phoenixvector/devlog/v0-1-1/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/phoenixvector/devlog/v0-2-0/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/phoenixvector/devlog/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/phoenixvector/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/privacy/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/support/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/terms/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/.*$",
-			"dest": "/404.html",
+			"dest": "_render",
 			"status": 404
 		}
 	]

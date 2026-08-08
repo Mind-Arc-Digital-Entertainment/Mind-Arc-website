@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Create Account | Mind Arc Games">
+  <main class="account-page">
+    <section class="account-panel">
+      <p class="account-kicker">Mind Arc Games</p>
+
+      <h1>Create Account</h1>
+
+      <p>
+        Create a free Mind Arc Games account to play Phoenix Vector: Assault and
+        save your progress.
+      </p>
+
+      <form id="register-form">
+        <div class="form-field">
+          <label for="email">Email Address</label>
+
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="password">Password</label>
+
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            required
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="confirm-password">Confirm Password</label>
+
+          <input
+            id="confirm-password"
+            name="confirmPassword"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            required
+          />
+        </div>
+
+        <button id="submit-button" type="submit"> Create Account </button>
+      </form>
+
+      <p id="form-message" aria-live="polite"></p>
+
+      <p>
+        Already have an account?
+        <a href="/account/login">Sign in</a>
+      </p>
+    </section>
+  </main>
+
+  <script>
+    import { supabase } from "../../lib/supabase/client";
+
+    const form = document.querySelector<HTMLFormElement>("#register-form");
+    const emailInput = document.querySelector<HTMLInputElement>("#email");
+    const passwordInput = document.querySelector<HTMLInputElement>("#password");
+    const confirmPasswordInput =
+      document.querySelector<HTMLInputElement>("#confirm-password");
+    const submitButton =
+      document.querySelector<HTMLButtonElement>("#submit-button");
+    const formMessage =
+      document.querySelector<HTMLParagraphElement>("#form-message");
+
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (
+        !emailInput ||
+        !passwordInput ||
+        !confirmPasswordInput ||
+        !submitButton ||
+        !formMessage
+      ) {
+        return;
+      }
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+
+      formMessage.textContent = "";
+
+      if (password !== confirmPassword) {
+        formMessage.textContent = "The passwords do not match.";
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Creating Account...";
+
+      const emailRedirectTo = window.location.origin;
+
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo,
+        },
+      });
+
+      if (error) {
+        formMessage.textContent = error.message;
+        submitButton.disabled = false;
+        submitButton.textContent = "Create Account";
+        return;
+      }
+
+      form.reset();
+
+      formMessage.textContent =
+        "Account created. Check your email to confirm your address.";
+
+      submitButton.textContent = "Email Sent";
+    });
+  </script>
+</BaseLayout>

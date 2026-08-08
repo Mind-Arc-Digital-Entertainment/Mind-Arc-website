@@ -2,9 +2,8 @@
 import "../styles/global.css";
 import UtilityBar from "../components/UtilityBar.astro";
 import Footer from "../components/Footer.astro";
+import LoginModal from "../components/LoginModal.astro";
 ---
-
-
 
 <html lang="en">
   <head>
@@ -37,7 +36,8 @@ import Footer from "../components/Footer.astro";
   <body>
     <div class="site-shell">
       <UtilityBar />
-      
+      <LoginModal />
+
       <main class="site-main">
         <slot />
       </main>

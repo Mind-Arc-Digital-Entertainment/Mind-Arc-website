@@ -1,0 +1,361 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Play Phoenix Vector: Assault | Mind Arc Games">
+  <div class="assault-play-page">
+    <div id="unity-container" class="unity-container">
+      <canvas
+        id="unity-canvas"
+        width="960"
+        height="600"
+        tabindex="-1"
+        aria-label="Phoenix Vector: Assault"></canvas>
+
+      <div id="unity-loading-screen">
+        <div class="loading-title">Phoenix Vector: Assault</div>
+
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+
+        <p id="unity-loading-status">Initializing combat systems...</p>
+      </div>
+
+      <div id="unity-warning"></div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  const canvas = document.querySelector("#unity-canvas");
+  const loadingScreen = document.querySelector("#unity-loading-screen");
+  const progressBar = document.querySelector("#unity-progress-bar-full");
+  const loadingStatus = document.querySelector("#unity-loading-status");
+  const warningBanner = document.querySelector("#unity-warning");
+
+  function unityShowBanner(message, type) {
+    if (!warningBanner) return;
+
+    const banner = document.createElement("div");
+
+    banner.textContent = message;
+    banner.className = `unity-message unity-message-${type || "info"}`;
+
+    warningBanner.appendChild(banner);
+    warningBanner.style.display = "block";
+
+    if (type !== "error") {
+      window.setTimeout(() => {
+        banner.remove();
+
+        if (!warningBanner.children.length) {
+          warningBanner.style.display = "none";
+        }
+      }, 5000);
+    }
+  }
+
+  const buildUrl = "/assault/play/Build";
+  const loaderUrl = `${buildUrl}/WebGL.loader.js`;
+
+  const config = {
+    arguments: [],
+    dataUrl: `${buildUrl}/WebGL.data.unityweb`,
+    frameworkUrl: `${buildUrl}/WebGL.framework.js.unityweb`,
+    codeUrl: `${buildUrl}/WebGL.wasm.unityweb`,
+    streamingAssetsUrl: "/assault/play/StreamingAssets",
+    companyName: "Mind Arc Games",
+    productName: "Phoenix Vector: Assault",
+    productVersion: "0.2.5",
+    showBanner: unityShowBanner,
+  };
+
+  function resizeUnityCanvas() {
+    if (!canvas) return;
+
+    const mobile = window.matchMedia("(max-width: 768px)").matches;
+
+    if (mobile) {
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      return;
+    }
+
+    const nativeWidth = 960;
+    const nativeHeight = 600;
+    const aspectRatio = nativeWidth / nativeHeight;
+
+    const horizontalPadding = 32;
+    const verticalPadding = 32;
+
+    const maximumWidth = Math.min(1200, window.innerWidth - horizontalPadding);
+
+    const maximumHeight = window.innerHeight - 60 - verticalPadding;
+
+    let width = maximumWidth;
+    let height = width / aspectRatio;
+
+    if (height > maximumHeight) {
+      height = maximumHeight;
+      width = height * aspectRatio;
+    }
+
+    canvas.style.width = `${Math.max(width, 1)}px`;
+    canvas.style.height = `${Math.max(height, 1)}px`;
+  }
+
+  resizeUnityCanvas();
+
+  window.addEventListener("resize", resizeUnityCanvas);
+
+  const loaderScript = document.createElement("script");
+
+  loaderScript.src = loaderUrl;
+
+  loaderScript.onload = () => {
+    if (typeof createUnityInstance !== "function") {
+      unityShowBanner(
+        "The Unity game loader could not be initialized.",
+        "error",
+      );
+
+      return;
+    }
+
+    createUnityInstance(canvas, config, (progress) => {
+      const percentage = Math.round(progress * 100);
+
+      progressBar.style.width = `${percentage}%`;
+      loadingStatus.textContent = `Loading combat systems... ${percentage}%`;
+    })
+      .then((unityInstance) => {
+        loadingScreen.classList.add("is-hidden");
+
+        window.assaultUnityInstance = unityInstance;
+
+        resizeUnityCanvas();
+        canvas.focus();
+      })
+      .catch((error) => {
+        loadingStatus.textContent = "Unable to launch Phoenix Vector: Assault.";
+
+        unityShowBanner(String(error), "error");
+      });
+  };
+
+  loaderScript.onerror = () => {
+    unityShowBanner(
+      "The Phoenix Vector: Assault loader could not be downloaded.",
+      "error",
+    );
+  };
+
+  document.body.appendChild(loaderScript);
+</script>
+
+<style>
+  .assault-play-page {
+    --play-height: calc(100vh - 60px);
+    --play-height: calc(100dvh - 60px);
+
+    min-height: var(--play-height);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    padding: 1rem;
+
+    background:
+      radial-gradient(circle at top, rgba(34, 211, 238, 0.14), transparent 42%),
+      linear-gradient(180deg, #081120 0%, #040814 60%, #02050d 100%);
+  }
+
+  .unity-container {
+    position: relative;
+
+    width: min(100%, 960px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #unity-canvas {
+    display: block;
+
+    width: 960px;
+    height: 600px;
+
+    max-width: 100%;
+
+    border: 1px solid rgba(103, 232, 249, 0.2);
+    border-radius: 14px;
+
+    background: #000;
+
+    box-shadow:
+      0 24px 80px rgba(0, 0, 0, 0.55),
+      0 0 32px rgba(34, 211, 238, 0.12);
+
+    outline: none;
+  }
+
+  #unity-canvas:focus-visible {
+    border-color: #67e8f9;
+
+    box-shadow:
+      0 24px 80px rgba(0, 0, 0, 0.55),
+      0 0 0 3px rgba(103, 232, 249, 0.28);
+  }
+
+  #unity-loading-screen {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    padding: 2rem;
+
+    border-radius: 14px;
+
+    color: #dbe7f5;
+    background:
+      radial-gradient(
+        circle at center,
+        rgba(34, 211, 238, 0.16),
+        transparent 48%
+      ),
+      rgba(2, 5, 13, 0.96);
+
+    transition:
+      opacity 300ms ease,
+      visibility 300ms ease;
+  }
+
+  #unity-loading-screen.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .loading-title {
+    margin-bottom: 1.5rem;
+
+    color: #f8fbff;
+
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(1rem, 3vw, 1.6rem);
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+    text-align: center;
+    text-transform: uppercase;
+
+    text-shadow: 0 0 20px rgba(103, 232, 249, 0.2);
+  }
+
+  #unity-progress-bar-empty {
+    width: min(80%, 430px);
+    height: 12px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(103, 232, 249, 0.25);
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  #unity-progress-bar-full {
+    width: 0;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: linear-gradient(90deg, #22d3ee, #a5f3fc);
+
+    box-shadow: 0 0 18px rgba(103, 232, 249, 0.6);
+
+    transition: width 150ms ease-out;
+  }
+
+  #unity-loading-status {
+    margin: 1rem 0 0;
+
+    color: #9fb2c9;
+
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+
+  #unity-warning {
+    position: absolute;
+
+    z-index: 10;
+
+    top: 1rem;
+    left: 50%;
+
+    display: none;
+
+    width: min(calc(100% - 2rem), 700px);
+
+    transform: translateX(-50%);
+  }
+
+  :global(.unity-message) {
+    box-sizing: border-box;
+
+    margin-bottom: 0.5rem;
+    padding: 0.75rem 1rem;
+
+    border-radius: 8px;
+
+    color: white;
+    background: rgba(15, 25, 43, 0.96);
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  :global(.unity-message-warning) {
+    color: #201900;
+    background: #ffc857;
+  }
+
+  :global(.unity-message-error) {
+    background: #a51d2d;
+  }
+
+  @media (max-width: 768px) {
+    .assault-play-page {
+      padding: 0;
+      background: #000;
+    }
+
+    .unity-container {
+      width: 100%;
+      height: var(--play-height);
+    }
+
+    #unity-canvas {
+      width: 100%;
+      height: 100%;
+
+      border: 0;
+      border-radius: 0;
+
+      box-shadow: none;
+    }
+
+    #unity-loading-screen {
+      border-radius: 0;
+    }
+  }
+</style>
