@@ -11,8 +11,8 @@ import Layout from "../layouts/BaseLayout.astro";
         <h1>Assault</h1>
 
         <p class="hero-subtitle">
-          A free browser-based arcade shooter set in the Phoenix Vector
-          universe.
+          Play now for free. Create an account to save your stats and compete
+          with other players.
         </p>
       </section>
 
@@ -37,6 +37,11 @@ import Layout from "../layouts/BaseLayout.astro";
               relentless waves of enemy forces in this fast-paced arcade space
               shooter.
             </p>
+
+            <div class="network-requirement">
+              <span class="network-requirement-label">Mind Arc Network</span>
+              <span>Free account required to play.</span>
+            </div>
 
             <a href="/assault/play/" class="btn btn-primary">Play Now</a>
           </div>
@@ -434,6 +439,37 @@ import Layout from "../layouts/BaseLayout.astro";
 
   .universe-panel h2 {
     margin-bottom: 0.8rem;
+  }
+
+  .network-requirement {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+
+    width: fit-content;
+
+    margin: 0 0 1.25rem;
+    padding: 0.55rem 0.8rem;
+
+    border: 1px solid rgba(103, 232, 249, 0.18);
+    border-radius: 8px;
+
+    background: rgba(4, 8, 20, 0.72);
+
+    color: var(--text-soft);
+
+    font-size: 0.78rem;
+    line-height: 1.3;
+
+    backdrop-filter: blur(6px);
+  }
+
+  .network-requirement-label {
+    color: var(--cyan);
+
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .btn {

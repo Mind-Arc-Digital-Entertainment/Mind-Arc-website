@@ -1,5 +1,23 @@
 ---
+export const prerender = false;
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { createSupabaseServerClient } from "../../lib/supabase/server";
+
+const supabase = createSupabaseServerClient({
+  request: Astro.request,
+  cookies: Astro.cookies,
+});
+
+const {
+  data: { user },
+} = await supabase.auth.getUser();
+
+if (!user) {
+  return Astro.redirect(
+    `/?login=1&returnTo=${encodeURIComponent("/assault/play")}`,
+  );
+}
 ---
 
 <BaseLayout title="Play Phoenix Vector: Assault | Mind Arc Games">

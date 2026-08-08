@@ -26,6 +26,11 @@ if (Astro.request.method === "POST") {
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
 
+  const returnTo = String(formData.get("returnTo") ?? "").trim();
+
+  const safeReturnTo =
+    returnTo.startsWith("/") && !returnTo.startsWith("//") ? returnTo : "/";
+
   if (!email || !password) {
     return Astro.redirect(
       `/?login=error&reason=missing&email=${encodeURIComponent(email)}`,
@@ -49,7 +54,7 @@ if (Astro.request.method === "POST") {
     );
   }
 
-  return Astro.redirect("/");
+  return Astro.redirect(safeReturnTo);
 }
 ---
 

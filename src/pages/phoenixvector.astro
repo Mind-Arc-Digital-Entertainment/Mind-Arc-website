@@ -537,10 +537,16 @@ import Layout from "../layouts/BaseLayout.astro";
 
 <script>
   const lightbox = document.getElementById("lightbox");
-  const lightboxImage = document.getElementById("lightbox-image");
-  const closeButton = document.querySelector(".lightbox-close");
 
-  function openLightbox(imageSrc) {
+  const lightboxImage = document.getElementById(
+    "lightbox-image",
+  ) as HTMLImageElement | null;
+
+  const closeButton = document.querySelector(
+    ".lightbox-close",
+  ) as HTMLButtonElement | null;
+
+  function openLightbox(imageSrc: string) {
     if (!lightbox || !lightboxImage) return;
 
     lightboxImage.src = imageSrc;
