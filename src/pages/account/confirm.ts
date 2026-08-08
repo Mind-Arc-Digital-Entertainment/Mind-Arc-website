@@ -1,41 +1,42 @@
 import type { APIRoute } from "astro";
+import { createSupabaseServerClient } from "../../lib/supabase/server";
 
 export const prerender = false;
 
-export const GET: APIRoute = async ({ url, locals, redirect }) => {
+export const GET: APIRoute = async ({
+  request,
+  cookies,
+  url,
+  redirect,
+}) => {
+  const supabase = createSupabaseServerClient({
+    request,
+    cookies,
+  });
+
   const tokenHash = url.searchParams.get("token_hash");
   const type = url.searchParams.get("type");
 
   console.log("Auth confirmation endpoint reached");
   console.log("Token present:", !!tokenHash);
   console.log("Type:", type);
-  console.log("Supabase present:", !!locals.supabase);
 
   if (!tokenHash) {
     console.error("Auth confirmation failed: missing token hash.");
 
-    return redirect(
-      "/?login=error&reason=invalid-auth-link",
-    );
+    return redirect("/?login=error&reason=invalid-auth-link");
   }
 
   try {
     switch (type) {
-      /*
-       * New account email confirmation
-       */
       case "email": {
-        const { data, error } =
-          await locals.supabase.auth.verifyOtp({
-            token_hash: tokenHash,
-            type: "email",
-          });
+        const { data, error } = await supabase.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: "email",
+        });
 
         if (error) {
-          console.error(
-            "Email confirmation failed:",
-            error.message,
-          );
+          console.error("Email confirmation failed:", error.message);
 
           return redirect(
             "/?login=error&reason=email-confirmation-failed",
@@ -48,15 +49,11 @@ export const GET: APIRoute = async ({ url, locals, redirect }) => {
         return redirect("/?verified=true");
       }
 
-      /*
-       * Password recovery
-       */
       case "recovery": {
-        const { data, error } =
-          await locals.supabase.auth.verifyOtp({
-            token_hash: tokenHash,
-            type: "recovery",
-          });
+        const { data, error } = await supabase.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: "recovery",
+        });
 
         if (error) {
           console.error(
@@ -69,37 +66,23 @@ export const GET: APIRoute = async ({ url, locals, redirect }) => {
           );
         }
 
-        console.log(
-          "Password recovery verified:",
-          data.user?.email,
-        );
-        console.log(
-          "Recovery session created:",
-          !!data.session,
-        );
+        console.log("Password recovery verified:", data.user?.email);
+        console.log("Recovery session created:", !!data.session);
 
         return redirect("/account/reset-password");
       }
 
-      /*
-       * Unsupported / malformed auth link
-       */
       default: {
         console.error(
           "Auth confirmation failed: unsupported type:",
           type,
         );
 
-        return redirect(
-          "/?login=error&reason=invalid-auth-link",
-        );
+        return redirect("/?login=error&reason=invalid-auth-link");
       }
     }
   } catch (error) {
-    console.error(
-      "Auth confirmation endpoint exception:",
-      error,
-    );
+    console.error("Auth confirmation endpoint exception:", error);
 
     return redirect(
       "/?login=error&reason=auth-confirmation-exception",

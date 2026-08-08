@@ -35,33 +35,21 @@
   </nav>
 
   <div class="utility-right">
-    <!-- {
-      user ? (
-        <>
-          <a href="/account/profile" class="player-link">
-            <span class="player-label">Mind Arc ID</span>
-            <span class="player-name">{mindArcId ?? "Player"}</span>
-          </a>
+    <div class="authenticated-account" id="authenticated-account" hidden>
+      <a href="/account/profile" class="player-link">
+        <span class="player-label">Mind Arc ID</span>
+        <span class="player-name" id="mind-arc-id">Player</span>
+      </a>
 
-          <form method="POST" action="/account/logout" class="logout-form">
-            <button type="submit" class="utility-link logout-button">
-              Log Out
-            </button>
-          </form>
-        </>
-      ) : (
-        <>
-          <button
-            type="button"
-            class="utility-link utility-login-button"
-            data-login-open
-          >
-            Sign-In
-          </button>
-        </>
-      )
-    } -->
+      <form method="POST" action="/account/logout" class="logout-form">
+        <button type="submit" class="utility-link logout-button">
+          Log Out
+        </button>
+      </form>
+    </div>
+
     <button
+      id="utility-sign-in"
       type="button"
       class="utility-link utility-login-button"
       data-login-open
@@ -71,7 +59,91 @@
   </div>
 </div>
 
+<script>
+  import { supabase } from "../lib/supabase/client";
+
+  const signInButton =
+    document.querySelector<HTMLButtonElement>("#utility-sign-in");
+
+  const authenticatedAccount = document.querySelector<HTMLElement>(
+    "#authenticated-account",
+  );
+
+  const mindArcId = document.querySelector<HTMLElement>("#mind-arc-id");
+
+  const showSignedOut = () => {
+    if (signInButton) {
+      signInButton.hidden = false;
+    }
+
+    if (authenticatedAccount) {
+      authenticatedAccount.hidden = true;
+    }
+
+    if (mindArcId) {
+      mindArcId.textContent = "Player";
+    }
+  };
+
+  const showSignedIn = (username: string | null) => {
+    if (signInButton) {
+      signInButton.hidden = true;
+    }
+
+    if (authenticatedAccount) {
+      authenticatedAccount.hidden = false;
+    }
+
+    if (mindArcId) {
+      mindArcId.textContent = username ?? "Player";
+    }
+  };
+
+  const loadCurrentPlayer = async () => {
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError) {
+      console.error("Unable to load authenticated user:", userError.message);
+
+      showSignedOut();
+      return;
+    }
+
+    if (!user) {
+      showSignedOut();
+      return;
+    }
+
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("username")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (profileError) {
+      console.error("Unable to load player profile:", profileError.message);
+    }
+
+    showSignedIn(profile?.username ?? null);
+  };
+
+  void loadCurrentPlayer();
+</script>
+
 <style>
+  .authenticated-account {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .authenticated-account[hidden] {
+    display: none;
+  }
+
   .utility-bar {
     position: sticky;
     top: 0;

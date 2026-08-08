@@ -10,8 +10,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <h1>Create Account</h1>
 
       <p>
-        Create a free Mind Arc Games account to play Phoenix Vector: Assault and
-        save your progress.
+        Create a free Mind Arc Network account to play Phoenix Vector: Assault
+        and save your progress.
       </p>
 
       <form id="register-form">
@@ -53,6 +53,28 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           />
         </div>
 
+        <div class="legal-consent">
+          <label class="legal-consent-label">
+            <input
+              id="legal-consent"
+              name="legalConsent"
+              type="checkbox"
+              required
+            />
+
+            <span>
+              I have read and agree to the
+              <a href="/terms" target="_blank" rel="noopener noreferrer">
+                Terms of Service
+              </a>
+              and
+              <a href="/privacy" target="_blank" rel="noopener noreferrer">
+                Privacy Policy
+              </a>.
+            </span>
+          </label>
+        </div>
+
         <button id="submit-button" type="submit"> Create Account </button>
       </form>
 
@@ -60,7 +82,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
       <p>
         Already have an account?
-        <a href="/account/login">Sign in</a>
+        <a href="/?login=1">Sign in</a>
       </p>
     </section>
   </main>
@@ -130,4 +152,278 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       submitButton.textContent = "Email Sent";
     });
   </script>
+
+  <style>
+    .account-page {
+      min-height: calc(100vh - 90px);
+
+      display: grid;
+      place-items: center;
+
+      padding: 3rem 1.5rem;
+      box-sizing: border-box;
+    }
+
+    .account-panel {
+      width: min(460px, 100%);
+      box-sizing: border-box;
+
+      padding: 2.4rem 2rem 2rem;
+
+      background: linear-gradient(
+        145deg,
+        color-mix(in oklab, var(--surface) 96%, black),
+        var(--surface)
+      );
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      box-shadow:
+        0 28px 90px rgba(0, 0, 0, 0.35),
+        0 0 28px color-mix(in oklab, var(--accent) 7%, transparent);
+    }
+
+    .account-kicker {
+      margin: 0 0 0.5rem;
+
+      font-family: "Michroma", sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+
+      opacity: 0.58;
+    }
+
+    .account-panel h1 {
+      margin: 0;
+
+      font-family: "Michroma", sans-serif;
+      font-size: 1.55rem;
+      line-height: 1.2;
+      letter-spacing: 0.05em;
+      text-align: center;
+
+      color: var(--text);
+    }
+
+    .account-panel > p:not(.account-kicker):not(#form-message) {
+      margin: 0.9rem auto 0;
+
+      max-width: 24rem;
+
+      font-size: 0.86rem;
+      line-height: 1.55;
+      text-align: center;
+
+      opacity: 0.74;
+    }
+
+    #register-form {
+      display: grid;
+      gap: 1rem;
+
+      margin-top: 1.75rem;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .form-field label {
+      font-family: "Michroma", sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+
+      opacity: 0.72;
+    }
+
+    .form-field input {
+      width: 100%;
+      min-height: 46px;
+      box-sizing: border-box;
+
+      padding: 0.82rem 0.92rem;
+
+      border: 1px solid var(--border);
+      border-radius: 7px;
+
+      background: color-mix(in oklab, var(--surface) 92%, black);
+      color: var(--text);
+
+      font: inherit;
+      font-size: 0.96rem;
+
+      outline: none;
+
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+    }
+
+    .form-field input:hover {
+      border-color: color-mix(in oklab, var(--border) 72%, var(--text));
+    }
+
+    .form-field input:focus {
+      border-color: var(--accent);
+
+      box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 18%, transparent);
+
+      background: color-mix(in oklab, var(--surface) 94%, black);
+    }
+
+    #submit-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      min-height: 46px;
+      box-sizing: border-box;
+
+      margin-top: 0.35rem;
+      padding: 0.8rem 1rem;
+
+      border: 1px solid var(--accent);
+      border-radius: 7px;
+
+      background: var(--accent);
+      color: var(--bg);
+
+      font-family: "Michroma", sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+    }
+
+    #submit-button:hover:not(:disabled) {
+      transform: translateY(-1px);
+
+      box-shadow: 0 0 16px color-mix(in oklab, var(--accent) 30%, transparent);
+    }
+
+    #submit-button:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    #submit-button:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+
+    #form-message {
+      min-height: 1.4rem;
+
+      margin: 1rem 0 0;
+
+      font-size: 0.82rem;
+      line-height: 1.45;
+      text-align: center;
+
+      color: var(--accent);
+    }
+
+    .account-panel > p:last-child {
+      margin-top: 1.35rem;
+      padding-top: 1.2rem;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+    }
+
+    .account-panel a {
+      color: var(--accent);
+      text-decoration: none;
+
+      transition:
+        color 0.2s ease,
+        opacity 0.2s ease;
+    }
+
+    .account-panel a:hover {
+      opacity: 0.8;
+    }
+
+    .legal-consent {
+      margin-top: 0.15rem;
+    }
+
+    .legal-consent-label {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      gap: 0.65rem;
+
+      font-size: 0.76rem;
+      line-height: 1.5;
+
+      color: var(--text);
+      opacity: 0.78;
+
+      cursor: pointer;
+    }
+
+    .legal-consent-label input {
+      width: 16px;
+      height: 16px;
+      margin: 0.18rem 0 0;
+
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .legal-consent-label a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .legal-consent-label a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .account-page {
+        padding: 2rem 1rem;
+      }
+
+      .account-panel {
+        padding: 2.15rem 1.25rem 1.5rem;
+        border-radius: 12px;
+      }
+
+      .account-panel h1 {
+        font-size: 1.35rem;
+      }
+
+      .account-panel > p:not(.account-kicker):not(#form-message) {
+        font-size: 0.8rem;
+      }
+
+      .form-field input,
+      #submit-button {
+        min-height: 45px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .form-field input,
+      #submit-button,
+      .account-panel a {
+        transition: none;
+      }
+    }
+  </style>
 </BaseLayout>

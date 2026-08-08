@@ -1,7 +1,26 @@
 ---
+export const prerender = false;
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { createSupabaseServerClient } from "../../lib/supabase/server";
 
 if (Astro.request.method === "POST") {
+  const contentType = Astro.request.headers.get("content-type") ?? "";
+
+  if (
+    !contentType.includes("application/x-www-form-urlencoded") &&
+    !contentType.includes("multipart/form-data")
+  ) {
+    console.error("Invalid login Content-Type:", contentType);
+
+    return Astro.redirect("/?login=error&reason=invalid");
+  }
+
+  const supabase = createSupabaseServerClient({
+    request: Astro.request,
+    cookies: Astro.cookies,
+  });
+
   const formData = await Astro.request.formData();
 
   const email = String(formData.get("email") ?? "").trim();
@@ -13,7 +32,7 @@ if (Astro.request.method === "POST") {
     );
   }
 
-  const { error } = await Astro.locals.supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
