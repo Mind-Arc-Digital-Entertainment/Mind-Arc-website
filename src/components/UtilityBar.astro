@@ -1,23 +1,23 @@
 ---
-const {
-  data: { user },
-} = await Astro.locals.supabase.auth.getUser();
+// const {
+//   data: { user },
+// } = await Astro.locals.supabase.auth.getUser();
 
-let mindArcId: string | null = null;
+// let mindArcId: string | null = null;
 
-if (user) {
-  const { data: profile, error } = await Astro.locals.supabase
-    .from("profiles")
-    .select("username")
-    .eq("id", user.id)
-    .maybeSingle();
+// if (user) {
+//   const { data: profile, error } = await Astro.locals.supabase
+//     .from("profiles")
+//     .select("username")
+//     .eq("id", user.id)
+//     .maybeSingle();
 
-  if (error) {
-    console.error("Unable to load player profile:", error.message);
-  }
+//   if (error) {
+//     console.error("Unable to load player profile:", error.message);
+//   }
 
-  mindArcId = profile?.username ?? null;
-}
+//   mindArcId = profile?.username ?? null;
+// }
 ---
 
 <div class="utility-bar">
@@ -35,7 +35,7 @@ if (user) {
   </nav>
 
   <div class="utility-right">
-    {
+    <!-- {
       user ? (
         <>
           <a href="/account/profile" class="player-link">
@@ -60,7 +60,14 @@ if (user) {
           </button>
         </>
       )
-    }
+    } -->
+    <button
+      type="button"
+      class="utility-link utility-login-button"
+      data-login-open
+    >
+      Sign-In
+    </button>
   </div>
 </div>
 

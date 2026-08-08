@@ -1,29 +1,40 @@
 ---
+// import Layout from "../layouts/BaseLayout.astro";
+
+// const justVerified = Astro.url.searchParams.get("verified") === "true";
+
+// const {
+//   data: { user },
+// } = await Astro.locals.supabase.auth.getUser();
+
+// let mindArcId: string | null = null;
+
+// if (user) {
+//   const { data: profile, error } = await Astro.locals.supabase
+//     .from("profiles")
+//     .select("username")
+//     .eq("id", user.id)
+//     .maybeSingle();
+
+//   if (error) {
+//     console.error("Unable to load player profile:", error.message);
+//   }
+
+//   mindArcId = profile?.username ?? null;
+// }
+
+// const showVerificationWelcome = justVerified && !!user;
+
 import Layout from "../layouts/BaseLayout.astro";
 
 const justVerified = Astro.url.searchParams.get("verified") === "true";
 
-const {
-  data: { user },
-} = await Astro.locals.supabase.auth.getUser();
+// Temporary static-site fallback.
+// Server-side session lookup is disabled for now.
+const user = null;
+const mindArcId: string | null = null;
 
-let mindArcId: string | null = null;
-
-if (user) {
-  const { data: profile, error } = await Astro.locals.supabase
-    .from("profiles")
-    .select("username")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  if (error) {
-    console.error("Unable to load player profile:", error.message);
-  }
-
-  mindArcId = profile?.username ?? null;
-}
-
-const showVerificationWelcome = justVerified && !!user;
+const showVerificationWelcome = false;
 ---
 
 <Layout title="Mind Arc Games | Home">
