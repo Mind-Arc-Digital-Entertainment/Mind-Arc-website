@@ -1,25 +1,3 @@
----
-// const {
-//   data: { user },
-// } = await Astro.locals.supabase.auth.getUser();
-
-// let mindArcId: string | null = null;
-
-// if (user) {
-//   const { data: profile, error } = await Astro.locals.supabase
-//     .from("profiles")
-//     .select("username")
-//     .eq("id", user.id)
-//     .maybeSingle();
-
-//   if (error) {
-//     console.error("Unable to load player profile:", error.message);
-//   }
-
-//   mindArcId = profile?.username ?? null;
-// }
----
-
 <div class="utility-bar">
   <div class="utility-left">
     <div class="logo">
@@ -36,10 +14,14 @@
 
   <div class="utility-right">
     <div class="authenticated-account" id="authenticated-account" hidden>
-      <a href="/account/profile" class="player-link">
+      <!-- <a href="/account/profile" class="player-link">
         <span class="player-label">Mind Arc ID</span>
         <span class="player-name" id="mind-arc-id">Player</span>
-      </a>
+      </a> -->
+      <div class="player-link">
+        <span class="player-label">Mind Arc ID</span>
+        <span class="player-name" id="mind-arc-id">Player</span>
+      </div>
 
       <form method="POST" action="/account/logout" class="logout-form">
         <button type="submit" class="utility-link logout-button">

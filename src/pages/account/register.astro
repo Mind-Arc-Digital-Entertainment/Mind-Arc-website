@@ -5,7 +5,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 <BaseLayout title="Create Account | Mind Arc Games">
   <main class="account-page">
     <section class="account-panel">
-      <p class="account-kicker">Mind Arc Games</p>
+      <p class="account-kicker">Mind Arc Network</p>
 
       <h1>Create Account</h1>
 
@@ -127,29 +127,69 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       submitButton.disabled = true;
       submitButton.textContent = "Creating Account...";
 
-      const emailRedirectTo = window.location.origin;
+      try {
+        const emailRedirectTo = window.location.origin;
 
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo,
-        },
-      });
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo,
+          },
+        });
 
-      if (error) {
-        formMessage.textContent = error.message;
-        submitButton.disabled = false;
-        submitButton.textContent = "Create Account";
-        return;
+        if (error) {
+          const message = error.message.toLowerCase();
+
+          if (
+            message.includes("already registered") ||
+            message.includes("already exists")
+          ) {
+            formMessage.textContent =
+              "An account already exists with this email address. Sign in instead or reset your password.";
+            return;
+          }
+
+          formMessage.textContent =
+            "We couldn't create your account. Please check your information and try again.";
+
+          return;
+        }
+
+        /*
+         * Supabase may return an obfuscated user for an existing account
+         * when email confirmation is enabled.
+         *
+         * A genuinely new email/password signup normally has at least one
+         * identity attached to the returned user.
+         */
+        if (data.user && data.user.identities?.length === 0) {
+          formMessage.textContent =
+            "An account already exists with this email address. Sign in instead or reset your password.";
+
+          return;
+        }
+
+        form.reset();
+
+        formMessage.textContent =
+          "Account created. Check your email to confirm your address.";
+
+        submitButton.textContent = "Email Sent";
+      } catch (error) {
+        console.error("Account registration failed:", error);
+
+        formMessage.textContent =
+          "Something went wrong while creating your account. Please try again.";
+      } finally {
+        /*
+         * Keep the button disabled only after a successful signup.
+         */
+        if (submitButton.textContent !== "Email Sent") {
+          submitButton.disabled = false;
+          submitButton.textContent = "Create Account";
+        }
       }
-
-      form.reset();
-
-      formMessage.textContent =
-        "Account created. Check your email to confirm your address.";
-
-      submitButton.textContent = "Email Sent";
     });
   </script>
 
