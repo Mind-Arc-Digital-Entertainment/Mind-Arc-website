@@ -1,0 +1,250 @@
+---
+
+---
+
+<div id="plain-speak-modal" class="plain-speak-modal" aria-hidden="true">
+  <div class="plain-speak-backdrop" data-plain-speak-close></div>
+
+  <section
+    class="plain-speak-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="plain-speak-title"
+  >
+    <button
+      class="plain-speak-close"
+      type="button"
+      aria-label="Close Plain Speak Doctrine"
+      data-plain-speak-close
+    >
+      ×
+    </button>
+
+    <p class="plain-speak-kicker">Mind Arc Games</p>
+
+    <h2 id="plain-speak-title">Mind Arc's Plain Speak Doctrine</h2>
+
+    <p class="plain-speak-lead">
+      You shouldn't need a lawyer simply to understand our policies.
+    </p>
+
+    <div class="plain-speak-content">
+      <p>
+        Ourpolicies, rules, and important information should be easy to
+        understand. Whenever possible, we'll use everyday language instead of
+        confusing legal terms or technical jargon.
+      </p>
+
+      <p>
+        Sometimes we may need to use specific legal terms. When we do, we'll try
+        to explain what they mean in everyday, clear language. Clear language
+        doesn't make these policies less important. It means we want you to
+        understand your rights and responsibilities.
+      </p>
+
+      <p>
+        We call this our <strong>Plain Speak Doctrine.</strong>
+      </p>
+    </div>
+
+    <button class="plain-speak-confirm" type="button" data-plain-speak-close>
+      Got It
+    </button>
+  </section>
+</div>
+
+<script>
+  const modal = document.querySelector("#plain-speak-modal");
+
+  function openPlainSpeakModal() {
+    if (!(modal instanceof HTMLElement)) return;
+
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closePlainSpeakModal() {
+    if (!(modal instanceof HTMLElement)) return;
+
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll("[data-plain-speak-open]").forEach((button) => {
+    button.addEventListener("click", openPlainSpeakModal);
+  });
+
+  modal?.querySelectorAll("[data-plain-speak-close]").forEach((button) => {
+    button.addEventListener("click", closePlainSpeakModal);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closePlainSpeakModal();
+    }
+  });
+</script>
+
+<style>
+  .plain-speak-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1.5rem;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+      opacity 180ms ease,
+      visibility 180ms ease;
+  }
+
+  .plain-speak-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .plain-speak-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(2, 5, 13, 0.82);
+    backdrop-filter: blur(6px);
+  }
+
+  .plain-speak-panel {
+    position: relative;
+    z-index: 1;
+
+    width: min(100%, 620px);
+
+    padding: 2.5rem;
+
+    border: 1px solid rgba(103, 232, 249, 0.25);
+    border-radius: 16px;
+
+    background: rgba(7, 13, 26, 0.98);
+
+    box-shadow:
+      0 30px 90px rgba(0, 0, 0, 0.55),
+      0 0 40px rgba(34, 211, 238, 0.06);
+
+    color: #dbe7f5;
+  }
+
+  .plain-speak-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    width: 2.25rem;
+    height: 2.25rem;
+
+    border: 0;
+    background: transparent;
+
+    color: #9fb2c9;
+    font-size: 1.75rem;
+    line-height: 1;
+
+    cursor: pointer;
+  }
+
+  .plain-speak-close:hover {
+    color: #ffffff;
+  }
+
+  .plain-speak-kicker {
+    margin: 0 0 0.5rem;
+
+    color: #67e8f9;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .plain-speak-panel h2 {
+    margin: 0;
+
+    color: #f8fbff;
+
+    font-size: clamp(1.75rem, 5vw, 2.4rem);
+    line-height: 1.1;
+  }
+
+  .plain-speak-lead {
+    margin: 1rem 0 1.75rem;
+
+    color: #ffc857;
+
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  .plain-speak-content {
+    color: #b8c7d9;
+    line-height: 1.75;
+  }
+
+  .plain-speak-content p {
+    margin: 0 0 1rem;
+  }
+
+  .plain-speak-content strong {
+    color: #f8fbff;
+  }
+
+  .plain-speak-confirm {
+    width: 100%;
+
+    margin-top: 1rem;
+    padding: 0.9rem 1.25rem;
+
+    border: 1px solid rgba(103, 232, 249, 0.4);
+    border-radius: 8px;
+
+    background: rgba(34, 211, 238, 0.1);
+
+    color: #f8fbff;
+
+    font: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+      background 150ms ease,
+      border-color 150ms ease,
+      transform 150ms ease;
+  }
+
+  .plain-speak-confirm:hover {
+    background: rgba(34, 211, 238, 0.18);
+    border-color: #67e8f9;
+
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 600px) {
+    .plain-speak-modal {
+      padding: 1rem;
+    }
+
+    .plain-speak-panel {
+      padding: 2rem 1.5rem 1.5rem;
+    }
+  }
+</style>
