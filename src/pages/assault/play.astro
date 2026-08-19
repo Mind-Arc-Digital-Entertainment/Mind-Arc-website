@@ -18,6 +18,22 @@ if (!user) {
     `/?login=1&returnTo=${encodeURIComponent("/assault/play")}`,
   );
 }
+
+const { data: profile, error: profileError } = await supabase
+  .from("profiles")
+  .select("id, username")
+  .eq("id", user.id)
+  .single();
+
+if (profileError || !profile) {
+  console.error("Unable to load Mind Arc Network profile:", profileError);
+}
+
+const playerIdentity = {
+  userId: user.id,
+  username: profile?.username ?? "Unknown Pilot",
+  isAuthenticated: true,
+};
 ---
 
 <BaseLayout title="Play Phoenix Vector: Assault | Mind Arc Games">
@@ -45,7 +61,31 @@ if (!user) {
   </div>
 </BaseLayout>
 
+<script
+  id="mind-arc-player-identity"
+  type="application/json"
+  set:html={JSON.stringify(playerIdentity)}
+/>
+
 <script is:inline>
+  const playerIdentityElement = document.querySelector(
+    "#mind-arc-player-identity",
+  );
+
+  let playerIdentity = null;
+
+  if (playerIdentityElement) {
+    try {
+      playerIdentity = JSON.parse(playerIdentityElement.textContent ?? "{}");
+
+      console.log(
+        "Mind Arc Bridge: Player identity received from Astro.",
+        playerIdentity,
+      );
+    } catch (error) {
+      console.error("Mind Arc Bridge: Unable to parse player identity.", error);
+    }
+  }
   const canvas = document.querySelector("#unity-canvas");
   const loadingScreen = document.querySelector("#unity-loading-screen");
   const progressBar = document.querySelector("#unity-progress-bar-full");
@@ -146,20 +186,31 @@ if (!user) {
 
       progressBar.style.width = `${percentage}%`;
       loadingStatus.textContent = `Loading combat systems... ${percentage}%`;
-    })
-      .then((unityInstance) => {
-        loadingScreen.classList.add("is-hidden");
+    }).then((unityInstance) => {
+      loadingScreen.classList.add("is-hidden");
 
-        window.assaultUnityInstance = unityInstance;
+      window.assaultUnityInstance = unityInstance;
 
-        resizeUnityCanvas();
-        canvas.focus();
-      })
-      .catch((error) => {
-        loadingStatus.textContent = "Unable to launch Phoenix Vector: Assault.";
+      if (playerIdentity) {
+        unityInstance.SendMessage(
+          "PlayerIdentityService",
+          "ReceivePlayerIdentity",
+          JSON.stringify(playerIdentity),
+        );
 
-        unityShowBanner(String(error), "error");
-      });
+        console.log(
+          "Mind Arc Bridge: Player identity sent to Unity.",
+          playerIdentity,
+        );
+      } else {
+        console.warn(
+          "Mind Arc Bridge: No player identity was available to send to Unity.",
+        );
+      }
+
+      resizeUnityCanvas();
+      canvas.focus();
+    });
   };
 
   loaderScript.onerror = () => {
