@@ -7,6 +7,7 @@ export const prerender = false;
 type AssaultRunRequest = {
   score: number;
   highestWaveReached: number;
+  highestCannonLevelReached?: number;
   enemiesDestroyed: number;
   powerCoresCollected: number;
   startedAt: string;
@@ -87,6 +88,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     {
       p_score: body.score,
       p_highest_wave_reached: body.highestWaveReached,
+      p_highest_cannon_level_reached: body.highestCannonLevelReached ?? 1,
       p_enemies_destroyed: body.enemiesDestroyed,
       p_power_cores_collected: body.powerCoresCollected,
       p_started_at: body.startedAt,
@@ -156,6 +158,17 @@ function validateRunRequest(
 
   if (!isNonNegativeInteger(body.highestWaveReached)) {
     return "Invalid highest wave";
+  }
+
+  // One-based cannon level. Omission supports older Unity clients; explicit
+  // invalid values are rejected rather than silently becoming starter level.
+  if (
+    body.highestCannonLevelReached !== undefined &&
+    (!isNonNegativeInteger(body.highestCannonLevelReached) ||
+      body.highestCannonLevelReached < 1 ||
+      body.highestCannonLevelReached > 2147483647)
+  ) {
+    return "Invalid highest cannon level";
   }
 
   if (!isNonNegativeInteger(body.enemiesDestroyed)) {
