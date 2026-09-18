@@ -58,6 +58,18 @@ const playerIdentity = {
 
       <div id="unity-warning"></div>
     </div>
+
+    <div class="assault-player-controls">
+      <button
+        id="assault-fullscreen-button"
+        class="assault-player-button"
+        type="button"
+        aria-label="Enter fullscreen"
+      >
+        <span class="fullscreen-icon" aria-hidden="true">⛶</span>
+        <span id="assault-fullscreen-label">FULLSCREEN</span>
+      </button>
+    </div>
   </div>
 </BaseLayout>
 
@@ -91,6 +103,9 @@ const playerIdentity = {
   const progressBar = document.querySelector("#unity-progress-bar-full");
   const loadingStatus = document.querySelector("#unity-loading-status");
   const warningBanner = document.querySelector("#unity-warning");
+  const unityContainer = document.querySelector("#unity-container");
+  const fullscreenButton = document.querySelector("#assault-fullscreen-button");
+  const fullscreenLabel = document.querySelector("#assault-fullscreen-label");
 
   function unityShowBanner(message, type) {
     if (!warningBanner) return;
@@ -167,6 +182,34 @@ const playerIdentity = {
 
   window.addEventListener("resize", resizeUnityCanvas);
 
+  fullscreenButton?.addEventListener("click", () => {
+    const unityInstance = window.assaultUnityInstance;
+
+    if (!unityInstance) {
+      console.warn("Assault Unity instance is not ready.");
+      return;
+    }
+
+    unityInstance.SetFullscreen(document.fullscreenElement ? 0 : 1);
+  });
+
+  document.addEventListener("fullscreenchange", () => {
+    const isFullscreen = document.fullscreenElement === unityContainer;
+
+    if (fullscreenLabel) {
+      fullscreenLabel.textContent = isFullscreen ? "WINDOWED" : "FULLSCREEN";
+    }
+
+    if (fullscreenButton) {
+      fullscreenButton.setAttribute(
+        "aria-label",
+        isFullscreen ? "Exit fullscreen" : "Enter fullscreen",
+      );
+    }
+
+    resizeUnityCanvas();
+  });
+
   const loaderScript = document.createElement("script");
 
   loaderScript.src = loaderUrl;
@@ -240,6 +283,9 @@ const playerIdentity = {
     background:
       radial-gradient(circle at top, rgba(34, 211, 238, 0.14), transparent 42%),
       linear-gradient(180deg, #081120 0%, #040814 60%, #02050d 100%);
+
+    flex-direction: column;
+    gap: 0.65rem;
   }
 
   .unity-container {
@@ -250,6 +296,42 @@ const playerIdentity = {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .assault-player-controls {
+    width: min(100%, 960px);
+
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .assault-player-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: 0.45rem 0.8rem;
+
+    border: 1px solid rgba(103, 232, 249, 0.35);
+    border-radius: 6px;
+
+    color: #9fb2c9;
+    background: rgba(2, 5, 13, 0.8);
+
+    font-family: "Orbitron", sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+
+    cursor: pointer;
+  }
+
+  .assault-player-button:hover {
+    color: #f8fbff;
+    border-color: #67e8f9;
+  }
+
+  .fullscreen-icon {
+    font-size: 1rem;
   }
 
   #unity-canvas {
