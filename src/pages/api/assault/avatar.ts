@@ -9,6 +9,7 @@ const AVATAR_KEYS = new Set([
   "atlas",
   "classified",
   "g",
+  "kestrel",
   "kestrel_pilot",
   "locke",
   "mercer",
