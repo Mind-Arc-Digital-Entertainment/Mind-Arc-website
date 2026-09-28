@@ -111,6 +111,15 @@ const showVerificationWelcome = false;
           </div>
         </article>
       </section>
+
+      <section class="doodle-teaser">
+        <div class="doodle-teaser-copy">
+          <span class="doodle-status">IN DEVELOPMENT</span>
+          <h2>Doodle Brawl</h2>
+        </div>
+
+        <a href="/doodlebrawl" class="doodle-coming-soon"> COMING SOON → </a>
+      </section>
     </div>
   </main>
 </Layout>
@@ -326,6 +335,63 @@ const showVerificationWelcome = false;
     color: var(--text);
     line-height: 1.85;
     font-size: 1rem;
+  }
+
+  .doodle-teaser {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.5rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+
+    background: rgba(7, 13, 26, 0.72);
+  }
+
+  .doodle-teaser-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .doodle-status {
+    color: var(--text-soft);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+
+  .doodle-teaser h2 {
+    margin: 0;
+    color: var(--heading);
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .doodle-teaser p {
+    margin: 0;
+    color: var(--text-soft);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  .doodle-coming-soon {
+    flex-shrink: 0;
+
+    padding: 0.55rem 0.9rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+
+    color: var(--text-soft);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
   }
 
   @media (max-width: 768px) {

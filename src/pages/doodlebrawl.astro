@@ -1,0 +1,127 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+---
+
+<Layout title="Doodle Brawl | Mind Arc Games">
+  <main class="doodle-page">
+    <div class="doodle-shell">
+      <section class="doodle-page-header">
+        <p>IN DEVELOPMENT</p>
+      </section>
+
+      <section
+        class="doodle-hero-card"
+        aria-label="Doodle Brawl — Talk Trash, Throw Hands"
+      >
+      </section>
+
+      <section class="doodle-coming-soon">
+
+        <a href="/">← BACK</a>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .doodle-page {
+    width: 100%;
+    min-height: 100%;
+    padding: 3rem 1.25rem 4rem;
+  }
+
+  .doodle-shell {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .doodle-page-header {
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+
+  .doodle-page-header p {
+    margin: 0;
+
+    color: #67e8f9;
+
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .doodle-hero-card {
+    width: 100%;
+    min-height: 60vh;
+
+    border: 1px solid rgba(103, 232, 249, 0.18);
+    border-radius: 22px;
+
+    background-image: url("/images/DoodleBrawlTitle.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+
+    overflow: hidden;
+  }
+
+  .doodle-coming-soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 2rem 1rem 0;
+
+    text-align: center;
+  }
+
+  .doodle-coming-soon p {
+    margin: 0 0 0.5rem;
+
+    color: #9fb2c9;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+  }
+
+  .doodle-coming-soon h1 {
+    margin: 0;
+
+    color: #67e8f9;
+
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.1;
+    letter-spacing: 0.14em;
+  }
+
+  .doodle-coming-soon a {
+    margin-top: 1.5rem;
+
+    color: #9fb2c9;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    text-decoration: none;
+  }
+
+  .doodle-coming-soon a:hover {
+    color: #67e8f9;
+  }
+
+  @media (max-width: 768px) {
+    .doodle-page {
+      padding: 2rem 1rem 4rem;
+    }
+
+    .doodle-hero-card {
+      min-height: 42vh;
+      border-radius: 18px;
+    }
+  }
+</style>
