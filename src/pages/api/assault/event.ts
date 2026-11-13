@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-import { createSupabaseServerClient } from "../../../lib/supabase/server";
+import { authenticateAssaultApi } from "../../../lib/supabase/assault-api";
 
 export const prerender = false;
 
@@ -8,16 +8,13 @@ export const prerender = false;
 const EVENT_KEY_MAX_LENGTH = 100;
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-  const supabase = createSupabaseServerClient({ request, cookies });
+  const authentication = await authenticateAssaultApi({ request, cookies });
 
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
-
-  if (userError || !user) {
+  if (!authentication) {
     return jsonResponse({ error: "Unauthorized" }, 401);
   }
+
+  const { supabase } = authentication;
 
   const contentType = request.headers.get("Content-Type")?.split(";")[0].trim().toLowerCase();
   if (contentType !== "application/json") {

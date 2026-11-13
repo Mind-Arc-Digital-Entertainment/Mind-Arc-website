@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-import { createSupabaseServerClient } from "../../../lib/supabase/server";
+import { authenticateAssaultApi } from "../../../lib/supabase/assault-api";
 
 export const prerender = false;
 
@@ -20,17 +20,9 @@ type AssaultRunRequest = {
 };
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-  const supabase = createSupabaseServerClient({
-    request,
-    cookies,
-  });
+  const authentication = await authenticateAssaultApi({ request, cookies });
 
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
-
-  if (userError || !user) {
+  if (!authentication) {
     return jsonResponse(
       {
         error: "Unauthorized",
@@ -38,6 +30,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       401,
     );
   }
+
+  const { supabase, user } = authentication;
 
   let body: AssaultRunRequest;
 

@@ -1,23 +1,15 @@
 import type { APIRoute } from "astro";
 
-import { createSupabaseServerClient } from "../../../lib/supabase/server";
+import { authenticateAssaultApi } from "../../../lib/supabase/assault-api";
 
 export const prerender = false;
 
 const ASSAULT_GAME_CODE = "phoenix_vector_assault";
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-  const supabase = createSupabaseServerClient({
-    request,
-    cookies,
-  });
+  const authentication = await authenticateAssaultApi({ request, cookies });
 
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
-
-  if (userError || !user) {
+  if (!authentication) {
     return new Response(
       JSON.stringify({
         error: "Unauthorized",
@@ -30,6 +22,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       },
     );
   }
+
+  const { supabase, user } = authentication;
 
   const { data: game, error: gameError } = await supabase
     .from("games")

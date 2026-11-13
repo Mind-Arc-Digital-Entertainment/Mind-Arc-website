@@ -30,8 +30,8 @@ async function submit(body, authenticated = true) {
   const context = {
     module: { exports: {} }, exports: {}, Response, console,
     require(path) {
-      assert.equal(path, "../../../lib/supabase/server");
-      return { createSupabaseServerClient: () => supabase };
+      assert.equal(path, "../../../lib/supabase/assault-api");
+      return { authenticateAssaultApi: async () => authenticated ? { supabase, user: { id: "test-account" } } : null };
     },
   };
   vm.runInNewContext(code, context, { filename: "run.ts" });
